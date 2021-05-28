@@ -1,0 +1,566 @@
+{
+	"info": {
+		"_postman_id": "f1197932-6dc6-415c-bf2c-a130243b2f66",
+		"name": "PaseosRecorridoTest",
+		"description": "Pruebas de la asociación entre Recorrido y Paseo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "304a679c-121d-4e3e-81df-b721f62062c4",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_recorridoP\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"calificacionGlobal\":3.0,\n\t\"numeroCalificaciones\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos"
+					]
+				},
+				"description": "Crea un recorrido\nURL: /recorridos\nEntrada: RecorridoDTO (JSON)\nSalida: RecorridoDTO\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseo1\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\":10,\n\t\"costo\":10.0,\n\t\"duracion\":90,\n\t\"disponible\":true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Crea un paseo a partir de un JSON\nURL: /paseos\nEntrada: PaseoDTO (JSON)\nSalida: PaseoDTO\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseo 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseo2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\":20,\n\t\"costo\":20.0,\n\t\"duracion\":60,\n\t\"disponible\":true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Crea un paseo a partir de un JSON\nURL: /paseos\nEntrada: PaseoDTO (JSON)\nSalida: PaseoDTO\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un paseo a un recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_recorridoP}}/paseos/{{new_id_paseo1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_recorridoP}}",
+						"paseos",
+						"{{new_id_paseo1}}"
+					]
+				},
+				"description": "Asocia el recorrido y el paseo creados anteriormente\nURL: /recorridos/{id}/paseos/{id}\nEntrada: ids del paseo y el recorrido\nSalida: PaseoDetailDTO\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un paseo a un recorrido 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_recorridoP}}/paseos/{{new_id_paseo2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_recorridoP}}",
+						"paseos",
+						"{{new_id_paseo2}}"
+					]
+				},
+				"description": "Asocia el recorrido y el paseo creados anteriormente\nURL: /recorridos/{id}/paseos/{id}\nEntrada: ids del paseo y el recorrido\nSalida: PaseoDetailDTO\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener los paseos de un recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20079f02-ebbc-4a77-a9f8-09770533932b",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_recorridoP}}/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_recorridoP}}",
+						"paseos"
+					]
+				},
+				"description": "Obtiene los paseos asociados al recorrido creado anteriormente\nURL: /recorridos/{id}/paseos\nEntrada: id del recorrido\nSalida: Lista de PaseoDetailDTOs\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un paseo de un recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20079f02-ebbc-4a77-a9f8-09770533932b",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_recorridoP}}/paseos/{{new_id_paseo1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_recorridoP}}",
+						"paseos",
+						"{{new_id_paseo1}}"
+					]
+				},
+				"description": "Obtiene un paseo asociados al recorrido creado anteriormente\nURL: /recorridos/{id}/paseos/{id}\nEntrada: ids del recorrido y del paseo\nSalida: Lista de PaseoDetailDTOs\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseo 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseo3\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\":15,\n\t\"costo\":15.0,\n\t\"duracion\":30,\n\t\"disponible\":true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Crea un paseo a partir de un JSON\nURL: /paseos\nEntrada: PaseoDTO (JSON)\nSalida: PaseoDTO\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseo 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseo4\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\":25,\n\t\"costo\":25.0,\n\t\"duracion\":60,\n\t\"disponible\":true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Crea un paseo a partir de un JSON\nURL: /paseos\nEntrada: PaseoDTO (JSON)\nSalida: PaseoDTO\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editarle los paseos a un recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": {{new_id_paseo3}},\r\n        \"cupoMaximo\":15,\r\n\t\t\"costo\":15.0,\r\n\t\t\"duracion\":30,\r\n\t\t\"disponible\":true,\r\n        \"recorrido\": {\r\n            \"calificacionGlobal\": 3.0,\r\n            \"id\": {{new_id_recorridoP}},\r\n            \"numeroCalificaciones\": 1\r\n        }\r\n    },\r\n    {\r\n        \"id\": {{new_id_paseo4}},\r\n        \"cupoMaximo\":25,\r\n\t\t\"costo\":25.0,\r\n\t\t\"duracion\":60,\r\n\t\t\"disponible\":true,\r\n        \"recorrido\": {\r\n            \"calificacionGlobal\": 3.0,\r\n            \"id\": {{new_id_recorridoP}},\r\n            \"numeroCalificaciones\": 1\r\n        }\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_recorridoP}}/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_recorridoP}}",
+						"paseos"
+					]
+				},
+				"description": "Edita la asociación entre el recorrido y el paseo creados anteriormente\nURL: /recorridos/{id}/paseos/{id}\nEntrada: ids del el recorrido y lista de PaseoDetailDTOs\nSalida: Lista de PaseoDetailDTOs\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un paseo de un recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cb70e5c-664c-4a99-838f-e426f39572f0",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_recorridoP}}/paseos/{{new_id_paseo3}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_recorridoP}}",
+						"paseos",
+						"{{new_id_paseo3}}"
+					]
+				},
+				"description": "Elimina el paseo de un recorrido\nURL: /recorrido/{id}/paseos/{id}\nEntrada: ids del paseo y del recorrido\nSalida: N/A\nRespuesta esperada: 204"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "13a2f927-481c-457c-b8a2-fb22602ffe63",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b0a362ce-b96f-4064-bd75-960d397f68cd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

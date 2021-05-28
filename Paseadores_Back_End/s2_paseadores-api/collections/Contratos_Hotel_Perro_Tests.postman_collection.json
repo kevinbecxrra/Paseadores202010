@@ -1,0 +1,519 @@
+{
+	"info": {
+		"_postman_id": "a86eccad-014f-4c65-b944-abbdfec41e3b",
+		"name": "Contratos Hotel Perro Tests",
+		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50ac61d1-8fd2-47e0-8e43-0c9ed84ecadb",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_perro_CHP\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"juyio\",\n\t\"raza\": \"terrier\",\n\t\"edad\": 3,\n\t\"idPerro\": \"143257\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros"
+					]
+				},
+				"description": "Release: Paso-1\r\n\r\nCrea un nuevo perro. El id del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Contrato  Hotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e18d9b5f-bb4b-4130-8076-36e017319b57",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_Contrato_CHP\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"No debe comer chocolate\",\n\t\"costo\": 4000.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Contrato  Hotel 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e18d9b5f-bb4b-4130-8076-36e017319b57",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_Contrato_CHP2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"No debe comer chocolate\",\n\t\"costo\": 4000.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un contrato Hotel a un perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c20a93d-300d-4aa2-863d-a8cbc9693d86",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_CHP}}/contratoshotel/{{new_id_Contrato_CHP}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_CHP}}",
+						"contratoshotel",
+						"{{new_id_Contrato_CHP}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un contrato Hotel a un perro 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c20a93d-300d-4aa2-863d-a8cbc9693d86",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_CHP}}/contratoshotel/{{new_id_Contrato_CHP2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_CHP}}",
+						"contratoshotel",
+						"{{new_id_Contrato_CHP2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener los contratos hotel de un perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20079f02-ebbc-4a77-a9f8-09770533932b",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_CHP}}/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_CHP}}",
+						"contratoshotel"
+					]
+				},
+				"description": "Obtiene los puntos asociados al recorrido creado anteriormente\nURL: /recorridos/{id}/puntos\nEntrada: id del recorrido\nSalida: Lista de PuntoDTOs\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un contrato Hotel de un perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20079f02-ebbc-4a77-a9f8-09770533932b",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_CHP}}/contratoshotel/{{new_id_Contrato_CHP}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_CHP}}",
+						"contratoshotel",
+						"{{new_id_Contrato_CHP}}"
+					]
+				},
+				"description": "Obtiene un punto asociados al recorrido creado anteriormente\nURL: /recorridos/{id}/puntos/{id+\nEntrada: ids del recorrido y del punto\nSalida: Lista de PuntoDTOs\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Contrato  Hotel 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e18d9b5f-bb4b-4130-8076-36e017319b57",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_Contrato_CHP3\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"No debe comer chocolate\",\n\t\"costo\": 4000.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Contrato  Hotel 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e18d9b5f-bb4b-4130-8076-36e017319b57",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_Contrato_CHP4\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"No debe comer chocolate\",\n\t\"costo\": 4000.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editarle los contratos Hotel a un Perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n    \t\"costo\": 4000.0,\r\n        \"cuidadoEspecial\": \"No debe comer chocolate\",\r\n        \"id\": {{new_id_Contrato_CHP3}},\r\n        \"perro\": {\r\n            \"edad\": 3,\r\n            \"id\":  {{new_id_perro_CHP}},\r\n            \"idPerro\": \"143257\",\r\n            \"nombre\": \"juyio\",\r\n            \"raza\": \"terrier\"\r\n        },\r\n        \"horasHotel\": []\r\n    },\r\n    {\r\n    \t\"costo\": 4000.0,\r\n        \"cuidadoEspecial\": \"No debe comer chocolate\",\r\n        \"id\": {{new_id_Contrato_CHP4}},\r\n        \"perro\": {\r\n            \"edad\": 3,\r\n            \"id\":  {{new_id_perro_CHP}},\r\n            \"idPerro\": \"143257\",\r\n            \"nombre\": \"juyio\",\r\n            \"raza\": \"terrier\"\r\n        },\r\n        \"horasHotel\": []\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_CHP}}/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_CHP}}",
+						"contratoshotel"
+					]
+				},
+				"description": "Edita la asociación entre el recorrido y el punto creados anteriormente\nURL: /recorridos/{id}/puntos/{id}\nEntrada: ids del el recorrido y lista de PuntoDTOs\nSalida: Lista de PuntoDTOs\nRespuesta esperada: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un contrato hotel de un perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cb70e5c-664c-4a99-838f-e426f39572f0",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_CHP}}/contratoshotel/{{new_id_Contrato_CHP3}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_CHP}}",
+						"contratoshotel",
+						"{{new_id_Contrato_CHP3}}"
+					]
+				},
+				"description": "Elimina el punto de un recorrido\nURL: /puntos/{id}/recorrido\nEntrada: id del punto\nSalida: N/A\nRespuesta esperada: 204"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

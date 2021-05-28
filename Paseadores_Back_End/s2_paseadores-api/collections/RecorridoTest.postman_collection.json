@@ -1,0 +1,524 @@
+{
+	"info": {
+		"_postman_id": "f48d8c7b-5d55-4288-b5ba-cabce7b3183c",
+		"name": "RecorridoTest",
+		"description": "Pruebas de Recorrido: Crea un recorrido y busca su información, la edita y lo elimina. Verifica cumplimiento de reglas de negocio.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "304a679c-121d-4e3e-81df-b721f62062c4",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_b\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"calificacionGlobal\":3.0,\n\t\"numeroCalificaciones\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un recorrido con calificacionGlobal inválida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"tests[\"No se deberia crear el recorrido ya que incumple las reglas de negocio.\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"calificacionGlobal\":6.0,\n\t\"numeroCalificaciones\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un recorrido con numeroCalificaciones inválida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"tests[\"No se deberia crear el recorrido ya que incumple las reglas de negocio.\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"calificacionGlobal\":3.0,\n\t\"numeroCalificaciones\":-2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20079f02-ebbc-4a77-a9f8-09770533932b",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eddbe3bd-3423-47f7-b490-5c9dc7b6f224",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"calificacionGlobal\":3.5,\n\t\"numeroCalificaciones\":2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un recorrido con calificacionGlobal inválida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"tests[\"No se deberia crear el recorrido ya que incumple las reglas de negocio.\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"calificacionGlobal\":6.0,\n\t\"numeroCalificaciones\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un recorrido con numeroCalificaciones inválida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"tests[\"No se deberia crear el recorrido ya que incumple las reglas de negocio.\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"calificacionGlobal\":3.0,\n\t\"numeroCalificaciones\":-2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cb70e5c-664c-4a99-838f-e426f39572f0",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un recorrido inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20079f02-ebbc-4a77-a9f8-09770533932b",
+						"exec": [
+							"tests[\"El punto no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un punto inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20079f02-ebbc-4a77-a9f8-09770533932b",
+						"exec": [
+							"tests[\"El punto no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"longitud\":-74.065310,\n\t\"latitud\":4.603030,\n\t\"posicion\":2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un punto inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cb70e5c-664c-4a99-838f-e426f39572f0",
+						"exec": [
+							"tests[\"No se debería poder eliminar un punto inexistente.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos",
+						"{{new_id_b}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "13a2f927-481c-457c-b8a2-fb22602ffe63",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b0a362ce-b96f-4064-bd75-960d397f68cd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,712 @@
+{
+	"info": {
+		"_postman_id": "095941b1-0043-4382-bd27-e7f5d8f96330",
+		"name": "HoraHotel_Tests",
+		"description": "# Introduction\nRealiza las pruebas del recurso HoraHotel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear una horaHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5d25f4c-0daf-42bf-b378-66d9511a641e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_horahotel\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2015-03-03T00:00:00-05:00\",\n\t\"cupoMaximo\": 2,\n\t\"costoBase\": 31500.5,\n\t\"disponible\": false\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel"
+					]
+				},
+				"description": "Crea una nueva horaHotel. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una horaHotel 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5d25f4c-0daf-42bf-b378-66d9511a641e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_horahotel2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2017-11-13T11:30:00-05:00\",\n\t\"cupoMaximo\": 5,\n\t\"costoBase\": 21000,\n\t\"disponible\": true\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel"
+					]
+				},
+				"description": "Entorno Colecciones\r\nCrea una nueva horaHotel. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una horaHotel con costo negativo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e28de53-8c4a-4621-9e8c-79f8be961ad0",
+						"exec": [
+							"tests[\"No crea con costo negativo\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El costo base de una hora de hotel debe ser un número positivo\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2017-11-13T11:30:00-05:00\",\n\t\"cupoMaximo\": \"2\",\n\t\"costoBase\": \"-20000\",\n\t\"disponible\": true\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel"
+					]
+				},
+				"description": "Crea una nueva horaHotel pero con un costo negativo. Verifica que se genera el error y el mensaje \"El costo base de una hora de hotel debe ser un número positivo\".\r\n\r\nCódigo HTTP esperado: 412 Precondition failed\"."
+			},
+			"response": []
+		},
+		{
+			"name": "Crear horaHotel con capacidad negativa",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "61c14311-45fe-412a-87d6-6d08263b025a",
+						"exec": [
+							"tests[\"No crea con capacidad negativa\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El cupo máximo de una horaHotel debe ser un entero positivo\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2017-11-13T11:30:00-05:00\",\n\t\"cupoMaximo\": \"-2\",\n\t\"costoBase\": \"10000\",\n\t\"disponible\": true\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel"
+					]
+				},
+				"description": "Crea una nueva horaHotel pero con un costo negativo. Verifica que se genera el error y el mensaje \"El cupo máximo de una horaHotel debe ser un entero positivo\".\r\n\r\nCódigo HTTP esperado: 412 Precondition failed\"."
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener horaHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "568a8331-9911-4138-bacc-ac45e3c6d03a",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/{{new_id_horahotel2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"{{new_id_horahotel2}}"
+					]
+				},
+				"description": "Consulta una horahotel de la aplicación.\r\nLa petición no tiene cuerpo. Se envía el id de la horahotel deseada por la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener HoraHotel Por costo in range",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "175c4d7b-d988-42ff-9963-874e7b2bebff",
+						"exec": [
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/costoinferior/2000/costosuperior/325000",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"costoinferior",
+						"2000",
+						"costosuperior",
+						"325000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener HoraHotel por dia in range",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "175c4d7b-d988-42ff-9963-874e7b2bebff",
+						"exec": [
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/diainferior/2014-11-13-08:15/diasuperior/2018-11-13-08:12",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"diainferior",
+						"2014-11-13-08:15",
+						"diasuperior",
+						"2018-11-13-08:12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener HoraHotel por dia invalido in range",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "175c4d7b-d988-42ff-9963-874e7b2bebff",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404; ",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\" Date mal 2014-11-13 - 2018-11-13\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/diainferior/2014-11-13/diasuperior/2018-11-13",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"diainferior",
+						"2014-11-13",
+						"diasuperior",
+						"2018-11-13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener HoraHotel no existente por dia  in range",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "175c4d7b-d988-42ff-9963-874e7b2bebff",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404; ",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\" Las horashotel no se encuentran en ese rango de dias.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/diainferior/3000-11-13-08:10/diasuperior/3001-11-13-05:11",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"diainferior",
+						"3000-11-13-08:10",
+						"diasuperior",
+						"3001-11-13-05:11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener horaHotel que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5cbe5084-9d34-459b-b275-83370fc41617",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404; ",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /horashotel/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"0"
+					]
+				},
+				"description": "Consulta una horahotel que no existe en la aplicación.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /horashotel/0 no existe.\".\r\n\r\nCódigo http esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una horaHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c996054-087b-46bd-a133-8c5fb2a41047",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseador2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2020-10-11T22:30:00-05:00\",\n\t\"cupoMaximo\": 8,\n\t\"costoBase\": 100,\n\t\"disponible\": false\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/{{new_id_horahotel2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"{{new_id_horahotel2}}"
+					]
+				},
+				"description": "Actualiza una horaHotel existente. Se envía el Id en la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una horaHotel que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7071df0-218d-40f0-b0b1-a817a5e88cbd",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El  recurso /horashotel/\"+ 0 + \"no existe. \");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2017-11-13T11:30:00-05:00\",\n\t\"cupoMaximo\": 8,\n\t\"costoBase\": 100,\n\t\"disponible\": false\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"0"
+					]
+				},
+				"description": "Actualiza una horaHotel que no existe.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /horashotel/0 no existe.\".\r\n\r\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una horaHotel con un costo negativo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7659c93a-f4c4-48d3-a862-ae1b0251b602",
+						"exec": [
+							"tests[\"No crea con costo invalido\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El costo base de una hora de hotel debe ser un número positivo\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2011-10-13T13:30:00-00:00\",\n\t\"cupoMaximo\": 8,\n\t\"costoBase\": -10000,\n\t\"disponible\": false\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/{{new_id_horahotel2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"{{new_id_horahotel2}}"
+					]
+				},
+				"description": "Actualiza una horaHotel con costo negativo.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El costo base de una hora de hotel debe ser un número positivo\".\r\n\r\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una horaHotel con una capacidad negativa",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9192a754-b8c2-4073-a733-d768867e3144",
+						"exec": [
+							"tests[\"No crea con cupo invalido\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El cupo máximo de una horaHotel debe ser un entero positivo\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2000-11-13T11:30:00-05:00\",\n\t\"cupoMaximo\": -8,\n\t\"costoBase\": 10000,\n\t\"disponible\": false\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/{{new_id_horahotel2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"{{new_id_horahotel2}}"
+					]
+				},
+				"description": "Actualiza una horaHotel con capacidad negativo.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El cupo máximo de una horaHotel debe ser un entero positivo\".\r\n\r\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar una horaHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb14449b-7ac9-4a97-b6b6-f360694b8f2f",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/{{new_id_horahotel}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"{{new_id_horahotel}}"
+					]
+				},
+				"description": "Borra una horaHotel. Se envía el id de la horahotel creada anteriormente.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar una horaHotel 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed49fb47-865b-4d10-9ffa-8a772f3f2147",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/{{new_id_horahotel2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"{{new_id_horahotel2}}"
+					]
+				},
+				"description": "Borra una horaHotel. Se envía el id de la horahotel creada anteriormente.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar horaHotel que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a836b18a-85fc-4b1a-8389-3ad820a6b3da",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /horashotel/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horashotel/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horashotel",
+						"0"
+					]
+				},
+				"description": "Borra una horaHotel que no existe en la aplicación.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /horashotel/0 no existe.\".\r\n\r\nCódigo http esperado: 404"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

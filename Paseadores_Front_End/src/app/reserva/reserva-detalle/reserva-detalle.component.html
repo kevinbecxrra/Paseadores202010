@@ -1,0 +1,33 @@
+<div class="container-fluid" >
+
+  <p class="h3 p-3">{{ reservaDetail.tipo }}</p>
+  <div class="row" >
+
+    <div class="col-3" >
+      <dt>Fecha</dt>
+      <dd>{{ reservaDetail.fechaHora }}</dd>
+      <dt>Estado de Pago</dt>
+      <dd *ngIf="reservaDetail.estadoPago==true">Pagado</dd>
+      <dd *ngIf="reservaDetail.estadoPago==false">No se ha pagado</dd>
+    </div>
+    <div class="col-5">
+      <dt>Observaciones</dt>
+      <dd>{{ reservaDetail.observaciones}}</dd>
+      <dt>Dias Estadia</dt>
+      <dd>{{ reservaDetail.diasEstadia }}</dd>
+      <dt>Mascota</dt>
+      <dd *ngIf="reservaDetail.mascota!=null">{{ reservaDetail.mascota.nombre }}</dd>
+    </div>
+    <div class="col-4">
+      <dt>Factura Id</dt>
+      <dd *ngIf="reservaDetail.factura!=null">{{ reservaDetail.factura.referencia }}</dd>
+      <dt>Hotel</dt>
+      <dd *ngIf="reservaDetail.hotel!=null">{{ reservaDetail.hotel.tarifaInicial }}</dd>
+      <dt>Punto de encuentro</dt>
+      <dd *ngIf="reservaDetail.haversine!=null">{{ reservaDetail.haversine.latitud }}</dd>
+      <dd *ngIf="reservaDetail.haversine!=null">{{ reservaDetail.haversine.longitud }}</dd>
+      <dt>Paseo</dt>
+      <dd *ngIf="reservaDetail.paseo!=null">{{ reservaDetail.paseo }}</dd>
+    </div>
+  </div>
+</div>

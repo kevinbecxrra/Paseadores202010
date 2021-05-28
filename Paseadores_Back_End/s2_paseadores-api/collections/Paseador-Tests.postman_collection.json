@@ -1,0 +1,939 @@
+{
+	"info": {
+		"_postman_id": "51ce33c2-1693-464e-8486-e50d8fd576bf",
+		"name": "Paseador Tests",
+		"description": "Clase Paseador: Se crean, buscan, actualizan y eliminan paseadores en la base de datos después de validar la existencia de los recursos solicitados así como las reglas de negocio.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc507068-0ab8-4caa-b57f-1016d97b4777",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseador\",data.id);",
+							"tests[\"No se genera error al crear un nuevo paseador\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Daniel\",\n\t\"identificacion\": \"0123\",\n\t\"eps\": \"eps_ejemplo\",\n\t\"arl\": \"arl_ejemplo\",\n\t\"correo\": \"dm.guatibonza@uniandes.edu.co\",\n\t\"telefono\": \"4567\",\n\t\"calificacionGlobal\": 5.0,\n\t\"cuentaBancaria\": \"8910\",\n\t\"numeroCalificaciones\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores"
+					]
+				},
+				"description": "Se crea un paseador a partir del JSON dado por parámetro después de validar las reglas de negocio.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseador 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "18d97c0a-0166-46d1-a01a-96d5fdd1ff96",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseador2\",data.id);",
+							"tests[\"No se genera error al crear un nuevo paseador\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Mateo\",\n\t\"identificacion\": \"3210\",\n\t\"eps\": \"eps_ejemplo2\",\n\t\"arl\": \"arl_ejemplo2\",\n\t\"correo\": \"danielmateo.guati@gmail.com\",\n\t\"telefono\": \"7654\",\n\t\"calificacionGlobal\": 4.5,\n\t\"cuentaBancaria\": \"1098\",\n\t\"numeroCalificaciones\": 27\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores"
+					]
+				},
+				"description": "Se crea un paseador a partir del JSON dado por parámetro después de validar las reglas de negocio. Esto se hace una segunda vez para efectuar las pruebas.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseador con la misma identificación",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b85ecb39-0f0a-45b9-8483-a2d0f19006cb",
+						"exec": [
+							"tests[\"No se crea un paseador con la misma identificación\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"Ya existe un paseador con la identificación:\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Alejandra\",\n\t\"identificacion\": \"0123\",\n\t\"eps\": \"eps_ejemplo3\",\n\t\"arl\": \"arl_ejemplo3\",\n\t\"correo\": \"mc.castellanost@uniandes.edu.co\",\n\t\"telefono\": \"1112\",\n\t\"calificacionGlobal\": 5.0,\n\t\"cuentaBancaria\": \"1314\",\n\t\"numeroCalificaciones\": 8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores"
+					]
+				},
+				"description": "Se intenta crear un paseador a partir del JSON dado por parámetro. Dado que ya existe un paseador con la identificación dada no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseador con el mismo correo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fdbf50de-78ba-4add-8f74-df173518ce6c",
+						"exec": [
+							"tests[\"No se crea un paseador con el mismo correo\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"Ya existe un paseador con el correo:\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Alejandra\",\n\t\"identificacion\": \"3810\",\n\t\"eps\": \"eps_ejemplo3\",\n\t\"arl\": \"arl_ejemplo3\",\n\t\"correo\": \"danielmateo.guati@gmail.com\",\n\t\"telefono\": \"1112\",\n\t\"calificacionGlobal\": 5.0,\n\t\"cuentaBancaria\": \"1314\",\n\t\"numeroCalificaciones\": 8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores"
+					]
+				},
+				"description": "Se intenta crear un paseador a partir del JSON dado por parámetro. Dado que ya existe un paseador con el correo dado no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseador con calificación global inválida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "172ac065-57ef-4439-80f9-edefa0f62b96",
+						"exec": [
+							"tests[\"No se crea un paseador con calificación global inválida\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"La calificación global de un paseador debe estar entre 0 y 5\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Alejandra\",\n\t\"identificacion\": \"3810\",\n\t\"eps\": \"eps_ejemplo3\",\n\t\"arl\": \"arl_ejemplo3\",\n\t\"correo\": \"mc.castellanost@uniandes.edu.co\",\n\t\"telefono\": \"1112\",\n\t\"calificacionGlobal\": -2.5,\n\t\"cuentaBancaria\": \"1314\",\n\t\"numeroCalificaciones\": 8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores"
+					]
+				},
+				"description": "Se intenta crear un paseador a partir del JSON dado por parámetro. Dado que la calificación global es negativa no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseador con calificación global inválida 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e175939c-a5d8-41f2-8df1-ad8f7964e38e",
+						"exec": [
+							"tests[\"No se crea un paseador con calificación global inválida\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"La calificación global de un paseador debe estar entre 0 y 5\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Alejandra\",\n\t\"identificacion\": \"3810\",\n\t\"eps\": \"eps_ejemplo3\",\n\t\"arl\": \"arl_ejemplo3\",\n\t\"correo\": \"mc.castellanost@uniandes.edu.co\",\n\t\"telefono\": \"1112\",\n\t\"calificacionGlobal\": 7.4,\n\t\"cuentaBancaria\": \"1314\",\n\t\"numeroCalificaciones\": 8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores"
+					]
+				},
+				"description": "Se intenta crear un paseador a partir del JSON dado por parámetro. Dado que la calificación global es mayor a 5 no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los paseadores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ba5708f-0c51-47b5-8fea-fb6f1723653a",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error al obtener todos los paseadores\"] = responseCode.code === 200;",
+							"tests[\"Existen paseadores\"] = data.length >= 1;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores"
+					]
+				},
+				"description": "Se obtiene la lista de paseadores registrados en la base de datos.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un paseador por su id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b6e8bed0-2656-4022-9ee2-e318742393e9",
+						"exec": [
+							"tests[\"No se genera error al buscar un paseador por su id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}"
+					]
+				},
+				"description": "Se obtiene un paseador a partir del id dado en la URL.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un paseador por su identificación",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7acc768f-b040-4df7-8bf5-cbace8e498ba",
+						"exec": [
+							"tests[\"No se genera error al buscar un paseador por su identificación\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/identificacion/0123",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"identificacion",
+						"0123"
+					]
+				},
+				"description": "Se obtiene un paseador a partir de la identificación dada en la URL.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un paseador por su correo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c5d2bec-cf07-4315-9e86-806b4574d862",
+						"exec": [
+							"tests[\"No se genera error al buscar un paseador por su correo\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/correo/dm.guatibonza@uniandes.edu.co",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"correo",
+						"dm.guatibonza@uniandes.edu.co"
+					]
+				},
+				"description": "Se obtiene un paseador a partir del correo dado en la URL.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un paseador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a77de515-50db-48fb-ab8f-5295da1d58b4",
+						"exec": [
+							"tests[\"Genera error al buscar un paseador que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /paseadores/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"0"
+					]
+				},
+				"description": "Se intenta obtener un paseador que no existe en la base de datos.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "48f1ae3e-59ae-4256-83e3-1d37b57d478c",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseador2\",data.id);",
+							"tests[\"No se genera error al editar un paseador\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Nicolas\",\n\t\"identificacion\": \"3210\",\n\t\"eps\": \"eps_ejemplo4\",\n\t\"arl\": \"arl_ejemplo4\",\n\t\"correo\": \"n.urrego@uniandes.edu.co\",\n\t\"telefono\": \"8569\",\n\t\"calificacionGlobal\": 4.75,\n\t\"cuentaBancaria\": \"7410\",\n\t\"numeroCalificaciones\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador2}}"
+					]
+				},
+				"description": "Se actualiza la información del paseador con el id dado en la URL con los datos dados en el JSON.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "200f9963-be03-4469-8808-35a3cca55c96",
+						"exec": [
+							"tests[\"No se puede editar un paseador que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /paseadores/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Nicolas\",\n\t\"identificacion\": \"3210\",\n\t\"eps\": \"eps_ejemplo4\",\n\t\"arl\": \"arl_ejemplo4\",\n\t\"correo\": \"n.urrego@uniandes.edu.co\",\n\t\"telefono\": \"8569\",\n\t\"calificacionGlobal\": 4.75,\n\t\"cuentaBancaria\": \"7410\",\n\t\"numeroCalificaciones\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"0"
+					]
+				},
+				"description": "Se intenta actualizar la información de un paseador que no existe por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseador con la misma identificación",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce85757d-5e5c-4bb4-93bb-0008a6768f68",
+						"exec": [
+							"tests[\"No se puede editar un paseador con una identificación que ya existe\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"Ya existe un paseador con la identificación: 3210\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Nicolas\",\n\t\"identificacion\": \"3210\",\n\t\"eps\": \"eps_ejemplo4\",\n\t\"arl\": \"arl_ejemplo4\",\n\t\"correo\": \"n.urrego@uniandes.edu.co\",\n\t\"telefono\": \"8569\",\n\t\"calificacionGlobal\": 4.75,\n\t\"cuentaBancaria\": \"7410\",\n\t\"numeroCalificaciones\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}"
+					]
+				},
+				"description": "Se intenta editar un paseador con una identificación ya existente por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseador con el mismo correo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2f8e691-6eab-4bc2-a844-4186c8f7cbb6",
+						"exec": [
+							"tests[\"No se puede editar un paseador con un correo que ya existe\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"Ya existe un paseador con el correo: n.urrego@uniandes.edu.co\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Nicolas\",\n\t\"identificacion\": \"1320\",\n\t\"eps\": \"eps_ejemplo4\",\n\t\"arl\": \"arl_ejemplo4\",\n\t\"correo\": \"n.urrego@uniandes.edu.co\",\n\t\"telefono\": \"8569\",\n\t\"calificacionGlobal\": 4.75,\n\t\"cuentaBancaria\": \"7410\",\n\t\"numeroCalificaciones\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}"
+					]
+				},
+				"description": "Se intenta editar un paseador con un correo ya existente por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseador con calificacion inválida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f2fd62c2-8cc8-40a2-a350-39187d476fb4",
+						"exec": [
+							"tests[\"No se puede editar un paseador con calificación inválida\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"La calificación global de un paseador debe estar entre 0 y 5\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Nicolas\",\n\t\"identificacion\": \"1320\",\n\t\"eps\": \"eps_ejemplo4\",\n\t\"arl\": \"arl_ejemplo4\",\n\t\"correo\": \"danielmateo.guati@gmail.com\",\n\t\"telefono\": \"8569\",\n\t\"calificacionGlobal\": -1.7,\n\t\"cuentaBancaria\": \"7410\",\n\t\"numeroCalificaciones\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}"
+					]
+				},
+				"description": "Se intenta editar un paseador con calificación global negativa por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseador con calificación inválida 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85d48a7c-fdca-4ff1-960e-1d738c5383d8",
+						"exec": [
+							"tests[\"No se puede editar un paseador con calificación inválida\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"La calificación global de un paseador debe estar entre 0 y 5\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Nicolas\",\n\t\"identificacion\": \"1320\",\n\t\"eps\": \"eps_ejemplo4\",\n\t\"arl\": \"arl_ejemplo4\",\n\t\"correo\": \"danielmateo.guati@gmail.com\",\n\t\"telefono\": \"8569\",\n\t\"calificacionGlobal\": 15.2,\n\t\"cuentaBancaria\": \"7410\",\n\t\"numeroCalificaciones\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}"
+					]
+				},
+				"description": "Se intenta editar un paseador con calificación global mayor a 5 por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb754e40-7341-4bd7-8dea-24c9bfe824d8",
+						"exec": [
+							"tests[\"No se genera error en al borrar un paseador\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}"
+					]
+				},
+				"description": "Se borra el paseador con el id dado en la URL.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un paseador 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "46ff8606-3069-45b2-b1b9-12ef04026380",
+						"exec": [
+							"tests[\"No se genera error al borrar un paseador\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador2}}"
+					]
+				},
+				"description": "Se borra el paseador con el id dado en la URL.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un paseador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "315fb7ce-8935-4fb5-b245-99cf18b6970b",
+						"exec": [
+							"tests[\"No se puede borrar un paseador que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /paseadores/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"0"
+					]
+				},
+				"description": "Se intenta borrar un paseador que no existe por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

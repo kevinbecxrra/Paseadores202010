@@ -1,0 +1,23 @@
+
+<div class="container-fluid" >
+
+  <p class="h3 p-3">{{ ratingDetail.id }}</p>
+  <div class="row" >
+
+    <div class="col-3" >
+      <dt> Puntuacion </dt>
+      <dd>{{ ratingDetail.estrellas }}</dd>
+      <dt>Comentario</dt>
+      <dd>{{ ratingDetail.comentario }}</dd>
+    </div>
+
+    <div class="col-4">
+      <dt>Paseo</dt>
+      <dd >{{ ratingDetail.paseo.id }}</dd>
+      <dt>Duracion</dt>
+      <dd>{{ ratingDetail.paseo.duracion}}</dd>
+      <dt>Fecha y Hora</dt>
+      <dd>{{ ratingDetail.paseo.fechaHora}}</dd>
+    </div>
+  </div>
+</div>

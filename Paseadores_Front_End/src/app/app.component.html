@@ -1,0 +1,84 @@
+<!--- navbar --->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="bod">
+<nav class="navbar navbar-expand-lg navbar-dark navStyle fuente" style="margin-bottom:10px">
+  <a class="navbar-brand nav-item nav-link active" routerLink="home">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a id="paseos-navbar-item" class="nav-item nav-link active" routerLink="/paseos/list">Paseos <span class="sr-only">(current)</span></a>
+    </li>
+
+    <li class="nav-item active">
+
+      <a id="hotels-navbar-item" class="nav-item nav-link active" routerLink="/hotels/list">Hotel <span class="sr-only">(current)</span></a>
+    </li>
+
+    <li class="nav-item active" *ngIf="soyAdmin()">
+      <a id="paseos-navbar-item" class="nav-item nav-link active" routerLink="/usuarios/list">Usuarios <span class="sr-only">(current)</span></a>
+    </li>
+
+    <li class="nav-item active" *ngIf="soyAdmin()">
+      <a id="paseos-navbar-item" class="nav-item nav-link active" routerLink="/paseadores/list">Paseadores <span class="sr-only">(current)</span></a>
+    </li>
+
+    <li class="nav-item active" *ngIf="soyAdmin()">
+      <a id="paseos-navbar-item" class="nav-item nav-link active" routerLink="/reservas/list">Reservas <span class="sr-only">(current)</span></a>
+    </li>
+
+    <li class="nav-item active" *ngIf="soyAdmin()">
+      <a class="nav-link active" routerLink="conocenos">Conocenos</a>
+    </li>
+
+
+    <li class="nav-item active" *ngIf="soyAdmin()||soyCliente()">
+      <a id="paseos-navbar-item" class="nav-item nav-link active" routerLink="/usuarios/{{darUsuarioActual().id}}">Mi perfil <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item active" *ngIf="soyPaseador()">
+      <a id="paseos-navbar-item" class="nav-item nav-link active" routerLink="/paseadores/{{darUsuarioActual().id}}">Mi perfil <span class="sr-only">(current)</span></a>
+
+    </li>
+
+
+  </ul>
+  <form class="form-inline my-2 my-lg-0">
+    <button *ngIf="!estaLogueado()" class="btn botones" routerLink="/usuarios/preLogin" type="submit">Login</button>
+    <button *ngIf="estaLogueado()" class="btn botones" routerLink="home" type="submit" (click)="cerrarSesion()">Cerrar sesión</button>
+  </form>
+</div>
+</nav>
+<div style="min-height: 540px;">
+<router-outlet></router-outlet>
+</div>
+
+<!--- footer --->
+<footer class="footer mt-5">
+    <div class="row text-justify contenedor pt-3">
+      <div class="col-4 pl-5">
+        <p>Inicio Descubre | ¿Quiénes Somos? | FAQ</p>
+        <p>Copyright © 2020 Paseadores. All rights reserved.</p>
+       <a class="nav-link text-white" href="#">Términos y condiciones</a>
+      </div>
+      <div class="col-4 pl-5">
+        <p>Avenida Circunvalar #5-20 piso 6 oficina 105</p>
+        <p>+57 318 3775400</p>
+        <p>info@paseadores.com</p>
+
+      </div>
+      <div class="col-4 pl-5">
+       <p>Siguenos en nuestras redes sociales:</p>
+       <a href="#" class="fa fa-facebook"></a>
+       <a href="#" class="fa fa-twitter"></a>
+       <a href="#" class="fa fa-google"></a>
+       <a href="#" class="fa fa-youtube"></a>
+    </div>
+  </div>
+</footer>
+</body>

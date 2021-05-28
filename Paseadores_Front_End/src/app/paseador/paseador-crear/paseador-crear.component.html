@@ -1,0 +1,263 @@
+
+<div class="container-fluid" style="justify-content:center">
+  <div class="col" >
+    <div class="h2" style="padding-bottom: 15px; margin-bottom: 40px; text-align: center; border-bottom: 2px solid rgb(255, 91, 26)">Registrar un paseador</div>
+    <form
+      style="justify-content:center"
+      [formGroup]="paseadorForm"
+      (ngSubmit)="!paseadorForm.invalid && createPaseador(paseadorForm.value)"
+    >
+
+      <div class="row" style="display: flex; justify-content:center">
+
+        <div class="col-3">
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="nombre"> Nombre de paseador </label>
+            <input
+              novalidate
+              id="nombre"
+              class="form-control"
+              formControlName="nombre"
+              placeholder=""
+
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                paseadorForm.get('nombre').hasError('required') &&
+                paseadorForm.get('nombre').touched
+              "
+            >
+              Nombre requerido
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="paseadorForm.get('nombre').hasError('minlength')"
+            >
+              Nombre muy corto
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="identificacion"> Identificacion </label>
+            <input
+              novalidate
+              id="identificacion"
+              class="form-control"
+              formControlName="identificacion"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                paseadorForm.get('identificacion').hasError('required') &&
+                paseadorForm.get('identificacion').touched
+              "
+            >
+              Identificacion requerida
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="paseadorForm.get('identificacion').hasError('minlength')"
+            >
+              Identificacion muy corta
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="correo"> Correo </label>
+            <input
+              id="correo"
+              type="text"
+              class="form-control"
+              formControlName="correo"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                paseadorForm.get('correo').hasError('required') &&
+                paseadorForm.get('correo').touched
+              "
+            >
+              Correo necesario
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                paseadorForm.get('correo').touched &&
+                paseadorForm.get('correo').hasError('email')
+              "
+            >
+              Formato de correo incorrecto
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3">
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="infoEPS"> infoEPS </label>
+            <input
+              novalidate
+              id="infoEPS"
+              class="form-control"
+              formControlName="infoEPS"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                paseadorForm.get('infoEPS').hasError('required') &&
+                paseadorForm.get('infoEPS').touched
+              "
+            >
+              InfoEPS requerida
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="paseadorForm.get('infoEPS').hasError('minlength')"
+            >
+              infoEPS muy corto
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="ARL"> ARL </label>
+            <input
+              novalidate
+              id="ARL"
+              class="form-control"
+              formControlName="ARL"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                paseadorForm.get('ARL').hasError('required') &&
+                paseadorForm.get('ARL').touched
+              "
+            >
+              ARL requerida
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="paseadorForm.get('ARL').hasError('minlength')"
+            >
+              ARL demasiado corto
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="costoPaseo"> Costo Paseo </label>
+            <input
+              id="costoPaseo"
+              type="text"
+              class="form-control"
+              formControlName="costoPaseo"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                paseadorForm.get('costoPaseo').hasError('required') &&
+                paseadorForm.get('costoPaseo').touched
+              "
+            >
+              Costo Paseo requerida
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                paseadorForm.get('costoPaseo').touched &&
+                paseadorForm.get('costoPaseo').hasError('minlength')
+              "
+            >
+              Costo Paseo muy corta
+            </div>
+          </div>
+        </div>
+
+
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="telefono"> Telefono </label>
+            <input
+              id="telefono"
+              type="text"
+              class="form-control"
+              formControlName="telefono"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                paseadorForm.get('telefono').hasError('required') &&
+                paseadorForm.get('telefono').touched
+              "
+            >
+              Telefono requerido
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                paseadorForm.get('telefono').touched &&
+                paseadorForm.get('telefono').hasError('minlength')
+              "
+            >
+              Telefono invalido
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="id"> Carnet </label>
+              <input
+                id="id"
+                type="text"
+                class="form-control"
+                formControlName="id"
+                placeholder=""
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  paseadorForm.get('id').hasError('id') &&
+                  paseadorForm.get('id').touched
+                "
+              >
+                Carnet requerido
+              </div>
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  paseadorForm.get('id').touched &&
+                  paseadorForm.get('id').hasError('id')
+                "
+              >
+                Carnet invalido
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      <div class="row" style="padding: 30px;justify-content:center">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!paseadorForm.valid"
+
+        >
+          Registrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger ml-3"
+          (click)="cancelCreation()"routerLink="../../../.."
+
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

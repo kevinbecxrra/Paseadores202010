@@ -1,0 +1,591 @@
+{
+	"info": {
+		"_postman_id": "43c8be0b-80fc-4f42-b9f0-146944f5239b",
+		"name": "PaseoContratoPaseoTest",
+		"description": "Pruebas de la asociación entre Paseo y ContratoPaseo.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ffaa620a-03a0-4bed-b3f4-af0ee6c5282c",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseo\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 20,\n\t\"costo\": 2500000.0,\n\t\"duracion\": 90,\n\t\"disponible\": true, \n\t\"horaInicio\": \"2020-10-10T07:22Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Crea un nuevo paseo. El Id es inicializado por la BD y se debe ver en la respuesta.\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un contratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e18d9b5f-bb4b-4130-8076-36e017319b57",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_Contrato\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo"
+					]
+				},
+				"description": "Crea un nuevo contratoPaseo. El id del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n***Código http esperado: 200***"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar un paseo a un ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2772a62-5734-4060-8fe2-14b15a5c3cf0",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato}}/paseo/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato}}",
+						"paseo",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Se asocia el primer ContratoPaseo creado al paseo.\r\n\r\n***Código HTTP esperado: 200***"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseo 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "950cbd18-9e68-465c-9202-da822dd6cfdd",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseo2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 10,\n\t\"costo\": 1500000.0,\n\t\"duracion\": 60,\n\t\"disponible\": false, \n\t\"horaInicio\": \"2020-10-05T09:30Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Crea un nuevo paseo. El Id es inicializado por la BD y se debe ver en la respuesta.\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un paseo de un ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "853c2523-a83e-4d54-aba0-6d8a1469c9ce",
+						"exec": [
+							"tests[\"No se genera error al buscar el paseo de un contratoPaseo por su id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato}}/paseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato}}",
+						"paseo"
+					]
+				},
+				"description": "Se obtiene el paseo de un ContratoPaseo a partir de los ids de estos dos recursos.\r\n\r\n***Código HTTP esperado: 200***"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un paseo de un ContratoPaseo inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20079f02-ebbc-4a77-a9f8-09770533932b",
+						"exec": [
+							"tests[\"El punto no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/0/paseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"0",
+						"paseo"
+					]
+				},
+				"description": "Consulta un contratoHotel que no existe de una horaHotel en la aplicación.\n\nPara la prueba se verifica que se genera el error.\n\n***Código http esperado: 404***"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar paseo a un ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4859af3-2d07-4923-96d5-e24af9b30caa",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato}}/paseo/{{new_id_paseo2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato}}",
+						"paseo",
+						"{{new_id_paseo2}}"
+					]
+				},
+				"description": "Se actualiza el paseo de un ContratoPaseo a partir de los ids de estos dos recursos.\r\n\r\n***Código HTTP esperado: 200***"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseo inexistente de un ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "980f4fc4-1040-4413-9717-0cd07ebcb93a",
+						"exec": [
+							"tests[\"El paseo no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 100,\n\t\"costo\": 1700000.0,\n\t\"duracion\": 60,\n\t\"disponible\": false, \n\t\"horaInicio\": \"2019-10-05T09:30Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/0/paseo/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"0",
+						"paseo",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Se intenta actualizar el paseo de un ContratoPaseo inexistente por lo cual no se realiza ninguna modificación en la base de datos.\r\n\r\n***Código HTTP esperado: 404***"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un paseo de un ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "189e46e7-fd4d-4998-8941-2ecd035c3388",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato}}/paseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato}}",
+						"paseo"
+					]
+				},
+				"description": "Borra la asociación entre un paseo y un ContratoPaseo. Se envían los ids los recursos creados anteriormente.\n\n***Código HTTP esperado: 204***"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un paseo de un ContratoPaseo inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cb70e5c-664c-4a99-838f-e426f39572f0",
+						"exec": [
+							"tests[\"No se debería poder eliminar un paseo inexistente.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/0/paseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"0",
+						"paseo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un contratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b8b25a5-ae8b-4e82-915a-d62aa4e2466e",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5d614b3d-18e6-4bdc-b074-bfdb7244a1b6",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un paseo 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f58a5fc-3101-4d01-b72f-821d2ff006b6",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo2}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "258e37c6-27d1-435b-a372-389550fe8a69",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "fadd6a72-4d63-4761-81ea-b64d2fce9a28",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

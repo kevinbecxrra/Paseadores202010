@@ -1,0 +1,17 @@
+
+
+#cardUsuario{
+  border-right: 2px solid  rgb(255, 218, 203);
+  border-bottom:2px solid rgb(255, 218, 203);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+#imagenM{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.sinSubrayado{
+  text-decoration: none;
+}
+

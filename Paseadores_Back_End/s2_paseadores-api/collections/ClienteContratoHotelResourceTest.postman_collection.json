@@ -1,0 +1,523 @@
+{
+	"info": {
+		"_postman_id": "0eb0cf21-88ab-4982-9887-f8e375b3cc5c",
+		"name": "ClienteContratoHotelResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "364869a5-7e67-4d8b-95f7-b452f60044b5",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cliente_auxClienteContratoHotel1\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"nombre\": \"Juan Perez\",\n        \"identificacion\": \"1007861956\",\n        \"correo\": \"juanperez@uniandes.edu.co\",\n        \"telefono\": \"1234567890\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "089851af-90d6-4bc0-a79d-fae15e519ccb",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cliente_auxClienteContratoHotel2\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Juan Perez\",\n        \"identificacion\": \"1007861862\",\n        \"correo\": \"juanperez12@uniandes.edu.co\",\n        \"telefono\": \"1234567888\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Contrato Hotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69c0f049-a02a-49d9-867b-5bb4f944b6e5",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_contratoHotel_auxClienteContratoHotel\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"No debe comer carne\",\n\t\"costo\": 4000.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un Cliente inexistente a un ContratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "87d9f18b-49eb-441f-8941-48765ab1c357",
+						"exec": [
+							"tests[\"Genera error al asociar un ContratoHotel con un cliente que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratoHotel_auxClienteContratoHotel}}/cliente/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratoHotel_auxClienteContratoHotel}}",
+						"cliente",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un Cliente a un ContratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ae8e368-7444-493b-89c0-b9f0a647f52e",
+						"exec": [
+							"tests[\"No genera error al asociar un Cliente con un ContratoHotel\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratoHotel_auxClienteContratoHotel}}/cliente/{{new_id_cliente_auxClienteContratoHotel1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratoHotel_auxClienteContratoHotel}}",
+						"cliente",
+						"{{new_id_cliente_auxClienteContratoHotel1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener el Cliente de un ContratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b29cfe4-f0fd-420f-bea3-bc1d11730cb6",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratoHotel_auxClienteContratoHotel}}/cliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratoHotel_auxClienteContratoHotel}}",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar el Cliente al ContratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59d15395-5c66-4d66-9f78-5097a3fca65e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratoHotel_auxClienteContratoHotel}}/cliente/{{new_id_cliente_auxClienteContratoHotel2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratoHotel_auxClienteContratoHotel}}",
+						"cliente",
+						"{{new_id_cliente_auxClienteContratoHotel2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un cliente de un ContratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d961f14c-210b-403c-9cb8-a35616747573",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratoHotel_auxClienteContratoHotel}}/cliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratoHotel_auxClienteContratoHotel}}",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cliente inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8d983b8-c2a6-4ab0-8d74-04c167fc4ac7",
+						"exec": [
+							"tests[\"El cliente no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratoHotel_auxClienteContratoHotel}}/cliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratoHotel_auxClienteContratoHotel}}",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un ContratoHotel inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c116357d-0ddb-4d50-bee3-7fc490521197",
+						"exec": [
+							"tests[\"El contratoHotel no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/0/cliente/{{new_id_cliente_auxClienteContratoHotel2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"0",
+						"cliente",
+						"{{new_id_cliente_auxClienteContratoHotel2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar ContratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68e9083b-dadf-4be4-a6da-220f2ad420c3",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratoHotel_auxClienteContratoHotel}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratoHotel_auxClienteContratoHotel}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Cliente2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d96d1747-5b4e-4a43-99dc-4e3d42621bc8",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/{{new_id_cliente_auxClienteContratoHotel2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente_auxClienteContratoHotel2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10538dae-686b-47a7-88a7-610c19c3bc69",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/{{new_id_cliente_auxClienteContratoHotel1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente_auxClienteContratoHotel1}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

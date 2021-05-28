@@ -1,0 +1,478 @@
+{
+	"info": {
+		"_postman_id": "7b910957-b5a0-40a7-8cf5-cb6337377841",
+		"name": "RecorridoPuntoTest",
+		"description": "Pruebas de la asociación entre Recorrido y Punto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "304a679c-121d-4e3e-81df-b721f62062c4",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_r\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"calificacionGlobal\":3.0,\n\t\"numeroCalificaciones\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un punto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_p\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"longitud\":-74.065309,\n\t\"latitud\":4.603028,\n\t\"posicion\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/puntos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"puntos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un recorrido al punto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/puntos/{{new_id_p}}/recorrido/{{new_id_r}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"puntos",
+						"{{new_id_p}}",
+						"recorrido",
+						"{{new_id_r}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener el recorrido de un punto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20079f02-ebbc-4a77-a9f8-09770533932b",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/puntos/{{new_id_p}}/recorrido",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"puntos",
+						"{{new_id_p}}",
+						"recorrido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear recorrido2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "304a679c-121d-4e3e-81df-b721f62062c4",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_r2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"calificacionGlobal\":0.0,\n\t\"numeroCalificaciones\":0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/recorridos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"recorridos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editarle el recorrido al punto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23ba3ad8-60c3-4b43-b56e-89efec96980a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/puntos/{{new_id_p}}/recorrido/{{new_id_r2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"puntos",
+						"{{new_id_p}}",
+						"recorrido",
+						"{{new_id_r2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un punto de un recorrido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cb70e5c-664c-4a99-838f-e426f39572f0",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/puntos/{{new_id_p}}/recorrido",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"puntos",
+						"{{new_id_p}}",
+						"recorrido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un recorrido inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20079f02-ebbc-4a77-a9f8-09770533932b",
+						"exec": [
+							"tests[\"El punto no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/puntos/{{new_id_p}}/recorrido",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"puntos",
+						"{{new_id_p}}",
+						"recorrido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un punto inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20079f02-ebbc-4a77-a9f8-09770533932b",
+						"exec": [
+							"tests[\"El punto no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"longitud\":-74.065310,\n\t\"latitud\":4.603030,\n\t\"posicion\":2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/puntos/0/recorrido/{{new_id_r2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"puntos",
+						"0",
+						"recorrido",
+						"{{new_id_r2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un punto inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cb70e5c-664c-4a99-838f-e426f39572f0",
+						"exec": [
+							"tests[\"No se debería poder eliminar un punto inexistente.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/puntos/0/recorrido",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"puntos",
+						"0",
+						"recorrido"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "13a2f927-481c-457c-b8a2-fb22602ffe63",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b0a362ce-b96f-4064-bd75-960d397f68cd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

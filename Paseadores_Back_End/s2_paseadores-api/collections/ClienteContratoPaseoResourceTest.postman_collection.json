@@ -1,0 +1,523 @@
+{
+	"info": {
+		"_postman_id": "36e0c54c-d214-4240-abf3-3e4eb6828aaa",
+		"name": "ClienteContratoPaseoResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a679b79-5973-49d3-b78d-ce1555fb5146",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cliente_auxClienteContratoPaseo1\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"nombre\": \"Pedro Perez\",\n        \"identificacion\": \"1007861951\",\n        \"correo\": \"pedroperez@uniandes.edu.co\",\n        \"telefono\": \"1234567890\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d3172d40-8bbe-4464-bb15-44923a059492",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cliente_auxClienteContratoPaseo2\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Armando Perez\",\n        \"identificacion\": \"1007261862\",\n        \"correo\": \"arperez12@uniandes.edu.co\",\n        \"telefono\": \"1234567888\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un contratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e23edf3-fd0b-40cb-b976-fe07c66dbe11",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_contratoPaseo_auxClienteContratoPaseo\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"horaEncuentro\": \"2018-01-22T20:38:54.973-05:00\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un cliente inexistente a un ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "18d88f9b-d6dc-4b84-b40c-68c06ac2b26a",
+						"exec": [
+							"tests[\"Genera error al asociar un ContratoPaseo con un cliente que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_contratoPaseo_auxClienteContratoPaseo}}/cliente/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_contratoPaseo_auxClienteContratoPaseo}}",
+						"cliente",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un Cliente a un ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ab6a7ef-4231-460a-a3df-098a3db6aa6c",
+						"exec": [
+							"tests[\"No genera error al asociar un Cliente con un ContratoPaseo\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_contratoPaseo_auxClienteContratoPaseo}}/cliente/{{new_id_cliente_auxClienteContratoPaseo1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_contratoPaseo_auxClienteContratoPaseo}}",
+						"cliente",
+						"{{new_id_cliente_auxClienteContratoPaseo1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener el Cliente de un ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "105fbcff-bfd0-44cb-a3e5-34181f300700",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_contratoPaseo_auxClienteContratoPaseo}}/cliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_contratoPaseo_auxClienteContratoPaseo}}",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar el Cliente al ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5780ee41-88cb-471c-bedb-1c60e3e828bf",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_contratoPaseo_auxClienteContratoPaseo}}/cliente/{{new_id_cliente_auxClienteContratoPaseo2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_contratoPaseo_auxClienteContratoPaseo}}",
+						"cliente",
+						"{{new_id_cliente_auxClienteContratoPaseo2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un Cliente de un ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "efdf0807-e794-403c-b4ab-0b99dd5e6a12",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_contratoPaseo_auxClienteContratoPaseo}}/cliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_contratoPaseo_auxClienteContratoPaseo}}",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cliente inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a6ff3c1b-f80b-4bfa-8811-fa1efa6e00f5",
+						"exec": [
+							"tests[\"El cliente no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratoPaseo_auxClienteContratoPaseo}}/cliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratoPaseo_auxClienteContratoPaseo}}",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un ContratoPaseo inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5c40fde-43f9-43ce-9639-68d937a722cf",
+						"exec": [
+							"tests[\"El contratoHotel no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/0/cliente/{{new_id_cliente_auxClienteContratoPaseo2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"0",
+						"cliente",
+						"{{new_id_cliente_auxClienteContratoPaseo2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "18af3383-be33-4c55-95d8-58ab142c9202",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_contratoPaseo_auxClienteContratoPaseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_contratoPaseo_auxClienteContratoPaseo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aab911fa-9335-4ac7-9670-4a31d8e2e7a3",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/{{new_id_cliente_auxClienteContratoPaseo1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente_auxClienteContratoPaseo1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el cliente 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aca1500f-9ce4-4f1f-99ed-41a43faff80a",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/{{new_id_cliente_auxClienteContratoPaseo2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente_auxClienteContratoPaseo2}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

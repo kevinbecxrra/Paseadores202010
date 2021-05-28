@@ -1,0 +1,56 @@
+
+	<div class="col" style="width: 30%; margin-left: 0%;">
+		<div class="h4">Creación de un paseo</div>
+		<form [formGroup]="paseoForm" (ngSubmit)="!paseoForm.invalid && createPaseo(paseoForm.value)">
+
+			<div class="form-group mx-sm-3 mb-2">
+				<label for="duracion">
+					Duracion
+				</label>
+				<input novalidate id="duracion" class="form-control" formControlName="duracion" placeholder="duracion del paseo">
+				<div class="alert alert-danger alert-dismissible fade show"
+					*ngIf="paseoForm.get('duracion').hasError('required') && paseoForm.get('duracion').touched">
+					Duracion requerida
+				</div>
+			</div>
+
+			<div class="form-group  mx-sm-3 mb-2">
+				<label for="fechaHora">
+					Fecha y Hora del paseo
+				</label>
+				<input id="fechaHora" type="text" class="form-control" formControlName="fechaHora"
+					placeholder="anio-mes-dia::hora:minutos">
+
+				<div class="alert alert-danger alert-dismissible fade show"
+					*ngIf="paseoForm.get('fechaHora').hasError('required') && paseoForm.get('fechaHora').touched">
+
+				</div>
+			</div>
+
+			<div class="form-group  mx-sm-3 mb-2">
+				<label for="cupoMax">
+					Cupo Maximo
+				</label>
+				<input id="cupoMax" type="text" class="form-control" formControlName="cupoMax" placeholder="Cupo">
+				<div class="alert alert-danger alert-dismissible fade show"
+					*ngIf="paseoForm.get('cupoMax').hasError('required') && paseoForm.get('cupoMax').touched">
+					El cupo es requerido
+      </div>
+      </div>
+
+      <div class="form-group  mx-sm-3 mb-2">
+				<label for="descuento">
+					Descuento
+				</label>
+				<input id="descuento" type="text" class="form-control" formControlName="descuento" placeholder="descuento">
+				<div class="alert alert-danger alert-dismissible fade show"
+					*ngIf="paseoForm.get('descuento').hasError('required') && paseoForm.get('descuento').touched">
+					El descuento es requerido
+      </div>
+      </div>
+			<div class="row  m-3">
+				<button type="submit"  class="btn btn-primary" [disabled]="!paseoForm.valid">Create</button>
+				<button type="button"  class="btn btn-danger ml-3" (click)="cancelCreation()" routerLink="/paseos/list">Salir</button>
+			</div>
+		</form>
+</div>

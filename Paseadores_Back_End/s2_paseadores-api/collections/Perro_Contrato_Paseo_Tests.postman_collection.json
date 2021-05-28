@@ -1,0 +1,500 @@
+{
+	"info": {
+		"_postman_id": "1f89bd16-2cc4-4963-aa4f-634133145e8f",
+		"name": "Perro Contrato Paseo Tests",
+		"description": "conjunto de pruebas de la relacion entre Perro y Contrato Paseo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50ac61d1-8fd2-47e0-8e43-0c9ed84ecadb",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_perro_PC\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"juyio\",\n\t\"raza\": \"terrier\",\n\t\"edad\": 3,\n\t\"idPerro\": \"1457\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros"
+					]
+				},
+				"description": "Release: Paso-1\r\n\r\nCrea un nuevo perro. El id del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un perro 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50ac61d1-8fd2-47e0-8e43-0c9ed84ecadb",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_perro_PC2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"tobias\",\n\t\"raza\": \"buldog\",\n\t\"edad\": 8,\n\t\"idPerro\": \"1456\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros"
+					]
+				},
+				"description": "Release: Paso-1\r\n\r\nCrea un nuevo perro. El id del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Contrato  Paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e18d9b5f-bb4b-4130-8076-36e017319b57",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_Contrato_PC\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo"
+					]
+				},
+				"description": "Release: Paso-1\r\n\r\nCrea un nuevo contrato Paseo. El id del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Asinarle un perro a un contrato Paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "871a09d5-df6f-4ef2-9ccb-55d0f2209322",
+						"exec": [
+							"tests[\"No genera error al asociar un perro con un contrato paseo\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato_PC}}/perro/{{new_id_perro_PC}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato_PC}}",
+						"perro",
+						"{{new_id_perro_PC}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nCrea el contrato paseo y le asigna un perro existente. Se envían los Ids de las entidades asociar en la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Asinarle un perro a un contrato Paseo inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "871a09d5-df6f-4ef2-9ccb-55d0f2209322",
+						"exec": [
+							"tests[\"No genera error al asociar un perro con un contrato paseo\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /perro /0 no existe.\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato_PC}}/perro/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato_PC}}",
+						"perro",
+						"0"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nCrea el contrato paseo y le asigna un perro existente. Se envían los Ids de las entidades asociar en la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un perro de un contrato paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8127825-332b-4748-ac51-9edb1d5df09b",
+						"exec": [
+							"tests[\"No se genera error al buscar el perro de un contrato paseo por su id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato_PC}}/perro/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato_PC}}",
+						"perro",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un perro de un contrato paseo inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8127825-332b-4748-ac51-9edb1d5df09b",
+						"exec": [
+							"tests[\"No se genera error al buscar el perro de un contrato paseo por su id\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /contratos Paseo /0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/0/perro/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"0",
+						"perro",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un perro de un contrato paseo inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10df44d4-a2c4-471c-9d08-dacf573a2373",
+						"exec": [
+							"tests[\"Genera error al editar el paseador de un paseo que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /contratos Paseo /0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/0/perro/{{new_id_paseador_PC2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"0",
+						"perro",
+						"{{new_id_paseador_PC2}}"
+					]
+				},
+				"description": "Se intenta actualizar el perro de un contrato paseo inexistente por lo cual no se realiza ninguna modificación en la base de datos.\r\n\r\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar el perro de un contrato Paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "32ffac8b-b665-4d48-a1b9-ed6364e8683b",
+						"exec": [
+							"tests[\"No se genera error al borrar el contrato de un perro\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato_PC}}/perro/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato_PC}}",
+						"perro",
+						""
+					]
+				},
+				"description": "Se borra la asociación entre un perro y su contrato paseo a partir de sus ids.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "borrar un Contrato Paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6d507a1-a733-4c82-a296-bdf285addd73",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato_PC}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato_PC}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nBorra un contrato Paseo.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ce915a8-549c-4267-98b9-08a7be9f4d89",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_PC}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_PC}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nBorra un perro.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un perro 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ce915a8-549c-4267-98b9-08a7be9f4d89",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_PC2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_PC2}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nBorra un perro.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,116 @@
+<div class="container-fluid" style="margin-bottom: 40px">
+  <div
+    class="row"
+    style="margin: 10px 5px 20px 5px; border-bottom: 2px solid rgb(255, 91, 26)"
+  >
+    <div class="col-10">
+      <div
+        class="h2"
+        style="padding-bottom: 15px"
+        *ngIf="darTipoUsuario() === 'administrador'"
+      >
+        Usuarios
+      </div>
+    </div>
+    <div class="col-2">
+      <button
+        type="button"
+        class="btn btn-primary"
+        style="padding-top: 10px"
+        routerLink="../crear"
+      >
+        Registrar un usuario
+      </button>
+    </div>
+  </div>
+  <div
+    class="row"
+    style="
+      display: inline-flex;
+      padding-top: 15px;
+      margin-left: 2px;
+      margin-bottom: 40px;
+    "
+  >
+    <div
+      *ngFor="let c of usuarios"
+      style="
+        display: inline-block;
+        padding-top: 15px;
+        padding-right: 40px;
+        padding-left: 40px;
+        padding-top: 40px;
+      "
+    >
+      <a
+        class="sinSubrayado"
+        routerLink="../../usuarios/{{ c.id }}"
+        type="submit"
+      >
+        <div
+          id="usuarios"
+          class="card"
+          style="width: 15rem; cursor: pointer"
+          id="cardUsuario"
+        >
+          <img
+            id="imagenM"
+            class="card-img-top"
+            src="{{ c.fotoPerfil }}"
+            alt="Card image cap"
+            style="
+              width: 15rem;
+              display: block;
+              margin: auto;
+              padding-right: 3px;
+              max-height: 253px;
+            "
+          />
+          <div class="card-body">
+            <h5 class="card-title" style="color: rgb(245, 48, 64)">
+              {{ c.nombre }}
+            </h5>
+            <div class="row" style="padding-left: 15px; margin-top: 5px">
+              <img
+                src="https://static.vecteezy.com/system/resources/previews/000/574/512/non_2x/vector-sign-of-user-icon.jpg"
+                style="width: 19px; margin-right: 8px"
+              />
+              <h6 class="card-text" style="color: rgb(78, 78, 78)">
+                {{ c.nombreUsuario }}
+              </h6>
+            </div>
+            <div class="row" style="padding-left: 15px; margin-top: 5px">
+              <img
+                src="https://i.pinimg.com/originals/23/98/2d/23982d31ee932c26a021b175c47bb157.png"
+                style="width: 19px; margin-right: 8px"
+              />
+              <h6 class="card-text" style="color: rgb(78, 78, 78)">
+                {{ c.correo }}
+              </h6>
+            </div>
+            <div class="row" style="padding-left: 15px; margin-top: 5px">
+              <img
+                src="https://img2.freepng.es/20180423/uow/kisspng-computer-icons-calendar-date-age-vector-5ade763481fef4.5391284515245286925325.jpg"
+                style="width: 19px; margin-right: 8px"
+              />
+              <h6
+                *ngIf="c.edad <= 1"
+                class="card-text"
+                style="color: rgb(78, 78, 78)"
+              >
+                {{ c.edad }} año
+              </h6>
+              <h6
+                *ngIf="c.edad > 1"
+                class="card-text"
+                style="color: rgb(78, 78, 78)"
+              >
+                {{ c.edad }} años
+              </h6>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

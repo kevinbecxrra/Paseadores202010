@@ -1,0 +1,21 @@
+<div class="container-fluid" >
+
+  <p class="h3 p-3">{{ hotelDetail.id }}</p>
+  <div class="row" >
+
+    <div class="col-3" >
+      <dt>Tarifa inicial</dt>
+      <dd>{{ hotelDetail.tarifaInicial }}</dd>
+      <dt>Cupo maximo</dt>
+      <dd>{{ hotelDetail.cupoMaximo }}</dd>
+    </div>
+    <div class="col-5">
+      <dt>Cupo Maximo</dt>
+      <dd>{{ hotelDetail.cupoMaximo }}</dd>
+      <dt>Comida mascota</dt>
+      <dd *ngIf="hotelDetail.comidaMascota==true">Si</dd>
+      <dd *ngIf="hotelDetail.comidaMascota==false">No</dd>
+    </div>
+
+  </div>
+</div>

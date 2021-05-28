@@ -1,0 +1,306 @@
+<div class="container-fluid" style="margin-bottom: 40px;" *ngIf="paseadorDetail!=undefined">
+  <div
+  class="h2"
+  style="
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid rgb(255, 91, 26); ">
+  Paseador
+</div>
+  <div class="row" style="display: flex; height: 260px">
+    <div class="col-4 my-auto">
+      <div class="thumb">
+        <img
+          class="img-fluid"
+          src="data:image/jpeg;base64,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"
+          style="width: 18vw; max-height: 225px; display: block; margin: auto"
+        />
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="row" style="width: 100%; padding-top: 15px">
+        <div class="h3" style="width: 86%">{{ paseadorDetail.nombre }}</div>
+      </div>
+      <div class="row" style="width: 100%; padding-top: 20px">
+        <div class="h5" style="color: rgb(65, 154, 238)">
+          Carnet : {{ paseadorDetail.id }}
+        </div>
+      </div>
+      <div class="row" style="width: 100%; padding-top: 5px">
+        <div class="h5">Identificacion: {{ paseadorDetail.identificacion }} </div>
+      </div>
+      <div
+        class="row"
+        style="
+          width: 100%;
+          height: fill;
+          padding-top: 55px;
+          border-bottom: 1px solid rgb(185, 185, 185);
+        "
+      >
+        <h4
+          class="align-bottom"
+          style="
+            height: 100%;
+            padding-bottom: 10px;
+            margin-bottom: 0px;
+            border-bottom: 2px solid gray;
+          "
+        >
+          Información
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="display: flex; margin-top: 10px">
+    <div
+      class="col-4"
+      style="border-right: 1px solid rgb(185, 185, 185); width: 30%"
+    >
+      <div  class="row"
+      style="
+        margin: 15px 10px 15px 25px;
+        border-bottom: 1px solid rgb(230, 230, 230);
+      ">
+        <h4 style="display: block; margin: auto">Mis paseos</h4>
+    </div>
+      <div class="row" *ngFor="let c of paseadorDetail.paseo" style="padding: 15px 0px 15px 15px; width: 100%">
+        <a class="sinSubrayado"  type="submit" style="display: block; margin: auto;">
+          {{c.id}}
+        </a>
+    </div>
+    <div class="row"
+    style="
+      margin: 15px 10px 15px 25px;
+      border-bottom: 1px solid rgb(230, 230, 230);
+    "><h4 style="display: block; margin: auto">Mi rating</h4></div>
+      <div
+        class="row"
+        *ngFor="let c of paseadorDetail.rating"
+        style="padding: 15px 0px 15px 15px; width: 100%"
+      >
+      <a class="sinSubrayado"  type="submit" style="display: block; margin: auto;">
+        {{c.estrellas}}
+      </a>
+    </div>
+  </div>
+    <div class="col-8">
+      <div
+        class="row"
+        style="
+          margin: 15px 10px 15px 25px;
+          border-bottom: 1px solid rgb(230, 230, 230);
+        "
+      >
+        <div class="col-6">
+          <p style="font-weight: bold">Nombre</p>
+          <p></p>
+        </div>
+
+        <div class="col-6">
+          <p style="font-weight: bold; color: rgb(65, 154, 238)">
+            {{ paseadorDetail.nombre }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="row"
+        style="
+          margin: 15px 10px 15px 25px;
+          border-bottom: 1px solid rgb(230, 230, 230);
+        "
+      >
+        <div class="col-6">
+          <p style="font-weight: bold">Correo</p>
+          <p></p>
+        </div>
+
+        <div class="col-6">
+          <p style="font-weight: bold; color: rgb(65, 154, 238)">
+            {{ paseadorDetail.correo }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="row"
+        style="
+          margin: 15px 10px 15px 25px;
+          border-bottom: 1px solid rgb(230, 230, 230);
+        "
+      >
+        <div class="col-6">
+          <p style="font-weight: bold">infoEPS</p>
+          <p></p>
+        </div>
+
+        <div class="col-6">
+          <p style="font-weight: bold; color: rgb(65, 154, 238)">
+            {{ paseadorDetail.infoEPS}}
+          </p>
+        </div>
+      </div>
+      <div
+        class="row"
+        style="
+          margin: 15px 10px 15px 25px;
+          border-bottom: 1px solid rgb(230, 230, 230);
+        "
+      >
+        <div class="col-6">
+          <p style="font-weight: bold">ARL</p>
+          <p></p>
+        </div>
+
+        <div class="col-6">
+          <p style="font-weight: bold; color: rgb(65, 154, 238)">
+            {{ paseadorDetail.ARL }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="row"
+        style="
+          margin: 15px 10px 15px 25px;
+          border-bottom: 1px solid rgb(230, 230, 230);
+        "
+      >
+        <div class="col-6">
+          <p style="font-weight: bold">Telefono</p>
+          <p></p>
+        </div>
+
+        <div class="col-6">
+          <p style="font-weight: bold; color: rgb(65, 154, 238)">
+            {{paseadorDetail.telefono }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="row"
+        style="
+          margin: 15px 10px 15px 25px;
+          border-bottom: 1px solid rgb(230, 230, 230);
+        "
+      >
+        <div class="col-6">
+          <p style="font-weight: bold">costoPaseo</p>
+          <p></p>
+        </div>
+
+        <div class="col-6">
+          <p style="font-weight: bold; color: rgb(65, 154, 238)">
+            {{ paseadorDetail.costoPaseo}}
+          </p>
+        </div>
+      </div>
+      <div
+        class="row"
+        style="
+          margin-left: 15px;
+          width: 100%;
+          height: fill;
+          padding-top: 45px;
+          border-bottom: 1px solid rgb(185, 185, 185);
+        "
+      >
+        <h4
+          class="align-bottom"
+          style="
+            height: 100%;
+
+            padding-bottom: 10px;
+            margin-bottom: 0px;
+            border-bottom: 2px solid gray;
+          "
+        >
+          Mis Disponibilidades
+        </h4>
+      </div>
+      <div
+        class="row"
+        *ngFor="let c of disponibilidades"
+
+        style="padding: 15px 0px 15px 15px; width: 100%"
+      >
+        <div
+          class="row"
+          style="
+            width: 100%;
+            border-bottom: 1px solid rgb(206, 206, 206);
+            margin-left: 15px;
+            padding-bottom: 12px;
+          "
+
+        >
+
+          <div class="col-3">
+            <img
+              class="img-fluid"
+              src="https://thumbs.dreamstime.com/b/vector-calendar-clock-icon-schedule-appointment-important-date-concept-modern-flat-design-illustration-isolated-yellow-88138566.jpg"
+              style="
+                width: 9vw;
+                max-height: 115px;
+                display: block;
+                margin: auto;
+              "
+            />
+          </div>
+          <div class="col-7" style="padding-left: 20px">
+            <div class="row" style="padding-bottom: 7px">
+              <h5>
+                Fecha:
+                {{
+                  c.fechaInicio
+
+                }}
+              </h5>
+            </div>
+            <div class="row" style="padding-bottom: 7px">
+              <h5>
+                Duracion:
+                {{ c.duracion }}
+              </h5>
+            </div>
+          </div>
+          <div class="col-2 my-auto">
+            <div class="row" style="padding-bottom: 8px">
+              <a
+                style="
+                  color: rgb(65, 154, 238);
+                  display: block;
+                  margin: auto;
+                  width: 95px;
+                "
+                data-toggle="collapse"
+                href="#editar"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+              </a>
+            </div>
+            <div class="w-100"></div>
+            <div class="row" style="padding-top: 7px">
+              <button
+              class="btn btn-primary"
+              style="display: block; margin: auto; width: 160px"
+                (click)="deleteDisponibilidad(c.id);refresh()"
+              >
+              Eliminar
+            </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="justify-content: center;"*ngIf="soyPaseador()">
+        <a routerLink="../../disponibilidades/crear/idPaseador/{{paseadorDetail.id}}" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Agregar disponibilidad</a>
+      </div>
+
+      <div class="row" style="justify-content: center; margin-top: 5%;"*ngIf="soyAdmin()">
+        <a routerLink="../../paseos/crear/{{paseadorDetail.id}}" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Crear paseo</a>
+        <a routerLink="../../ratings/crear/idPaseador/{{paseadorDetail.id}}" class="btn btn-primary btn-lg" role="button" aria-disabled="true" style="margin-left: 1%;">Calificar</a>
+      </div>
+    </div>
+  </div>
+
+</div>

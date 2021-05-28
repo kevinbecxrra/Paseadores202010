@@ -1,0 +1,113 @@
+<div class="container-fluid" style="margin-bottom: 40px" *ngIf="mascotas!=undefined">
+  <div
+    class="row"
+    style="margin: 10px 5px 20px 5px;  border-bottom: 2px solid rgb(255, 91, 26); "
+  >
+    <div class="col-10">
+      <div class="h2" style="padding-bottom: 15px" *ngIf="!(darTipoUsuario()==='administrador')">Mis mascotas</div>
+      <div class="h2" style="padding-bottom: 15px" *ngIf="darTipoUsuario()==='administrador'">Mascotas</div>
+    </div>
+    <div class="col-2" *ngIf="darTipoUsuario()==='administrador' &&usuarioId!=undefined">
+      <button type="button" class="btn btn-primary" style="padding-top: 10px" routerLink="../crear/{{usuarioId}}">
+        Registrar una mascota
+      </button>
+    </div>
+  </div>
+  <div
+    class="row"
+    style="
+      display: inline-flex;
+      padding-top: 15px;
+      margin-left: 2px;
+      margin-bottom: 40px;
+    "
+  >
+    <div
+      *ngFor="let c of getMascotasUsuario()"
+      style="
+        display: inline-block;
+        padding-top: 15px;
+        padding-right: 40px;
+        padding-left: 40px;
+        padding-top: 40px;
+      "
+    >
+      <a class="sinSubrayado" routerLink="../../mascotas/detail/{{c.id}}" type="submit">
+        <div
+          id="usuarios"
+          class="card"
+          style="width: 15rem; cursor: pointer"
+          id="cardMascota"
+        >
+          <img
+            id="imagenM"
+            class="card-img-top"
+            src="{{ c.foto }}"
+            alt="Card image cap"
+            style="
+              width: 15rem;
+              display: block;
+              margin: auto;
+              padding-right: 3px;
+              max-height: 253px;
+            "
+          />
+          <div class="card-body">
+            <h5 class="card-title" style="color: rgb(245, 48, 64)">
+              {{ c.nombre }}
+            </h5>
+            <div class="row" style="padding-left: 15px; margin-top: 5px">
+              <img
+                src="https://image.flaticon.com/icons/png/512/21/21645.png"
+                style="width: 19px; margin-right: 8px"
+              />
+              <h6 class="card-text" style="color: rgb(78, 78, 78)">
+                {{ c.raza }}
+              </h6>
+            </div>
+            <div class="row" style="padding-left: 15px; margin-top: 5px">
+              <img
+                src="https://www.flaticon.es/premium-icon/icons/svg/55/55281.svg"
+                style="width: 19px; margin-right: 8px"
+              />
+              <h6
+                *ngIf="c.edad <= 1"
+                class="card-text"
+                style="color: rgb(78, 78, 78)"
+              >
+                {{ c.edad }} año
+              </h6>
+              <h6
+                *ngIf="c.edad > 1"
+                class="card-text"
+                style="color: rgb(78, 78, 78)"
+              >
+                {{ c.edad }} años
+              </h6>
+            </div>
+            <div class="row" style="padding-left: 15px; margin-top: 5px">
+              <img
+                src="https://image.flaticon.com/icons/png/512/105/105356.png"
+                style="width: 19px; margin-right: 8px"
+              />
+              <h6
+                *ngIf="c.sexo"
+                class="card-text"
+                style="color: rgb(78, 78, 78)"
+              >
+                Macho
+              </h6>
+              <h6
+                *ngIf="!c.sexo"
+                class="card-text"
+                style="color: rgb(78, 78, 78)"
+              >
+                Hembra
+              </h6>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

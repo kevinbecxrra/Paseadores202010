@@ -1,0 +1,318 @@
+<div
+  class="container-fluid"
+  style="margin-bottom: 40px"
+  *ngIf="usuarioDetail != undefined"
+>
+  <div
+    class="h2"
+    style="
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      border-bottom: 2px solid rgb(255, 91, 26);
+    "
+  >
+    Mi perfil
+  </div>
+  <div class="row" style="display: flex; height: 260px">
+    <div class="col-4 my-auto">
+      <div class="thumb">
+        <img
+          class="img-fluid"
+          src="{{ usuarioDetail.fotoPerfil }}"
+          style="width: 18vw; max-height: 225px; display: block; margin: auto"
+        />
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="row" style="width: 100%; padding-top: 15px">
+        <div class="h3" style="width: 86%">
+          {{ usuarioDetail.nombreUsuario }}
+        </div>
+        <div style="width: 14%">
+          <button type="button" class="btn btn-primary">Editar perfil</button>
+        </div>
+      </div>
+      <div class="row" style="width: 100%; padding-top: 20px">
+        <div class="h5" style="color: rgb(65, 154, 238)">
+          {{ usuarioDetail.correo }}
+        </div>
+      </div>
+      <div class="row" style="width: 100%; padding-top: 5px">
+        <div class="h5">{{ usuarioDetail.edad }} años</div>
+      </div>
+      <div
+        class="row"
+        style="
+          width: 100%;
+          height: fill;
+          padding-top: 55px;
+          border-bottom: 1px solid rgb(185, 185, 185);
+        "
+      >
+        <h4
+          class="align-bottom"
+          style="
+            height: 100%;
+            padding-bottom: 10px;
+            margin-bottom: 0px;
+            border-bottom: 2px solid gray;
+          "
+        >
+          Información
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="display: flex; margin-top: 10px">
+    <div
+      class="col-4"
+      style="border-right: 1px solid rgb(185, 185, 185); width: 30%"
+    >
+      <div class="row" style="padding-top: 30px">
+        <h4 style="display: block; margin: auto">Mis mascotas</h4>
+        <div class="w-100"></div>
+        <a
+          class="sinSubrayado"
+          routerLink="../../mascotas/{{ usuarioId }}"
+          type="submit"
+          style="display: block; margin: auto"
+        >
+          <img
+            class="img-fluid"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7WrtDjtS7FwxlSMa6lxXuLOI0VUDlXwC3Jw&usqp=CAU"
+            style="width: 13vw; padding-top: 15px; cursor: pointer"
+          />
+        </a>
+      </div>
+      <div class="row" style="padding-top: 40px">
+        <h4 style="display: block; margin: auto">Mis reservas</h4>
+        <div class="w-100"></div>
+        <a
+          class="sinSubrayado"
+          routerLink="../../mascotas/list"
+          type="submit"
+          style="display: block; margin: auto"
+        >
+          <img
+            class="img-fluid"
+            src="https://mk0aysnetall5hhrnu2.kinstacdn.com/wp-content/uploads/2018/08/reserva.jpg"
+            style="width: 13vw; padding-top: 15px; cursor: pointer"
+          />
+        </a>
+      </div>
+    </div>
+    <div class="col-8">
+      <div
+        class="row"
+        style="
+          margin: 15px 10px 15px 25px;
+          border-bottom: 1px solid rgb(230, 230, 230);
+        "
+      >
+        <div class="col-6">
+          <p style="font-weight: bold">Nombre</p>
+          <p></p>
+        </div>
+
+        <div class="col-6">
+          <p style="font-weight: bold; color: rgb(65, 154, 238)">
+            {{ usuarioDetail.nombre }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="row"
+        style="
+          margin: 15px 10px 15px 25px;
+          border-bottom: 1px solid rgb(230, 230, 230);
+        "
+      >
+        <div class="col-6">
+          <p style="font-weight: bold">Dirección</p>
+          <p></p>
+        </div>
+
+        <div class="col-6">
+          <p style="font-weight: bold; color: rgb(65, 154, 238)">
+            {{ usuarioDetail.direccion }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="row"
+        style="
+          margin: 15px 10px 15px 25px;
+          border-bottom: 1px solid rgb(230, 230, 230);
+        "
+      >
+        <div class="col-6">
+          <p style="font-weight: bold">Ciudad</p>
+          <p></p>
+        </div>
+
+        <div class="col-6">
+          <p style="font-weight: bold; color: rgb(65, 154, 238)">
+            {{ usuarioDetail.ciudad }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="row"
+        style="
+          margin: 15px 10px 15px 25px;
+          border-bottom: 1px solid rgb(230, 230, 230);
+        "
+      >
+        <div class="col-6">
+          <p style="font-weight: bold">Telefono</p>
+          <p></p>
+        </div>
+
+        <div class="col-6">
+          <p style="font-weight: bold; color: rgb(65, 154, 238)">
+            {{ usuarioDetail.telefono }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="row"
+        style="
+          margin: 15px 10px 15px 25px;
+          border-bottom: 1px solid rgb(230, 230, 230);
+        "
+      >
+        <div class="col-6">
+          <p style="font-weight: bold">Identificación</p>
+          <p></p>
+        </div>
+
+        <div class="col-6">
+          <p style="font-weight: bold; color: rgb(65, 154, 238)">
+            {{ usuarioDetail.identificacion }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="row"
+        style="
+          margin-left: 15px;
+          width: 100%;
+          height: fill;
+          padding-top: 45px;
+          border-bottom: 1px solid rgb(185, 185, 185);
+        "
+      >
+        <h4
+          class="align-bottom"
+          style="
+            height: 100%;
+
+            padding-bottom: 10px;
+            margin-bottom: 0px;
+            border-bottom: 2px solid gray;
+          "
+        >
+          Mis tarjetas
+        </h4>
+      </div>
+      <div
+        class="row"
+        *ngFor="let c of usuarioDetail.tarjetas"
+        style="padding: 15px 0px 15px 15px; width: 100%"
+      >
+        <div
+          class="row"
+          style="
+            width: 100%;
+            border-bottom: 1px solid rgb(206, 206, 206);
+            margin-left: 15px;
+            padding-bottom: 12px;
+          "
+        >
+          <div class="col-3">
+            <img
+              class="img-fluid"
+              src="https://cdn.pixabay.com/photo/2017/09/18/08/56/credit-card-2761073_960_720.png"
+              style="
+                width: 9vw;
+                max-height: 115px;
+                display: block;
+                margin: auto;
+              "
+            />
+          </div>
+          <div class="col-7" style="padding-left: 20px">
+            <div class="row" style="padding-bottom: 7px">
+              <h5>
+                Terminada en
+                {{
+                  c.numeroTarjeta
+                    .toString()
+                    .substring(
+                      c.numeroTarjeta.toString().length - 4,
+                      c.numeroTarjeta.toString().length
+                    )
+                }}
+              </h5>
+            </div>
+            <div class="row" style="padding-bottom: 7px">
+              <h5>{{ c.tipo }}</h5>
+            </div>
+            <div class="row" style="padding-bottom: 7px">
+              <h5>{{ c.fechaVencimiento }}</h5>
+            </div>
+          </div>
+          <div class="col-2 my-auto">
+            <div class="row" style="padding-bottom: 8px">
+              <a
+                style="
+                  color: rgb(65, 154, 238);
+                  display: block;
+                  margin: auto;
+                  width: 95px;
+                "
+                data-toggle="collapse"
+                href="#editar"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+                Modificar
+              </a>
+            </div>
+            <div class="w-100"></div>
+            <div class="row" style="padding-top: 7px">
+              <a
+                href=""
+                style="
+                  color: rgb(65, 154, 238);
+                  display: block;
+                  margin: auto;
+                  width: 95px;
+                "
+              >
+                Eliminar
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="abrirF">
+        <div >
+          <app-tarjeta-crear
+          [idUsuario]="usuarioId"
+          ></app-tarjeta-crear>
+        </div>
+      </div>
+      <div class="row" style="justify-content: center">
+        <button
+          class="btn btn-primary"
+          style="display: block; margin: auto; width: 160px"
+          (click)="abrir();getTarjetas()"
+        >
+          Agregar tarjeta
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

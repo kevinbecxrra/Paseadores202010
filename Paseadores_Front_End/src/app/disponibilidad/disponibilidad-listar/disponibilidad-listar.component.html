@@ -1,0 +1,45 @@
+
+  <div class="container-fluid" style="margin-bottom: 40px;">
+    <div class="row" style="margin-bottom: 20px;border-bottom: 2px solid rgb(255, 91, 26);">
+      <div class="col-10">
+        <div class="h2" style=" padding-bottom: 15px; "  >
+          Todas las disponibilidades
+        </div>
+      </div>
+    </div>
+    <div class="row" style=" display: inline-flex; padding-top: 15px;  margin-left: 2px;  margin-bottom: 40px;  ">
+      <div *ngFor="let c of disponibilidades" style=" display: inline-block; padding-top: 15px; padding-right: 40px;
+          padding-left: 40px;  padding-top: 40px;  " >
+
+        <div  id="usuarios"  class="card" style="width: 15rem; cursor: pointer"  id="cardpaseo"   >
+          <img  id="imagenM" class="card-img-top"  src="https://image.flaticon.com/icons/svg/571/571839.svg"   alt="Card image cap"style="
+              width: 15rem;  display: block; margin: auto;   padding-right: 3px; max-height: 253px;   "/>
+    <div class="card-body">
+            <h5 class="card-title" style="color: rgb(245, 48, 64)">
+              {{c.duracion}}
+            </h5>
+            <div class="row" style="padding-left: 15px; margin-top: 5px">
+              <img
+                src="https://cdn3.iconfinder.com/data/icons/glypho-money-and-finance/64/money-dollar-circle-512.png"
+                style="width: 19px; margin-right: 8px"
+              />
+              <h6 class="card-text" style="color: rgb(78, 78, 78)">
+                {{ c.fechaInicio}}
+              </h6>
+            </div>
+            <div class="row" style="padding-left: 15px; margin-top: 5px">
+                <img src="http://cdn.onlinewebfonts.com/svg/img_386071.png"  style="width: 19px; margin-right: 8px" />
+
+              <h6 class="card-text"style="color: rgb(78, 78, 78)" >
+                {{ c.paseador.id }}
+              </h6>
+            </div>
+            <div class="row" style="padding-left: 15px; margin-top: 5px">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>

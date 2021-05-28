@@ -1,0 +1,523 @@
+{
+	"info": {
+		"_postman_id": "969e34db-6b9c-44b4-8f0b-4b2c3b2e9694",
+		"name": "ClientePerroResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "48ef6c04-24bd-4d1a-9fef-8f4a21527628",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cliente_auxClientePerro1\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Camilo Perez\",\n        \"identificacion\": \"1827861951\",\n        \"correo\": \"camiloperez@uniandes.edu.co\",\n        \"telefono\": \"1234567890\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d3172d40-8bbe-4464-bb15-44923a059492",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cliente_auxClientePerro2\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Sergio Perez\",\n        \"identificacion\": \"5087261862\",\n        \"correo\": \"sergioperez12@uniandes.edu.co\",\n        \"telefono\": \"1234567888\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2c927849-6f5a-4e96-8e8a-6dece5b7f5c7",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_perro_auxClientePerro\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"juyio\",\n\t\"raza\": \"terrier\",\n\t\"edad\": 3,\n\t\"idPerro\": \"145\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un cliente inexistente a un Perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "19aa4434-82e0-47e6-bb04-8b59757126eb",
+						"exec": [
+							"tests[\"Genera error al asociar un Perro con un cliente que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_auxClientePerro}}/cliente/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_auxClientePerro}}",
+						"cliente",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un cliente a un Perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e4e6213-8797-42b2-b09b-27bf89717138",
+						"exec": [
+							"tests[\"No genera error al asociar un Cliente con un Perro\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_auxClientePerro}}/cliente/{{new_id_cliente_auxClientePerro1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_auxClientePerro}}",
+						"cliente",
+						"{{new_id_cliente_auxClientePerro1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener el Cliente de un Perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "105fbcff-bfd0-44cb-a3e5-34181f300700",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_auxClientePerro}}/cliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_auxClientePerro}}",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar el Cliente al Perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5780ee41-88cb-471c-bedb-1c60e3e828bf",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_auxClientePerro}}/cliente/{{new_id_cliente_auxClientePerro2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_auxClientePerro}}",
+						"cliente",
+						"{{new_id_cliente_auxClientePerro2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un Cliente de un Perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "efdf0807-e794-403c-b4ab-0b99dd5e6a12",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_auxClientePerro}}/cliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_auxClientePerro}}",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cliente inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a6ff3c1b-f80b-4bfa-8811-fa1efa6e00f5",
+						"exec": [
+							"tests[\"El cliente no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_auxClientePerro}}/cliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_auxClientePerro}}",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un PagoCliente inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5c40fde-43f9-43ce-9639-68d937a722cf",
+						"exec": [
+							"tests[\"El perro no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/0/cliente/{{new_id_cliente_auxClientePerro2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"0",
+						"cliente",
+						"{{new_id_cliente_auxClientePerro2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el Perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0313cdc8-2bcd-4c64-8a10-282c17a61256",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro_auxClientePerro}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro_auxClientePerro}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aab911fa-9335-4ac7-9670-4a31d8e2e7a3",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/{{new_id_cliente_auxClientePerro1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente_auxClientePerro1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el cliente 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aca1500f-9ce4-4f1f-99ed-41a43faff80a",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/{{new_id_cliente_auxClientePerro2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente_auxClientePerro2}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

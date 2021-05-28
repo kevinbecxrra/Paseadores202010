@@ -1,0 +1,302 @@
+
+<div class="container-fluid" style="justify-content:center">
+  <div class="col" >
+    <div class="h2" style="padding-bottom: 15px; margin-bottom: 40px; text-align: center; border-bottom: 2px solid rgb(255, 91, 26)">Registrar un usuario</div>
+    <form
+      style="justify-content:center"
+      [formGroup]="usuarioForm"
+      (ngSubmit)="!usuarioForm.invalid && createUsuario(usuarioForm.value)"
+    >
+
+      <div class="row" style="display: flex; justify-content:center">
+        <div class="col-3" >
+
+         <img
+         src="https://media.istockphoto.com/vectors/default-avatar-profile-icon-grey-photo-placeholder-vector-id1018999828"
+         alt=""
+         style="width: 10vw; display:block; margin: auto; "/>
+         <div class="form-group mx-sm-3 mb-2" style="margin-top: 19px;">
+          <label for="fotoPerfil"> Enlace de la foto de perfil </label>
+          <input
+            novalidate
+            id="fotoPerfil"
+            class="form-control"
+            formControlName="fotoPerfil"
+            placeholder="https://..."
+          />
+         </div>
+
+        </div>
+        <div class="col-3">
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="nombreUsuario"> Nombre de usuario </label>
+            <input
+              novalidate
+              id="nombreUsuario"
+              class="form-control"
+              formControlName="nombreUsuario"
+              placeholder=""
+
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('nombreUsuario').hasError('required') &&
+                usuarioForm.get('nombreUsuario').touched
+              "
+            >
+              Nombre requerido
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="usuarioForm.get('nombreUsuario').hasError('minlength')"
+            >
+              Nombre muy corto
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="identificacion"> Identificacion </label>
+            <input
+              novalidate
+              id="identificacion"
+              class="form-control"
+              formControlName="identificacion"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('identificacion').hasError('required') &&
+                usuarioForm.get('identificacion').touched
+              "
+            >
+              Identificacion requerida
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="usuarioForm.get('identificacion').hasError('minlength')"
+            >
+              Identificacion muy corta
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="correo"> Correo </label>
+            <input
+              id="correo"
+              type="text"
+              class="form-control"
+              formControlName="correo"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('correo').hasError('required') &&
+                usuarioForm.get('correo').touched
+              "
+            >
+              Correo necesario
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('correo').touched &&
+                usuarioForm.get('correo').hasError('email')
+              "
+            >
+              Formato de correo incorrecto
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3">
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="nombre"> Nombre Completo </label>
+            <input
+              novalidate
+              id="nombre"
+              class="form-control"
+              formControlName="nombre"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('nombre').hasError('required') &&
+                usuarioForm.get('nombre').touched
+              "
+            >
+              Nombre requerido
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="usuarioForm.get('nombre').hasError('minlength')"
+            >
+              Nombre muy corto
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="edad"> Edad </label>
+            <input
+              novalidate
+              id="edad"
+              class="form-control"
+              formControlName="edad"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('edad').hasError('required') &&
+                usuarioForm.get('edad').touched
+              "
+            >
+              Edad requerida
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="usuarioForm.get('edad').hasError('min')"
+            >
+              Demasiado joven
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="contrasenia"> Contraseña </label>
+            <input
+              id="contrasenia"
+              type="text"
+              class="form-control"
+              formControlName="contrasenia"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('contrasenia').hasError('required') &&
+                usuarioForm.get('contrasenia').touched
+              "
+            >
+              Contraseña requerida
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('contrasenia').touched &&
+                usuarioForm.get('contrasenia').hasError('minlength')
+              "
+            >
+              Contraseña muy corta
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3">
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="direccion"> Dirección </label>
+            <input
+              novalidate
+              id="direccion"
+              class="form-control"
+              formControlName="direccion"
+              placeholder="Calle x #xx - xx... "
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('direccion').hasError('required') &&
+                usuarioForm.get('direccion').touched
+              "
+            >
+              Dirección requerida
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="usuarioForm.get('direccion').hasError('minlength')"
+            >
+              Dirección invalida
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="ciudad"> Ciudad </label>
+            <input
+              novalidate
+              id="ciudad"
+              class="form-control"
+              formControlName="ciudad"
+              value="uwu"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('ciudad').hasError('required') &&
+                usuarioForm.get('ciudad').touched
+              "
+            >
+              Ciudad requerida
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="usuarioForm.get('ciudad').hasError('minlength')"
+            >
+              Ciudad invalida
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="telefono"> Telefono </label>
+            <input
+              id="telefono"
+              type="text"
+              class="form-control"
+              formControlName="telefono"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('telefono').hasError('required') &&
+                usuarioForm.get('telefono').touched
+              "
+            >
+              Telefono requerido
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                usuarioForm.get('telefono').touched &&
+                usuarioForm.get('telefono').hasError('minlength')
+              "
+            >
+              Telefono invalido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="padding: 30px;justify-content:center">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!usuarioForm.valid"
+
+        >
+          Registrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger ml-3"
+          (click)="cancelCreation()"
+
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

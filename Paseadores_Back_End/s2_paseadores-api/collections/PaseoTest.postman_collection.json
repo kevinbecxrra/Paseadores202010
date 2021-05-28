@@ -1,0 +1,751 @@
+{
+	"info": {
+		"_postman_id": "aac58d3b-cb59-46b3-9a41-dc6311bd6198",
+		"name": "PaseoTest",
+		"description": "Pruebas de Paseo: Crea un paseo con un horario preestablecido y busca la información de tanto el paseo como el horario. Verifica cumplimiento de reglas de negocio.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un horario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9cd5c510-89b1-4175-813d-1c8a412e627d",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_horario\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2018-10-13T13:30:00-00:00\",\n\t\"duracion\": 30,\n\t\"ocupado\": false\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios"
+					]
+				},
+				"description": "Crea un nuevo horario. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un horario2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9cd5c510-89b1-4175-813d-1c8a412e627d",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_horario2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2020-11-13T13:30:00-00:00\",\n\t\"duracion\": 40,\n\t\"ocupado\": true\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios"
+					]
+				},
+				"description": "Crea un nuevo horario. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ffaa620a-03a0-4bed-b3f4-af0ee6c5282c",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseo\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 20,\n\t\"costo\": 2500000.0,\n\t\"duracion\": 90,\n\t\"disponible\": true, \n\t\"horaInicio\": \"2020-10-10T07:22Z\",\n\t\"horario1\":\n\t{\n\t\t\"id\": {{new_id_horario}},\n\t\t\"duracion\": \"90\" ,\n\t\t\"ocupado\": false\n\t},\n\t\t\"horario2\":\n\t{\n\t\t\"id\": {{new_id_horario2}},\n\t\t\"duracion\": \"120\" ,\n\t\t\"ocupado\": false\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Crea un nuevo paseo. El Id es inicializado por la BD y se debe ver en la respuesta.\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear paseo con costo inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68cc0476-5a52-4745-81ce-fb5473460a60",
+						"exec": [
+							"tests[\"No se deberia crear el paseo ya que incumple las reglas de negocio.\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 20,\n\t\"costo\": -5,\n\t\"duracion\": 80,\n\t\"disponible\": true, \n\t\"horaInicio\": \"2020-10-12T07:22Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Crea un nuevo paseo pero con un costo invalido. Verifica que se genera el error y el mensaje \"El costo es inválido\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear paseo con cupo máximo inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92197851-c8d9-4151-a835-c4facde48ce2",
+						"exec": [
+							"tests[\"No se deberia crear el paseo ya que incumple las reglas de negocio.\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": -15,\n\t\"costo\": 2500000.0,\n\t\"duracion\": 90,\n\t\"disponible\": true, \n\t\"horaInicio\": \"2020-11-10T07:22Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Crea un nuevo paseo pero con un cupo máximo invalido. Verifica que se genera el error y el mensaje \"El cupo máximo es inválido\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseo con horario 2 sin tener horario 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56cdc633-a43e-4500-ae7e-0852e5ce4058",
+						"exec": [
+							"tests[\"No se deberia crear el paseo ya que incumple las reglas de negocio.\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 20,\n\t\"costo\": 2500000.0,\n\t\"duracion\": 90,\n\t\"disponible\": true, \n\t\"horaInicio\": \"2020-10-10T07:22Z\",\n\t\"horario2\":\n\t{\n\t\t\"id\": {{new_id_horario2}},\n\t\t\"duracion\": \"90\" ,\n\t\t\"ocupado\": false\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Crea un nuevo paseo pero con un horario2 sin antes tener un horario1. Verifica que se genera el error y el mensaje \"El horario es inválido\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un paseo por su id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "615f249b-c2d8-4761-a2d8-fe2fd5bf2964",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Consulta un paseo de la aplicación.  \r\nLa petición no tiene cuerpo.\r\nSe envía el id del paseo deseado por la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los paseos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "36d3adea-1392-4194-a05f-0d6c6b80c7ad",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"Existen paseos\"] = data.length >= 1;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						""
+					]
+				},
+				"description": "Consulta todos los paseos de la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nPara la prueba, se verifica que el conjunto de paseos en la respuesta tenga mas de una.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "550a3688-873b-4d42-8668-089c9845273d",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 200,\n\t\"costo\": 125000.0 ,\n\t\"duracion\": 50 ,\n\t\"disponible\": false, \n\t\"horaInicio\": \"2021-11-10T07:22Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Actualiza un paseo existente. \r\nSe envía el Id en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseo con costo inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "673f2e00-add8-4e45-b9d4-3a09db8db617",
+						"exec": [
+							"tests[\"No se deberia editar el paseo ya que incumple las reglas de negocio.\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 200,\n\t\"costo\": -125.0 ,\n\t\"duracion\": 50 ,\n\t\"disponible\": false, \n\t\"horaInicio\": \"2021-11-10T07:22Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Actualiza un paseo con costo invalido. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El costo es inválido.\".\r\n\r\n**Código HTTP esperado: 412**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseo con cupo máximo inválido",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						""
+					]
+				},
+				"description": "Actualiza un paseo con cupo máximo invalido. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El cupo máximo es inválido.\".\r\n\r\n**Código HTTP esperado: 412**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseo con horario 2 sin tener horario 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c08aea22-145e-473a-b52e-07d68a8196ed",
+						"exec": [
+							"tests[\"No se deberia editar el paseo ya que incumple las reglas de negocio.\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 20,\n\t\"costo\": 2500000.0,\n\t\"duracion\": 90,\n\t\"disponible\": true, \n\t\"horaInicio\": \"2020-10-10T07:22Z\",\n\t\"horario2\":\n\t{\n\t\t\"id\": {{new_id_horario2}},\n\t\t\"duracion\": \"120\" ,\n\t\t\"ocupado\": true\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Actualiza un paseo con horario2 sin tener horario1. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El horario es inválido.\".\r\n\r\n**Código HTTP esperado: 412**"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6577cf57-a842-4e9b-a5ff-64f7630097b2",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Borra un paseo. Se envía el id del paseo creado anteriormente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un paseo que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d56d5334-c89f-4548-93f6-96d7c09f19c7",
+						"exec": [
+							"tests[\"El paseo no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Se intenta obtener un paseador que no existe en la base de datos.\n\n***Código HTTP esperado: 404***"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un paseo que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "783f43d6-2e22-44c4-8078-e2ed3e6fa275",
+						"exec": [
+							"tests[\"El paseo no existe.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 20,\n\t\"costo\": 2500000.0,\n\t\"duracion\": 90,\n\t\"disponible\": true, \n\t\"horaInicio\": \"2020-10-10T07:22Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Actualiza un paseo que no existe. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /paseos/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un paseo que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce6a5d01-b903-4c65-8fac-7045ca8a3a43",
+						"exec": [
+							"tests[\"No se debería poder eliminar un paseo inexistente.\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"0"
+					]
+				},
+				"description": "Borra un paseo que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /paseos/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0ab51e92-780b-429f-afab-cb5ee5bded7f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "05f0062b-6e64-41d0-b870-ab8bc2e2f09d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

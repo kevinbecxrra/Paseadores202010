@@ -1,0 +1,739 @@
+{
+	"info": {
+		"_postman_id": "5c93d472-2f13-42f6-baf3-2f9cf6f781e1",
+		"name": "PaseadorHorario Tests",
+		"description": "Clase PaseadorHorario: Se crean, buscan, actualizan y eliminan los horarios asociados a un paseador en la base de datos después de validar la existencia de los recursos solicitados.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "16fa6877-4ef4-4120-ac2f-a674daab1e6b",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseador\",data.id);",
+							"tests[\"No se genera error al crear un nuevo paseador\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Daniel\",\n\t\"identificacion\": \"0123\",\n\t\"eps\": \"eps_ejemplo\",\n\t\"arl\": \"arl_ejemplo\",\n\t\"correo\": \"dm.guatibonza@uniandes.edu.co\",\n\t\"telefono\": \"4567\",\n\t\"calificacionGlobal\": 5.0,\n\t\"cuentaBancaria\": \"8910\",\n\t\"numeroCalificaciones\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores"
+					]
+				},
+				"description": "Se crea un paseador a partir del JSON dado por parámetro después de validar las reglas de negocio.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un horario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f078c20-27ae-46f3-b00e-651c19679b97",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_horario\",data.id);",
+							"tests[\"No genera error al crear un horario\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2020-03-05T13:30:00-00:00\",\n\t\"duracion\": 30,\n\t\"ocupado\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios"
+					]
+				},
+				"description": "Se crea un horario a partir del JSON dado por parámetro después de validar las reglas de negocio.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un horario 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "406cbedc-93fb-4d81-a2fe-b1d5c340abf1",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_horario2\",data.id);",
+							"tests[\"No genera error al crear un horario\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2020-03-05T13:00:00-00:00\",\n\t\"duracion\": 60,\n\t\"ocupado\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios"
+					]
+				},
+				"description": "Se crea un horario a partir del JSON dado por parámetro después de validar las reglas de negocio. Esto se realiza una segunda vez para el desarrollo de las pruebas.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un horario al paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e369250a-908b-4b9a-8b31-d485f034607b",
+						"exec": [
+							"tests[\"No genera error al asociar un horario con un paseador\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}/horarios/{{new_id_horario}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}",
+						"horarios",
+						"{{new_id_horario}}"
+					]
+				},
+				"description": "Se asocia el primero horario creado al paseador como un horario disponible.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un horario al paseador 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "06998bee-bf4b-45f7-9925-491f3b9a09a2",
+						"exec": [
+							"tests[\"No genera error al asociar un horario con un paseador\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}/horarios/{{new_id_horario2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}",
+						"horarios",
+						"{{new_id_horario2}}"
+					]
+				},
+				"description": "Se asocia el segundo horario creado al paseador como un horario disponible.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener los horarios de un paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a7d013b-09aa-400d-8f65-ba021a32fa89",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error al obtener todos los horarios de un paseador\"] = responseCode.code === 200;",
+							"tests[\"Existen horarios para el paseador\"] = data.length >= 1;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}/horarios/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}",
+						"horarios",
+						""
+					]
+				},
+				"description": "Se obtiene la lista de horarios de un paseador a partir de su id en la base de datos.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un horario de un paseador a partir de su id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e0a13a8-b811-40a2-8766-228dcddbd3eb",
+						"exec": [
+							"tests[\"No se genera error al buscar un horario de un paseador por su id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}/horarios/{{new_id_horario}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}",
+						"horarios",
+						"{{new_id_horario}}"
+					]
+				},
+				"description": "Se obtiene un horario de un paseador a partir de los ids de estos dos recursos.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un horario inexistente de un paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24abb750-effc-4b9d-b459-fd08499dfd56",
+						"exec": [
+							"tests[\"Genera error al buscar un paseador que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /horarios/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}/horarios/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}",
+						"horarios",
+						"0"
+					]
+				},
+				"description": "Se intenta obtener un horario inexistente de un paseador a partir de su id.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un horario de un paseador inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7b2378f-ad74-4d2c-9c57-68a519029c63",
+						"exec": [
+							"tests[\"Genera error al buscar un paseador que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /paseadores/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/0/horarios/{{new_id_horario}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"0",
+						"horarios",
+						"{{new_id_horario}}"
+					]
+				},
+				"description": "Se intenta obtener un horario de un paseador inexistente a partir de su id.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar la lista de horarios de un paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "410f7916-5694-49a5-b072-845850ac4f2c",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error al editar los horarios de un paseador\"] = responseCode.code === 200;",
+							"tests[\"Existen horarios para el paseador\"] = data.length === 1;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n    \"dia\": \"2020-03-05T13:00:00Z[UTC]\",\n    \"duracion\": 60,\n    \"id\": {{new_id_horario2}},\n    \"ocupado\": false\n\t}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}/horarios/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}",
+						"horarios",
+						""
+					]
+				},
+				"description": "Se actualiza la lista de horarios de un paseador a partir de la lista en formato JSON dada por parámetro.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar la lista de horarios de un paseador 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0a425aa-fd99-4229-8be2-e9a667da0539",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error al editar los horarios de un paseador\"] = responseCode.code === 200;",
+							"tests[\"Existen horarios para el paseador\"] = data.length >= 1;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n    \"dia\": \"2020-03-05T13:30:00Z[UTC]\",\n    \"duracion\": 30,\n    \"id\": {{new_id_horario}},\n    \"ocupado\": false\n\t},\n\t{\n    \"dia\": \"2020-03-05T13:00:00Z[UTC]\",\n    \"duracion\": 60,\n    \"id\": {{new_id_horario2}},\n    \"ocupado\": false\n\t}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}/horarios/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}",
+						"horarios",
+						""
+					]
+				},
+				"description": "Se actualiza la lista de horarios de un paseador a partir de la lista en formato JSON dada por parámetro. Esta segunda vez esta corresponde a la lista original creada.\r\n\r\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar la lista de horarios de un paseador inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f9849a11-6c34-4788-8122-0eff2e986747",
+						"exec": [
+							"tests[\"Genera error al editar la lista de horarios de un paseador que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /paseadores/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"dia\": \"2020-03-05T13:30:00Z[UTC]\",\r\n        \"duracion\": 30,\r\n        \"id\": 6,\r\n        \"ocupado\": false,\r\n        \"paseadores\": []\r\n    },\r\n    {\r\n        \"dia\": \"2020-03-05T13:00:00Z[UTC]\",\r\n        \"duracion\": 60,\r\n        \"id\": 7,\r\n        \"ocupado\": false,\r\n        \"paseadores\": []\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/0/horarios/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"0",
+						"horarios",
+						""
+					]
+				},
+				"description": "Se intenta actualizar la lista de horarios de un paseador inexistente por lo cual no se realiza ninguna modificación en la base de datos.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un horario de un paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c5548fd-f416-43e1-b539-e07d50c6ebfd",
+						"exec": [
+							"tests[\"No se genera error al borrar un horario de un paseador\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}/horarios/{{new_id_horario}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}",
+						"horarios",
+						"{{new_id_horario}}"
+					]
+				},
+				"description": "Se borra el primer horario de la lista de horarios disponibles de un paseador a partir de los ids de estos dos recursos.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un horario de un paseador 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cafdd16a-dbd4-4a5f-a07e-17c4d96c0249",
+						"exec": [
+							"tests[\"No se genera error al borrar un horario de un paseador\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}/horarios/{{new_id_horario2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}",
+						"horarios",
+						"{{new_id_horario2}}"
+					]
+				},
+				"description": "Se borra el segundo horario de la lista de horarios disponibles de un paseador a partir de los ids de estos dos recursos.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un horario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47922bf7-9c19-4a6f-aac3-943298d3a833",
+						"exec": [
+							"tests[\"No se genera error al borrar un horario\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios/{{new_id_horario}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios",
+						"{{new_id_horario}}"
+					]
+				},
+				"description": "Se borra el primer horario de la base de datos a partir de su id.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un horario 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b046800-7159-48fa-a94b-e14cb7a3839f",
+						"exec": [
+							"tests[\"No se genera error al borrar un horario\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios/{{new_id_horario2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios",
+						"{{new_id_horario2}}"
+					]
+				},
+				"description": "Se borra el segundo horario de la base de datos a partir de su id.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "314f0a4e-bbb5-4f83-9004-d68f6300b176",
+						"exec": [
+							"tests[\"No se genera error al borrar un paseador\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}"
+					]
+				},
+				"description": "Se borra el paseador de la base de datos a partir de su id.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

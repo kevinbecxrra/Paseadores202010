@@ -1,0 +1,628 @@
+{
+	"info": {
+		"_postman_id": "e5168d2f-bf37-4d0e-9c50-f5be48aa4e33",
+		"name": "ClienteResourceTest",
+		"description": "Conjunto de pruebas del recurso Cliente",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "07e2e5a5-0025-402e-bbf1-a946c857ffd1",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"nombre\": \"Juan Perez\",\n        \"identificacion\": \"1007861956\",\n        \"correo\": \"juanperez@uniandes.edu.co\",\n        \"telefono\": \"1234567890\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se crea un cliente a partir del JSON dado por parámetro después de validar las reglas de negocio.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df6f30d1-4856-435d-a236-e2aef61a2bc4",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"nombre\": \"Maria Rodriguez\",\n        \"identificacion\": \"63319847\",\n        \"correo\": \"m.rodriguez@uniandes.edu.co\",\n        \"telefono\": \"9876543210\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se crea un cliente a partir del JSON dado por parámetro después de validar las reglas de negocio. Esto se hace una segunda vez para efectuar las pruebas.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59d64de3-30f5-4dc4-836e-02d3632a989f",
+						"exec": [
+							"tests[\"No se deberia crear un cliente con correo que ya existe\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"nombre\": \"Pedro Martínez\",\n        \"identificacion\": \"63319847\",\n        \"correo\": \"m.rodriguez@uniandes.edu.co\",\n        \"telefono\": \"9876543210\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se intenta crear un cliente a partir del JSON dado por parámetro. Dado que ya existe un cliente con la identificación dada no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los clientes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a583cb6-aebc-4d0b-880b-810364e0e0cb",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Gell All\"] = responseCode.code === 200;",
+							"tests[\"clientes count\"] = data.length >= 1;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se obtiene la lista de clientes registrados en la base de datos.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1e8e48f-a09b-4cf6-aceb-43132db06552",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/{{new_id_c}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"{{new_id_c}}"
+					]
+				},
+				"description": "Se obtiene un cliente a partir del id dado en la URL.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "264f7e00-0f28-445d-a37d-2b784a25e349",
+						"exec": [
+							"tests[\"No se deberia obtener un cliente con un id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"0"
+					]
+				},
+				"description": "Se intenta obtener un cliente que no existe en la base de datos.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cliente por su identificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce1cea5e-6d31-43d1-9d0a-72b3027d48c8",
+						"exec": [
+							"tests[\"No se genera error al buscar un cliente por su identificación\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/identificacion/1007861956",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"identificacion",
+						"1007861956"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cliente por su correo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "873ebc2e-790d-4df7-8ba6-689bb4275bfb",
+						"exec": [
+							"tests[\"No se genera error al buscar un cliente por su correo\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/correo/juanperez@uniandes.edu.co",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"correo",
+						"juanperez@uniandes.edu.co"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cliente por un correo que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c55a712-0712-4bbf-9f2a-58efc1c7a1e5",
+						"exec": [
+							"tests[\"No se deberia obtener un cliente con un correo que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/correo/noexiste@gmail.com no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/correo/noexiste@gmail.com",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"correo",
+						"noexiste@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cliente por una identificacion que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a82de2e2-db15-473c-bfce-2b45a98c71ac",
+						"exec": [
+							"tests[\"No se deberia obtener un cliente con una identificacion que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/identificacion/0000 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/identificacion/0000",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"identificacion",
+						"0000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4591555c-b2f6-415b-9dab-d309a4f1e293",
+						"exec": [
+							"console.log(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"nombre\": \"Juan Perez\",\n        \"identificacion\": \"1007861950\",\n        \"correo\": \"juanitoperez@uniandes.edu.co\",\n        \"telefono\": \"1234567890\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/{{new_id_c}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"{{new_id_c}}"
+					]
+				},
+				"description": "Se actualiza la información del cliente con el id dado en la URL con los datos dados en el JSON.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un cliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c19aa377-aebe-4fa8-8e11-513d9c86edb7",
+						"exec": [
+							"tests[\"No se deberia actualizar un cliente con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso  /clientes/200000 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Pepito Perez\",\n        \"identificacion\": \"7272519852\",\n        \"correo\": \"pepito@uniandes.edu.co\",\n        \"telefono\": \"1234567890\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/200000",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"200000"
+					]
+				},
+				"description": "Se intenta actualizar la información de un cliente que no existe por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "173fd97e-4649-4539-a091-6b60ccf9b5a0",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/{{new_id_c}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"{{new_id_c}}"
+					]
+				},
+				"description": "Se borra el cliente con el id dado en la URL.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un cliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6a87278-3ef5-4f1e-9b76-508dbb97a958",
+						"exec": [
+							"tests[\"No se deberia borrar un cliente con un id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes /200 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/200",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"200"
+					]
+				},
+				"description": "Se intenta borrar un cliente que no existe por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un cliente 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "173fd97e-4649-4539-a091-6b60ccf9b5a0",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/{{new_id_c2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"{{new_id_c2}}"
+					]
+				},
+				"description": "Se borra el cliente con el id dado en la URL.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,28 @@
+<div class="container-fluid" >
+  <p class="h3 p-3">{{ facturaDetail.totalCompra }}</p>
+  <div class="row" >
+
+    <div class="col-3" >
+      <dt>Referencia</dt>
+      <dd>{{ facturaDetail.referencia }}</dd>
+      <dt>Concepto</dt>
+      <dd>{{facturaDetail.concepto}}</dd>
+    </div>
+    <div class="col-5">
+      <dt>Descuento</dt>
+      <dd>{{ facturaDetail.descuento}}%</dd>
+      <dt>Descripcion de Compra</dt>
+      <dd>{{ facturaDetail.descripcionCompra }}</dd>
+      <dt>Impuesto</dt>
+      <dd>{{ facturaDetail.impuesto }}</dd>
+    </div>
+    <div class="col-4">
+      <dt>SubTotal</dt>
+      <dd>{{ facturaDetail.subTotal }}</dd>
+      <dt>Dias Estadia</dt>
+      <dd *ngIf="facturaDetail.diasEstadia!=null">{{ facturaDetail.diasEstadia }}</dd>
+      <dt>Tarjeta</dt>
+      <dd *ngIf="facturaDetail.tarjeta!=null">{{ facturaDetail.tarjeta.numeroTarjeta }}</dd>
+    </div>
+  </div>
+</div>

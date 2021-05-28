@@ -1,0 +1,81 @@
+<!--- navbar --->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="bod">
+<!--- foto principal --->
+<div class="container-fluid contenedor">
+<img src="https://www.yoamoalasmascotas.com/wp-content/uploads/2019/04/principal-2-1711x500.jpg" class="img-fluid centrar" alt="Responsive image">
+<div class="top-left texto">  <p >
+</p>
+</div>
+</div>
+
+<h1 class="titulos">Algunos de nuestros paseos</h1>
+
+<div class="row center" style=" display: inline-flex; padding-top: 10px;  margin-left: 5%;  margin-bottom: 25px; ">
+  <div *ngFor="let c of paseos" style=" display: inline-block; padding-top: 15px; padding-right: 40px;
+      padding-left: 40px;  padding-top: 10px;  " >
+      <div *ngIf="c.id>=100 && c.id<105">
+        <a href="../../paseos/{{c.id}}" >
+    <div  id="paseos"  class="card" style="width: 15rem; cursor: pointer"  id="cardpaseo" >
+
+      <img  id="imagenM" class="card-img-top"  src="https://cdn.vox-cdn.com/thumbor/Up4xQxmHtikBUST8E2otRK1iEMQ=/0x0:1280x3258/1400x933/filters:focal(544x1295:748x1499):no_upscale()/cdn.vox-cdn.com/uploads/chorus_image/image/65705439/Pokemon_sword_shield_galar_map_locations.0.jpg"   alt="Card image cap"style="
+           width: 15rem;  display: block; margin: auto;   padding-right: 3px; max-height: 253px;   "/>
+          <div class="card-body">
+        <h5 class="card-title" style="color: rgb(245, 48, 64)"> {{c.fechaHora}}</h5>
+        <div class="row" style="padding-left: 15px; margin-top: 5px">
+          <img src="https://image.flaticon.com/icons/png/512/21/21645.png" style="width: 19px; margin-right: 8px" />
+          <h6 class="card-text" style="color: rgb(78, 78, 78)">  {{ c.duracion}} </h6>
+        </div>
+        <div class="row" style="padding-left: 15px; margin-top: 5px">
+          <img   src="https://www.flaticon.es/premium-icon/icons/svg/55/55281.svg"  style="width: 19px; margin-right: 8px"/>
+          <h6 class="card-text"style="color: rgb(78, 78, 78)" > {{ c.cupoMax }} cupoMax </h6>
+        </div>
+        <div class="row" style="padding-left: 15px; margin-top: 5px">
+          <img src="https://image.flaticon.com/icons/png/512/105/105356.png"  style="width: 19px; margin-right: 8px" />
+        </div>
+      </div>
+    </div></a>
+  </div>
+</div>
+</div>
+
+<!-- video promocional-->
+
+<h1 class="titulos">Experiencia en lo que hacemos</h1>
+
+<div align="center">
+<iframe width="1008" height="566" class="" src="https://www.youtube.com/embed/8hYItcm_daM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+<!-- Nuestros mejores paseadores-->
+<h1 class="titulos">Algunos de nuestros paseadores</h1>
+<div class="row center" style=" display: inline-flex; padding-top: 10px;  margin-left: 5%;  margin-bottom: 25px; ">
+  <div *ngFor="let c of paseadores" style=" display: inline-block; padding-top: 15px; padding-right: 40px;
+      padding-left: 40px;  padding-top: 10px;  " >
+      <div *ngIf="c.id>=100 && c.id<104">
+    <div  id="paseadores"  class="card" style="width: 15rem; cursor: pointer"  id="cardpaseo" >
+
+      <img  id="imagenM" class="card-img-top"  src="https://www.gentedecanaveral.com/wp-content/uploads/2016/05/DATA_ART_8378410_VERTIL.jpg"   alt="Card image cap"style="
+           width: 15rem;  display: block; margin: auto;   padding-right: 3px; max-height: 253px;   "/>
+          <div class="card-body">
+        <h5 class="card-title" style="color: rgb(245, 48, 64)"> {{c.nombre}}</h5>
+        <div class="row" style="padding-left: 15px; margin-top: 5px">
+          <img src="https://cdn3.iconfinder.com/data/icons/simple-ui-solid-style/32/mail_email_communication-512.png" style="width: 19px; margin-right: 8px" />
+          <h6 class="card-text" style="color: rgb(78, 78, 78)">  {{ c.correo}} </h6>
+        </div>
+        <div class="row" style="padding-left: 15px; margin-top: 5px">
+          <img   src="https://www.capitalhvac.com/wp-content/uploads/2019/01/money-icon-1-948x1024.jpg"  style="width: 19px; margin-right: 8px"/>
+          <h6 class="card-text"style="color: rgb(78, 78, 78)" > {{ c.costoPaseo }}COP  </h6>
+        </div>
+        <div class="row" style="padding-left: 15px; margin-top: 5px">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>

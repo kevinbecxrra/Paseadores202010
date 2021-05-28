@@ -1,0 +1,91 @@
+
+<div class="container emp-profile" *ngIf="paseoDetail!=undefined">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="https://cdn.vox-cdn.com/thumbor/Up4xQxmHtikBUST8E2otRK1iEMQ=/0x0:1280x3258/1400x933/filters:focal(544x1295:748x1499):no_upscale()/cdn.vox-cdn.com/uploads/chorus_image/image/65705439/Pokemon_sword_shield_galar_map_locations.0.jpg" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        Informacion del paseo
+                                    </h5>
+                                    <h6>
+                                       {{paseoDetail.fechaHora}}
+                                    </h6>
+                                    <p class="proile-rating">CALIFICACION : <span>{{paseoDetail.ratingProm}}</span></p>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <h5>Informacion del paseo</h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work"  style="margin-top: 2%;">
+                            <h5>Conozca al paseador</h5>
+                            <img style="width: 50%;" src="https://image.jimcdn.com/app/cms/image/transf/dimension=299x1024:format=jpg/path/sc46a6c19bedc4965/image/id55fea7eb7c22744/version/1520888926/image.jpg" alt=""/>
+                            <p>INFORMACION</p>
+                            <a href="">Nombre: {{paseoDetail.paseador.nombre}}</a><br/>
+                            <a href="">Telefono: {{paseoDetail.paseador.telefono}}</a><br/>
+                            <a href="">Correo: {{paseoDetail.paseador.correo}}</a><br/>
+                            <a routerLink="../../paseadores/{{paseoDetail.paseador.id}}">Ir a perfil</a>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Cupo Maximo</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{paseoDetail.cupoMax}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Duracion</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{paseoDetail.duracion}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Descuento</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{paseoDetail.descuento}}</p>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 5%;">
+                          <div class="col-md-4">
+                            <h5> Calificaciones</h5>
+                            <div  *ngFor="let c of paseoDetail.ratings" style="margin-bottom: 1%;">
+                              <p>Calificacion {{c.estrellas}}</p>
+                            </div>
+                             <a routerLink="/ratings/crear/idPaseo/{{paseoDetail.id}}" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Calificar</a>
+                          </div>
+                          <div class="col-md-4">
+                            <h5> Puntos de encuentro </h5>
+                            <div *ngFor="let c of paseoDetail.haversine">
+                              <p>Latitud: {{c.latitud}} Longitud: {{c.longitud}}</p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-4">
+                            <h5> Comentarios </h5>
+                            <div *ngFor="let c of paseoDetail.ratings">
+                              <p>{{c.comentario}} </p>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+              </div>
+        </div>

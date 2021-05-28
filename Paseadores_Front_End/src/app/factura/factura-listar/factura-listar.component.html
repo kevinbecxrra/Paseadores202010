@@ -1,0 +1,33 @@
+<div class="container-fluid" style="display: flex;">
+  <div class="col-md-6">
+    <h2 style="font-weight: bold;padding-bottom: 5px;text-align: left;">Lista de Facturas</h2>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">referencia</th>
+          <th scope="col">totalCompra</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let f of facturas" (click) = "onSelected(f)">
+          <td>
+            <dd>{{f.id}}</dd>
+          </td>
+          <td>
+            <dd>{{f.referencia}}</dd>
+          </td>
+          <td>
+            <dd>{{f.totalCompra}}</dd>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col" style="background-color: goldenrod">
+    <h2 class="titulos">Detalle de la Factura</h2>
+    <div *ngIf="selected">
+      <app-factura-detalle [facturaDetail] = "facturaSeleccionada"></app-factura-detalle>
+    </div>
+  </div>
+</div>

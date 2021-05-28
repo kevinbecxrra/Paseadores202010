@@ -1,0 +1,199 @@
+<div class="container-fluid" style="justify-content: center">
+  <div class="col-12">
+    <div
+      class="h2"
+      style="
+        padding-bottom: 15px;
+        margin-bottom: 40px;
+        text-align: center;
+        border-bottom: 2px solid rgb(255, 91, 26);
+      "
+    >
+      Registrar una mascota
+    </div>
+    <form
+      style="justify-content: center;"
+      [formGroup]="mascotaForm"
+      (ngSubmit)="!mascotaForm.invalid && createMascota(mascotaForm.value)"
+    >
+      <div class="row" style="display: flex; justify-content: center">
+        <div class="col-3">
+          <img
+            src="data:image/png;base64,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"
+            alt=""
+            style="width: 10vw; display: block; margin: auto"
+          />
+          <div class="form-group mx-sm-3 mb-2" style="margin-top: 19px">
+            <label for="foto"> Enlace de la foto de perfil </label>
+            <input
+              novalidate
+              id="foto"
+              class="form-control"
+              formControlName="foto"
+              placeholder="https://..."
+            />
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="nombre"> Nombre de mascota </label>
+            <input
+              novalidate
+              id="nombre"
+              class="form-control"
+              formControlName="nombre"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                mascotaForm.get('nombre').hasError('required') &&
+                mascotaForm.get('nombre').touched
+              "
+            >
+              Nombre requerido
+            </div>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="mascotaForm.get('nombre').hasError('minlength')"
+            >
+              Nombre muy corto
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="raza"> Raza </label>
+            <input
+              id="raza"
+              type="text"
+              class="form-control"
+              formControlName="raza"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                mascotaForm.get('raza').hasError('required') &&
+                mascotaForm.get('raza').touched
+              "
+            >
+              Raza necesaria
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="edad"> Edad </label>
+            <input
+              novalidate
+              id="edad"
+              class="form-control"
+              formControlName="edad"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                mascotaForm.get('edad').hasError('required') &&
+                mascotaForm.get('edad').touched
+              "
+            >
+              Edad requerida
+            </div>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="seniasParticulares"> Descripción </label>
+            <input
+              id="seniasParticulares"
+              type="text"
+              class="form-control"
+              formControlName="seniasParticulares"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                mascotaForm.get('seniasParticulares').hasError('required') &&
+                mascotaForm.get('seniasParticulares').touched
+              "
+            >
+              Descripción requerida
+            </div>
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="color"> Color </label>
+            <input
+              novalidate
+              id="color"
+              class="form-control"
+              formControlName="color"
+              placeholder=""
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                mascotaForm.get('color').hasError('required') &&
+                mascotaForm.get('color').touched
+              "
+            >
+              Inserta el color
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3">
+
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="telefono"> Sexo </label>
+            <select id="sexo" class="form-control" formControlName="sexo">
+              <option selected="true" value="true">Macho</option>
+
+              <option value="false">Hembra</option>
+            </select>
+          </div>
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="historiaClinica"> Historia Clinica </label>
+            <textarea
+              novalidate
+              rows="7"
+              id="historiaClinica"
+              class="form-control"
+              formControlName="historiaClinica"
+            >
+            </textarea>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                mascotaForm.get('historiaClinica').hasError('required') &&
+                mascotaForm.get('historiaClinica').touched
+              "
+            >
+              Historia clinica requerida
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="padding: 30px; justify-content: center">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!mascotaForm.valid"
+        >
+          Registrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger ml-3"
+          (click)="cancelCreation()"
+        >
+          Cancelar
+        </button>
+
+      </div>
+    </form>
+  </div>
+</div>

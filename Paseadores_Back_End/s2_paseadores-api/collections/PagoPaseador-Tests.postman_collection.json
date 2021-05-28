@@ -1,0 +1,694 @@
+{
+	"info": {
+		"_postman_id": "b47c94c2-6a13-4fb0-9378-0cf71e69784f",
+		"name": "PagoPaseador Tests",
+		"description": "Clase PagoPaseador: Se crean, buscan, actualizan y eliminan PagosPaseadores en la base de datos después de validar la existencia de los recursos solicitados así como las reglas de negocio.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un Paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "105e24d1-5a48-46a1-8bbf-c60eb74742a5",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseador\",data.id);",
+							"tests[\"No genera error al crear un nuevo paseador\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Daniel\",\n\t\"identificacion\": \"0123\",\n\t\"eps\": \"eps_ejemplo\",\n\t\"arl\": \"arl_ejemplo\",\n\t\"correo\": \"dm.guatibonza@uniandes.edu.co\",\n\t\"telefono\": \"4567\",\n\t\"calificacionGlobal\": 5.0,\n\t\"cuentaBancaria\": \"8910\",\n\t\"numeroCalificaciones\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores"
+					]
+				},
+				"description": "Se crea un paseador a partir del JSON dado por parámetro después de validar las reglas de negocio.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "498f199c-6af5-46d8-b141-70d393d410c4",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_pagoPaseador\",data.id);",
+							"tests[\"No genera error al crear un nuevo PagoPaseador\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"referencia\": \"12345\",\n\t\"monto\": 120000.0,\n\t\"fechaLimite\": \"2020-03-05T00:00:00-00:00\",\n\t\"paseador\": {\n\t\t\t\t\t\"id\": {{new_id_paseador}},\n\t\t\t\t\t\"nombre\": \"Daniel\",\n\t\t\t\t\t\"identificacion\": \"0123\",\n\t\t\t\t\t\"eps\": \"eps_ejemplo\",\n\t\t\t\t\t\"arl\": \"arl_ejemplo\",\n\t\t\t\t\t\"correo\": \"dm.guatibonza@uniandes.edu.co\",\n\t\t\t\t\t\"telefono\": \"4567\",\n\t\t\t\t\t\"calificacionGlobal\": 5.0,\n\t\t\t\t\t\"cuentaBancaria\": \"8910\",\n\t\t\t\t\t\"numeroCalificaciones\": 10\n\t\t\t\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores"
+					]
+				},
+				"description": "Se crea un PagoPaseador a partir del JSON dado por parámetro el cual está asociado al paseador creado.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un PagoPaseador 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f9f5bbf8-044d-4ef6-a921-ffe569500622",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_pagoPaseador2\",data.id);",
+							"tests[\"No genera error al crear un nuevo PagoPaseador\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"referencia\": \"67890\",\n\t\"monto\": 130000.0,\n\t\"fechaLimite\": \"2020-04-27T00:00:00-00:00\",\n\t\"paseador\": {\n\t\t\t\t\t\"id\": {{new_id_paseador}},\n\t\t\t\t\t\"nombre\": \"Daniel\",\n\t\t\t\t\t\"identificacion\": \"0123\",\n\t\t\t\t\t\"eps\": \"eps_ejemplo\",\n\t\t\t\t\t\"arl\": \"arl_ejemplo\",\n\t\t\t\t\t\"correo\": \"dm.guatibonza@uniandes.edu.co\",\n\t\t\t\t\t\"telefono\": \"4567\",\n\t\t\t\t\t\"calificacionGlobal\": 5.0,\n\t\t\t\t\t\"cuentaBancaria\": \"8910\",\n\t\t\t\t\t\"numeroCalificaciones\": 10\n\t\t\t\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores"
+					]
+				},
+				"description": "Se crea un PagoPaseador a partir del JSON dado por parámetro el cual está asociado al paseador creado. Esto se realiza una segunda vez para el desarrollo de las pruebas.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un PagoPaseador con la misma referencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6fdfbff2-ac74-4b53-b9da-ec2d35f3ca63",
+						"exec": [
+							"tests[\"No se crea un PagoPaseador con la misma referencia\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"La referencia de pago ya existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"referencia\": \"12345\",\n\t\"monto\": 150000.0,\n\t\"fechaLimite\": \"2020-03-07T00:00:00-00:00\",\n\t\"paseador\": {\n\t\t\t\t\t\"id\": {{new_id_paseador}},\n\t\t\t\t\t\"nombre\": \"Daniel\",\n\t\t\t\t\t\"identificacion\": \"0123\",\n\t\t\t\t\t\"eps\": \"eps_ejemplo\",\n\t\t\t\t\t\"arl\": \"arl_ejemplo\",\n\t\t\t\t\t\"correo\": \"dm.guatibonza@uniandes.edu.co\",\n\t\t\t\t\t\"telefono\": \"4567\",\n\t\t\t\t\t\"calificacionGlobal\": 5.0,\n\t\t\t\t\t\"cuentaBancaria\": \"8910\",\n\t\t\t\t\t\"numeroCalificaciones\": 10\n\t\t\t\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores"
+					]
+				},
+				"description": "Se intenta crear un PagoPaseador a partir del JSON dado por parámetro. Dado que ya existe un PagoPaseador con la referencia dada, no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un PagoPaseador con monto negativo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8b1aaaa-8699-4370-81bf-a069dbca7c76",
+						"exec": [
+							"tests[\"No se crea un PagoPaseador con monto inválido\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El monto a pagar es negativo\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"referencia\": \"12346\",\n\t\"monto\": -150000.0,\n\t\"fechaLimite\": \"2020-03-07T00:00:00-00:00\",\n\t\"paseador\": {\n\t\t\t\t\t\"id\": {{new_id_paseador}},\n\t\t\t\t\t\"nombre\": \"Daniel\",\n\t\t\t\t\t\"identificacion\": \"0123\",\n\t\t\t\t\t\"eps\": \"eps_ejemplo\",\n\t\t\t\t\t\"arl\": \"arl_ejemplo\",\n\t\t\t\t\t\"correo\": \"dm.guatibonza@uniandes.edu.co\",\n\t\t\t\t\t\"telefono\": \"4567\",\n\t\t\t\t\t\"calificacionGlobal\": 5.0,\n\t\t\t\t\t\"cuentaBancaria\": \"8910\",\n\t\t\t\t\t\"numeroCalificaciones\": 10\n\t\t\t\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores"
+					]
+				},
+				"description": "Se intenta crear un PagoPaseador a partir del JSON dado por parámetro. Dado que el monto indicado en el JSON es negativo, no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un PagoPaseador por su id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4898fe85-c20c-44d7-acd3-2e2ee5e40c09",
+						"exec": [
+							"tests[\"No genera error al buscar un PagoPaseador por su id\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}"
+					]
+				},
+				"description": "Se obtiene un PagoPaseador a partir del id dado en la URL.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un PagoPaseador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35b69b3a-cb29-454a-9931-307fc9c25f15",
+						"exec": [
+							"tests[\"Genera error al buscar un PagoPaseador que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /pagosPaseadores/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"0"
+					]
+				},
+				"description": "Se intenta obtener un PagoPaseador que no existe en la base de datos.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4cece2f8-e745-4347-8e36-ee76e38b6101",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_pagoPaseador\",data.id);",
+							"tests[\"No genera error al editar un PagoPaseador\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"referencia\": \"54321\",\n\t\"monto\": 40000.0,\n\t\"fechaLimite\": \"2020-03-05T00:00:00-00:00\",\n\t\"paseador\": {\n\t\t\t\t\t\"id\": {{new_id_paseador}},\n\t\t\t\t\t\"nombre\": \"Daniel\",\n\t\t\t\t\t\"identificacion\": \"0123\",\n\t\t\t\t\t\"eps\": \"eps_ejemplo\",\n\t\t\t\t\t\"arl\": \"arl_ejemplo\",\n\t\t\t\t\t\"correo\": \"dm.guatibonza@uniandes.edu.co\",\n\t\t\t\t\t\"telefono\": \"4567\",\n\t\t\t\t\t\"calificacionGlobal\": 5.0,\n\t\t\t\t\t\"cuentaBancaria\": \"8910\",\n\t\t\t\t\t\"numeroCalificaciones\": 10\n\t\t\t\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}"
+					]
+				},
+				"description": "Se actualiza la información del PagoPaseador con el id dado en la URL con los datos dados en el JSON.\n\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un PagoPaseador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8fa05cf8-61ea-4b87-b163-4aac092a0c30",
+						"exec": [
+							"tests[\"Genera error al editar un PagoPaseador que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /pagosPaseadores/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"referencia\": \"54321\",\n\t\"monto\": 40000.0,\n\t\"fechaLimite\": \"2020-03-05T00:00:00-00:00\",\n\t\"paseador\": {\n\t\t\t\t\t\"id\": {{new_id_paseador}},\n\t\t\t\t\t\"nombre\": \"Daniel\",\n\t\t\t\t\t\"identificacion\": \"0123\",\n\t\t\t\t\t\"eps\": \"eps_ejemplo\",\n\t\t\t\t\t\"arl\": \"arl_ejemplo\",\n\t\t\t\t\t\"correo\": \"dm.guatibonza@uniandes.edu.co\",\n\t\t\t\t\t\"telefono\": \"4567\",\n\t\t\t\t\t\"calificacionGlobal\": 5.0,\n\t\t\t\t\t\"cuentaBancaria\": \"8910\",\n\t\t\t\t\t\"numeroCalificaciones\": 10\n\t\t\t\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"0"
+					]
+				},
+				"description": "Se intenta actualizar la información de un PagoPaseador que no existe por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un PagoPaseador con la misma referencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "576b55b9-4335-4d61-8edc-e75d04e96764",
+						"exec": [
+							"tests[\"Genera error al editar un pagoPaseador con la misma referencia\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"La referencia de pago ya existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"referencia\": \"67890\",\n\t\"monto\": 40000.0,\n\t\"fechaLimite\": \"2020-03-05T00:00:00-00:00\",\n\t\"paseador\": {\n\t\t\t\t\t\"id\": {{new_id_paseador}},\n\t\t\t\t\t\"nombre\": \"Daniel\",\n\t\t\t\t\t\"identificacion\": \"0123\",\n\t\t\t\t\t\"eps\": \"eps_ejemplo\",\n\t\t\t\t\t\"arl\": \"arl_ejemplo\",\n\t\t\t\t\t\"correo\": \"dm.guatibonza@uniandes.edu.co\",\n\t\t\t\t\t\"telefono\": \"4567\",\n\t\t\t\t\t\"calificacionGlobal\": 5.0,\n\t\t\t\t\t\"cuentaBancaria\": \"8910\",\n\t\t\t\t\t\"numeroCalificaciones\": 10\n\t\t\t\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}"
+					]
+				},
+				"description": "Se intenta editar un PagoPaseador con una referencia ya existente por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un PagoPaseador con monto negativo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "63cc35f5-a173-4c5d-bdd2-b17ee2f426cf",
+						"exec": [
+							"tests[\"Genera error al editar un pagoPaseador con monto negativo\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El monto a pagar es negativo\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"referencia\": \"85201\",\n\t\"monto\": -60000.0,\n\t\"fechaLimite\": \"2020-03-05T00:00:00-00:00\",\n\t\"paseador\": {\n\t\t\t\t\t\"id\": {{new_id_paseador}},\n\t\t\t\t\t\"nombre\": \"Daniel\",\n\t\t\t\t\t\"identificacion\": \"0123\",\n\t\t\t\t\t\"eps\": \"eps_ejemplo\",\n\t\t\t\t\t\"arl\": \"arl_ejemplo\",\n\t\t\t\t\t\"correo\": \"dm.guatibonza@uniandes.edu.co\",\n\t\t\t\t\t\"telefono\": \"4567\",\n\t\t\t\t\t\"calificacionGlobal\": 5.0,\n\t\t\t\t\t\"cuentaBancaria\": \"8910\",\n\t\t\t\t\t\"numeroCalificaciones\": 10\n\t\t\t\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}"
+					]
+				},
+				"description": "Se intenta editar un PagoPaseador con monto negativo por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92702353-47e7-4562-bfc3-f552b32f9bad",
+						"exec": [
+							"tests[\"No genera error en al borrar un PagoPaseador\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}"
+					]
+				},
+				"description": "Se borra el PagoPaseador con el id dado en la URL.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un PagoPaseador 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37b8d05c-5d1b-4ff0-80af-69985389bf39",
+						"exec": [
+							"tests[\"No genera error en al borrar un PagoPaseador\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador2}}"
+					]
+				},
+				"description": "Se borra el PagoPaseador con el id dado en la URL.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un paseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df20a90f-77e0-40ff-9fba-5c7b3383c6d5",
+						"exec": [
+							"tests[\"No genera error en al borrar un paseador\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseadores/{{new_id_paseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseadores",
+						"{{new_id_paseador}}"
+					]
+				},
+				"description": "Se borra el paseador con el id dado en la URL.\n\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un PagoPaseador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea783938-693c-42e5-8e81-9986452fbb8d",
+						"exec": [
+							"tests[\"No se puede borrar un PagoPaseador que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /pagosPaseadores/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"0"
+					]
+				},
+				"description": "Se intenta borrar un PagoPaseador que no existe por lo cual no se realiza ninguna modificación.\n\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,110 @@
+<div class="container-fluid">
+  <div class="card" >
+    <div class="card-body">
+     <form [formGroup] = "facturaForm" (ngSubmit) = "!facturaForm.invalid">
+       <div class="form-group mx-sm-3 mb-2">
+         <h3>Crear una Factura</h3>
+         <label for="referencia">
+           Referencia
+         </label>
+         <input novalidate id="referencia" class="form-control" formControlName="referencia" placeholder="Tu numero de CC + 10">
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('referencia').hasError('required') && facturaForm.get('referencia').touched">
+                     Referencia Requerida
+         </div>
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('referencia').hasError('minlength')">
+                     Referencia muy corta
+         </div>
+         <label for="concepto">
+           Concepto
+         </label>
+         <input novalidate id="concepto" class="form-control" formControlName="concepto" placeholder="factura de una reserva de paseo">
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('concepto').hasError('required') && facturaForm.get('concepto').touched">
+                     Concepto Requerida
+         </div>
+         <label for="descuento">
+           Descuento
+         </label>
+         <input novalidate id="descuento" class="form-control" formControlName="descuento" placeholder="Descuento aplicado a la factura">
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('descuento').hasError('required') && facturaForm.get('descuento').touched">
+                     Descuento Requerido
+         </div>
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('descuento').hasError('min')">
+                     Descuento menos del 0%
+         </div>
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('descuento').hasError('max')">
+                     Descuento mayor del tope designado
+         </div>
+         <label for="descripcionCompra">
+           Descripcion de Compra
+         </label>
+         <input novalidate id="descripcionCompra" class="form-control" formControlName="descripcionCompra" placeholder="Paseo con el paseador ... de la mascota ...">
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('descripcionCompra').hasError('required') && facturaForm.get('descripcionCompra').touched">
+                     Descripcion Requerida
+         </div>
+         <label for="totalCompra">
+          Total de Compra
+         </label>
+         <input novalidate id="totalCompra" class="form-control" formControlName="totalCompra" placeholder="111'000$">
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('totalCompra').hasError('required') && facturaForm.get('totalCompra').touched">
+                     Total de la Compra Requerida
+         </div>
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('totalCompra').hasError('min')">
+                     Total de la compra menor al minimo de compra establecido
+         </div>
+         <label for="impuesto">
+           Impuesto
+         </label>
+         <input novalidate id="impuesto" class="form-control" formControlName="impuesto" placeholder="19%">
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('impuesto').hasError('required') && facturaForm.get('impuesto').touched">
+                     Impuesto Requerido
+         </div>
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('impuesto').hasError('min')">
+                     Impuesto menos del 0%
+         </div>
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="facturaForm.get('impuesto').hasError('max')">
+                     Impuesto mayor al tope designado
+         </div>
+         <label for="subtotal">
+           SubTotal de Compra
+          </label>
+          <input novalidate id="subtotal" class="form-control" formControlName="subtotal" placeholder="111'000$">
+          <div class="alert alert-danger alert-dismissible fade show"
+                      *ngIf="facturaForm.get('subtotal').hasError('required') && facturaForm.get('subtotal').touched">
+                      SubTotal de la Compra Requerida
+          </div>
+          <div class="alert alert-danger alert-dismissible fade show"
+                      *ngIf="facturaForm.get('subtotal').hasError('min')">
+                      SubTotal de la compra menor al minimo de compra establecido
+          </div>
+          <label for="diasEstadia">
+           Dias de Estadia
+          </label>
+          <input novalidate id="diasEstadia" class="form-control" formControlName="diasEstadia" placeholder="11">
+          <div class="alert alert-danger alert-dismissible fade show"
+                      *ngIf="facturaForm.get('diasEstadia').hasError('required') && facturaForm.get('diasEstadia').touched">
+                      Dias de estadia de la Compra Requerida
+          </div>
+          <div class="alert alert-danger alert-dismissible fade show"
+                      *ngIf="facturaForm.get('diasEstadia').hasError('min')">
+                      Dias de estadia de la compra menor al minimo de compra establecido
+         </div>
+       </div>
+       <button type="Enviar" class="btn btn-primary" [disabled]="!facturaForm.valid">Create</button>
+       <button type="Cancelar" class="btn btn-danger ml-3" (click)="cancelCreate()">Cancel</button>
+     </form>
+    </div>
+  </div>
+ </div>
+

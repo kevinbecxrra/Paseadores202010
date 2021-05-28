@@ -1,0 +1,469 @@
+{
+	"info": {
+		"_postman_id": "47b45ba2-6f40-4136-bef5-8f71d966c89c",
+		"name": "ContratoHotel_Tests",
+		"description": "# Introduction\nRealiza las pruebas del recurso ContratoHotel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un ContratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f1219d4-58fd-4b6b-b08f-83012e3f10ac",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_contratohotel\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"No debe comer chocolate\",\n\t\"costo\": 4000.0\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel"
+					]
+				},
+				"description": "Entorno Colecciones\r\nCrea un nuevo ContratoHotel. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un ContratoHotel 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f1219d4-58fd-4b6b-b08f-83012e3f10ac",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_contratohotel2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"No debe mojarse\",\n\t\"costo\": 1000\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel"
+					]
+				},
+				"description": "Entorno Colecciones Crea un nuevo ContratoHotel. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un ContratoHotel con costo menor a cero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f1219d4-58fd-4b6b-b08f-83012e3f10ac",
+						"exec": [
+							"tests[\"No crea con costo negativo\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El costo del contrato de un hotel debe ser positivo\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"No debe mojarse\",\n\t\"costo\": -1000\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel"
+					]
+				},
+				"description": "Crea una nueva contratoHotel pero con un costo negativo. Verifica que se genera el error y el mensaje \"El costo del contrato de un hotel debe ser positivo\".\r\n\r\nCódigo HTTP esperado: 412 Precondition failed\"."
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener contratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "436e84c2-a7ab-416a-8358-446beb4d15f4",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratohotel}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratohotel}}"
+					]
+				},
+				"description": "Consulta un contratohotel de la aplicación. La petición no tiene cuerpo. Se envía el id de la horahotel deseada por la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener contratoHotel que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "436e84c2-a7ab-416a-8358-446beb4d15f4",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404; ",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El  recurso  /contratoshotel/0 no existe. \");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"0"
+					]
+				},
+				"description": "Consulta un contratohotel que no existe en la aplicación.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /contratoshotel/0 no existe.\".\r\n\r\nCódigo http esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un contratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "185a0d5a-4857-4a2e-ad77-34935eb4d557",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_contratohotel\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"Mantener en ambientes calientes\",\n\t\"costo\": 100\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratohotel}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratohotel}}"
+					]
+				},
+				"description": "Entorno Colecciones\r\nActualiza una contratoHotel existente. Se envía el Id en la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un contratoHotel que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "185a0d5a-4857-4a2e-ad77-34935eb4d557",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso  /contratoshotel/0 no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"Mantener en ambientes calientes\",\n\t\"costo\": 100\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"0"
+					]
+				},
+				"description": "Actualiza una contratoHotel que no existe.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /contratoshotel/0 no existe.\".\r\n\r\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un contratoHotel con costo negativo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "185a0d5a-4857-4a2e-ad77-34935eb4d557",
+						"exec": [
+							"tests[\"No crea con costo invalido\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El costo del contrato de un hotel debe ser positivo\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"Mantener en ambientes calientes\",\n\t\"costo\": -100\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratohotel}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratohotel}}"
+					]
+				},
+				"description": "Entorno Colecciones\r\nActualiza un contratoHotel con costo negativo.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El costo base del contrato de un hotel debe ser un número positivo\".\r\n\r\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar contratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a84ffc8-bc34-4001-ba47-06b99ce7f0c4",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratohotel}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratohotel}}"
+					]
+				},
+				"description": "Borra un contratoHotel. Se envía el id del contratohotel creada anteriormente.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar contratoHotel 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a84ffc8-bc34-4001-ba47-06b99ce7f0c4",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratohotel2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratohotel2}}"
+					]
+				},
+				"description": "Borra un contratoHotel. Se envía el id del contratohotel creada anteriormente.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar contratoHotel que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a84ffc8-bc34-4001-ba47-06b99ce7f0c4",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\" El recurso /contratoshotel/0 no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"0"
+					]
+				},
+				"description": "Borra una contratoHotel que no existe en la aplicación.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /contratoshotel/0 no existe.\".\r\n\r\nCódigo http esperado: 404"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

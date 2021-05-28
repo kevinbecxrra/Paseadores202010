@@ -1,0 +1,404 @@
+{
+	"info": {
+		"_postman_id": "14f2cc8d-a281-41ff-a9b4-62da1fa8767a",
+		"name": "Contrato Paseo Tets",
+		"description": "Conjunto de pruebas de la clase contrato Paseo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un Contrato  Paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e18d9b5f-bb4b-4130-8076-36e017319b57",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_Contrato\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo"
+					]
+				},
+				"description": "Release: Paso-1\r\n\r\nCrea un nuevo contrato Paseo. El id del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un contrato Paseo 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "826457b6-77ec-4636-9bdc-d7a8642f1d7d",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_Contrato2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo"
+					]
+				},
+				"description": "Release: Paso-1\r\n\r\nCrea un nuevo Contrato Paseo. El id del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un Contrato paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e7d5bdd-4010-47ea-a801-aedcd02d9fe5",
+						"exec": [
+							"var data= JSON.parse(responseBody);\r",
+							"\r",
+							"tests[\"No genera error en el Get \"] = responseCode.code === 200;\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nConsulta un contrato paseo de la aplicación.\r\n\r\nLa petición no tiene cuerpo. Se envía el id del contrato Paseo deseado por la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un contrato Paseo que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c113df1d-257d-4e33-ab21-3246e4005c74",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404; ",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El /contratosPaseo/0 no se encuetra.\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"0"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nConsulta un contrato paseo que no existe en la aplicación.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"\"El /contratosPaseo/0 no se encuetra.\".\r\n\r\nCódigo http esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un Contrato paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8234474-7d55-4d8c-8c7f-426305b99943",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"horaEncuentro\": \"2020-05-22T20:38:54.973-05:00\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nActualiza un contrato paseo existente. se envía el Id en la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un Contrato Paseo que no existe ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab157854-bb71-4cb8-91eb-6914948fc65f",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /CONTRATOPASEO/0 no esta.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"horaEncuentro\": \"2020-05-22T20:38:54.973-05:00\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"0"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nActualiza un contrato paseo que no existe.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /CONTRATOPASEO/0 no esta.\".\r\n\r\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un Contrato Paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6d507a1-a733-4c82-a296-bdf285addd73",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nBorra un contrato Paseo.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un contrato Paseo 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7026c08f-b273-444a-96c0-119702452915",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_Contrato2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_Contrato2}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nBorra un contrato Paseo.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un contrato Paseo que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "61bdbd67-96d3-44d7-9189-40b91056d268",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El  /contratosPaseoDTO/0 no Se pudo Encontrar.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"0"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nBorra un contrato paseo que no existe en la aplicación.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El  /contratosPaseoDTO/0 no Se pudo Encontrar.\".\r\n\r\nCódigo http esperado: 404"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

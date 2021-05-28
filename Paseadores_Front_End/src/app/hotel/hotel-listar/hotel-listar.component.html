@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body {font-family: "Times New Roman", Georgia, Serif;}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display";
+  letter-spacing: 5px;
+}
+</style>
+<body>
+
+<!-- Header -->
+<header class="w3-display-container w3-content w3-wide" style="max-width:1600px;min-width:500px" id="home">
+  <img class="w3-image" src="https://erincliffordwellness.com/wp-content/uploads/2016/06/Should-dogs-sleep-on-your-bed.png" alt="Resting dog" width="1600" height="800">
+  <div class="w3-display-bottomleft w3-padding-large w3-opacity">
+    <h1 class="w3-xxlarge">Hotel Paseadores</h1>
+  </div>
+</header>
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:1100px">
+
+  <!-- About Section -->
+  <div class="w3-row w3-padding-64" id="about">
+    <div class="w3-col m6 w3-padding-large w3-hide-small">
+     <img src="https://purewows3.imgix.net/images/articles/2019_04/cute-dog-sleeping-in-bed.png?auto=format,compress&cs=strip" class="w3-round w3-image w3-opacity-min" alt="Cute dog 2" width="600" height="750">
+    </div>
+
+    <div class="w3-col m6 w3-padding-large">
+      <h1 class="w3-center">Proposito y motivacion</h1><br>
+      <h5 class="w3-center">Cariño y cuidado</h5>
+      <p class="w3-large">Como "nombre de la veterinaria" no solo decidimos prestar el servicio de paseo de mascotas, queremos también poder servir de hogar para los acompañantes de nuestros clientes prestando un excelente servicio en donde el amor y el cuidado de las mascotas es nuestra prioridad.
+        Nuestro servicio de hotel cuenta con un cupo máximo para poder prestar de manera efectiva el cuidado y el espacio que merecen nuestras mascotas, asimismo nuestros clientes pueden proveernos de la comida del animal junto con las instrucciones de como y cuando dársela (en 2 raciones por día, 3 raciones u otro).
+        Sin embargo, si el cliente lo desea nosotros como "nombre de la veterinaria" podemos proveer la comida de la mascota para que disfrute una estadía amena con nosotros. Esperamos con ansias poder recibirlos en nuestras instalaciones y servirles con todo el cariño y cuidado necesario.</p>
+    </div>
+  </div>
+  <hr>
+
+  <!-- Menu Section -->
+  <div class="w3-row w3-padding-64" id="menu">
+    <div class="w3-col l6 w3-padding-large">
+      <h1 class="w3-center">Informacion adicional</h1><br>
+      <h4>Direccion</h4>
+      <p class="w3-text-grey">Bogota, Avenida Circunvalar #5-20 piso 6 oficina 105</p><br>
+
+      <h4>E-mail</h4>
+      <p class="w3-text-grey">info@paseadores.com</p><br>
+
+      <h4>Telefono</h4>
+      <p class="w3-text-grey">(1) 5812649</p><br>
+
+      <h4>Celular</h4>
+      <p class="w3-text-grey">+57 318 3775400</p><br>
+    </div>
+    <div class="w3-col m6 w3-padding-large w3-hide-small">
+      <h1 class="w3-center">Quedate con nosotros</h1><br>
+      <button type="button" class="wideButton" Text-align:center>
+        <img src="data:image/png;base64,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">
+      </button>
+     </div>
+  </div>
+
+  <hr>
+<!-- End page content -->
+</div>
+</body>
+</html>

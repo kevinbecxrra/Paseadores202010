@@ -1,0 +1,542 @@
+{
+	"info": {
+		"_postman_id": "654b6696-a9f4-4998-985c-a8414e1e4f6a",
+		"name": "Perro Tests",
+		"description": "Conjunto de pruebas de la clase Perrro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "crear un Perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab22aa70-f67c-4e59-97e5-3a6234e20245",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_perro\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"juyio\",\n\t\"raza\": \"terrier\",\n\t\"edad\": 3,\n\t\"idPerro\": \"145\"\n\t\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros"
+					]
+				},
+				"description": "Release: Paso-1\r\n\r\nCrea un nuevo perro. El id del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Perro 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e96d42b7-5820-46bb-bf34-c98c105efb27",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_perro2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"adonay\",\n\t\"raza\": \"Husky Riberiano\",\n\t\"edad\": 5,\n\t\"idPerro\": \"146\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nCrea otro perro. El Id del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nEste segundo perro se utiliza para probar la petición que consultar todos los perros.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Perro con id ya existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "557ca13d-30e7-4523-bc20-114bed9e0bdd",
+						"exec": [
+							"tests[\"No se crea debido a que el id ya existe\"]= responseCode.code ===412;",
+							"tests[\"Mensaje correcto de error\"]= responseBody.has(\"Ya existe un perro con este id\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"COCO\",\n\t\"raza\": \"BulDog\",\n\t\"edad\": 3,\n\t\"idPerro\": \"145\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros"
+					]
+				},
+				"description": "Release: Paso-5\r\nCrea un nuevo perro pero con un Id que ya existe. Verifica que se genera el error y el mensaje \"Ya existe un perro con este id\".\r\n\r\nCódigo HTTP esperado: 412 Precondition failed\"."
+			},
+			"response": []
+		},
+		{
+			"name": "Crear perro con edad menor a 0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31a2e3d5-b540-4ad1-a88f-0fa714ca0f31",
+						"exec": [
+							"tests[\"No se crea debido a que la edad es negativa\"]= responseCode.code ===412;",
+							"tests[\"Mensaje correcto de error\"]= responseBody.has(\"La edad del perro es negativa\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"Pepe\",\n\t\"raza\": \"terrier\",\n\t\"edad\": -3,\n\t\"idPerro\": \"147\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nCrea un nuevo perro con una edad negativa. Verifica que se genera el error y el mensaje La edad del perro es negativa\".\r\n\r\nCódigo HTTP esperado: 412 Precondition failed\"."
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los perros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a2e45dc-554b-4073-8f7f-04e088b2abe9",
+						"exec": [
+							"var data= JSON.parse(responseBody);\r",
+							"tests[\"No genera error en el Get All \"] = responseCode.code === 200;\r",
+							"\r",
+							"tests[\"Existen perros\"] = data.length >= 1;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nConsulta todos los perros de la aplicación. La petición no tiene cuerpo.\r\n\r\nPara la prueba, se verifica que el conjunto de perros en la respuesta tenga mas de uno.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un perro por su id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "49413cb7-a6b9-4523-84ca-40e1cb65a762",
+						"exec": [
+							"",
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get \"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nConsulta un perro de la aplicación.\r\n\r\nLa petición no tiene cuerpo. Se envía el id del perro deseado por la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un perro que no Exixte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "024e6854-1998-46f8-a5e4-288d7d5905e6",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404; ",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /perros/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"0"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nConsulta un perro que no existe en la aplicación.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"\"El recurso /perros/0 no existe.\".\r\n\r\nCódigo http esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "984e69d1-a4d6-4540-b581-8cdd9f49a88e",
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"new_id_paseador2\",data.id);\r",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;\r",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"pepe\",\n\t\"raza\": \"bernes\",\n\t\"edad\": 1,\n\t\"idPerro\": \"1433\"\n\t\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nActualiza un perro existente. se envía el Id en la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un perro con edad invalida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8975af4e-8e94-40cd-86d0-144497c70523",
+						"exec": [
+							"tests[\"No se crea debido a que la edad es negativa\"]= responseCode.code ===412;",
+							"tests[\"Mensaje correcto de error\"]= responseBody.has(\"La edad del perro es negativa\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"penelope\",\n\t\"raza\": \"bernes\",\n\t\"edad\": -1,\n\t\"idPerro\": \"1432345\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro}}"
+					]
+				},
+				"description": "Release: Paso-5 \r\nActualiza un perro con Id invalido.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"La edad del perro es negativa\".\r\n\r\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un perro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ce915a8-549c-4267-98b9-08a7be9f4d89",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nBorra un perro.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un perro 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "505274d7-57bd-4df0-8081-9a336c848e7f",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/{{new_id_perro2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"{{new_id_perro2}}"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nBorra un perro.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un Perro que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bfe2cd84-0b40-43e7-9c0d-86695814a6d6",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El /perrosDTO/0 no esta.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/perros/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"perros",
+						"0"
+					]
+				},
+				"description": "Release: Paso-5\r\n\r\nBorra un perro que no existe en la aplicación.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El /perrosDTO/0 no esta.\".\r\n\r\nCódigo http esperado: 404"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

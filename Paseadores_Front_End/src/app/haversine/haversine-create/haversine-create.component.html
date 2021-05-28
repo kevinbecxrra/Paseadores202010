@@ -1,0 +1,45 @@
+<div class="col">
+  <div class="h4">Creación de un haversine</div>
+   <form [formGroup]="haversineForm" (ngSubmit)="!haversineForm.invalid && createHaversine(haversineForm.value)">
+
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="horaDePaso">
+        Hora de paso
+      </label>
+      <input novalidate id="horaDePaso" class="form-control" formControlName="horaDePaso" placeholder="horaDePaso del haversine">
+      <div class="alert alert-danger alert-dismissible fade show"
+        *ngIf="haversineForm.get('horaDePaso').hasError('required') && haversineForm.get('horaDePaso').touched">
+        Hora de paso requerida
+      </div>
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="longitud">
+        Longitud
+      </label>
+      <input novalidate id="longitud" class="form-control" formControlName="longitud" placeholder="longitud del haversine">
+      <div class="alert alert-danger alert-dismissible fade show"
+        *ngIf="haversineForm.get('longitud').hasError('required') && haversineForm.get('longitud').touched">
+        Longitud requerida
+      </div>
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="latitud">
+        Latitud
+      </label>
+      <input novalidate id="latitud" class="form-control" formControlName="latitud" placeholder="latitud del haversine">
+      <div class="alert alert-danger alert-dismissible fade show"
+        *ngIf="haversineForm.get('latitud').hasError('required') && haversineForm.get('latitud').touched">
+        Latitud requerida
+      </div>
+    </div>
+
+
+
+    <div class="row  m-3">
+      <button type="submit" class="btn btn-primary" (click)="!haversineForm.valid">Create</button>
+      <button type="button" class="btn btn-danger ml-3" (click)="cancelCreation()">Cancel</button>
+    </div>
+  </form>
+</div>

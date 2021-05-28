@@ -1,0 +1,925 @@
+{
+	"info": {
+		"_postman_id": "23d92fb8-b441-4958-bd2c-603cfc5365f6",
+		"name": "PaseoPagoPaseador Tests",
+		"description": "Clase PaseoPagoPaseador: Se realiza la asignación, búsqueda, reemplazo y eliminación de los paseos asociados a un PagoPaseador.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72f583b5-f342-4233-b7cc-2c9c09372a94",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_pagoPaseador\",data.id);",
+							"tests[\"No genera error al crear un nuevo PagoPaseador\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"referencia\": \"12345\",\n\t\"monto\": 120000.0,\n\t\"fechaLimite\": \"2020-03-05T00:00:00-00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores"
+					]
+				},
+				"description": "Se crea un PagoPaseador a partir del JSON dado por parámetro después de validar las reglas de negocio.\r\n\r\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca7a5e33-d797-4a53-9b91-5aba384fd7d9",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseo\",data.id);",
+							"tests[\"No genera error al crear un paseo\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 20,\n\t\"costo\": 250000.0,\n\t\"duracion\": 90,\n\t\"disponible\": true, \n\t\"horaInicio\": \"2020-10-10T07:22Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Se crea un paseo a partir del JSON dado por parámetro después de validar las reglas de negocio.\r\n\r\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseo 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5d0b49d-f8c7-4527-8f8b-3b1e0cdf3265",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseo2\",data.id);",
+							"tests[\"No genera error al crear un paseo\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 10,\n\t\"costo\": 25000.0,\n\t\"duracion\": 60,\n\t\"disponible\": true, \n\t\"horaInicio\": \"2020-07-10T07:22Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Se crea un paseo a partir del JSON dado por parámetro después de validar las reglas de negocio.\r\n\r\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un paseo a un PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f94138c9-4c7d-49f7-b797-8dad6caf7bbc",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error al asociar un paseo a un PagoPaseador\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Se asocia un paseo a un PagoPaseador a partir de sus ids.\r\n\r\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un paseo a un PagoPaseador 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72d93f7f-0762-449e-ac03-7ecb27726331",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error al asociar un paseo a un PagoPaseador\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}/paseos/{{new_id_paseo2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}",
+						"paseos",
+						"{{new_id_paseo2}}"
+					]
+				},
+				"description": "Se asocia un paseo a un PagoPaseador a partir de sus ids.\r\n\r\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un paseo inexistente a un PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99ea800b-c901-4b19-b9f8-9875ad894586",
+						"exec": [
+							"tests[\"Genera error al asociar un paseo inexistente a un PagoPaseador\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /paseo/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}/paseos/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}",
+						"paseos",
+						"0"
+					]
+				},
+				"description": "Se intenta asociar un paseo inexistente a un PagoPaseador.\r\n\r\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociarle un paseo a un PagoPaseador inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3420d3f9-b35f-4725-b6e9-8104819e8c44",
+						"exec": [
+							"tests[\"Genera error al asociar un paseo a un PagoPaseador inexistente\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /pagosPaseadores/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/0/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"0",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Se intenta asociar un paseo a un PagoPaseador inexistente.\r\n\r\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener los paseos de un PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d0c0b11-5191-4bd1-8c63-fa8fcb4b416d",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error al obtener todos los paseos de un PagoPaseador\"] = responseCode.code === 200;",
+							"tests[\"Existen paseos asociados al PagoPaseador\"] = data.length >= 2;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}",
+						"paseos"
+					]
+				},
+				"description": "Se obtienen todos los paseos de un PagoPaseador a partir de su id.\r\n\r\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener los paseos de un PagoPaseador inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2622949-e5ba-42c3-ac61-b8401252e4bb",
+						"exec": [
+							"tests[\"Genera error al buscar los paseos de un PagoPaseador inexistente\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /pagosPaseadores/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/0/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"0",
+						"paseos"
+					]
+				},
+				"description": "Se intentan obtener los paseos de un PagoPaseador inexistente.\r\n\r\nCófigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un paseo de un PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a1604bf-1950-4dbd-baa8-0ccb4712ade0",
+						"exec": [
+							"tests[\"No se genera error al buscar un paseo de un PagoPaseador\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Se obtiene un paseo en específico de un PagoPaseador a partir de sus ids.\r\n\r\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseo 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "25ee8f25-96da-410e-ada9-648caebb40a0",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseo3\",data.id);",
+							"tests[\"No genera error al crear un paseo\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 7,\n\t\"costo\": 25000.0,\n\t\"duracion\": 30,\n\t\"disponible\": true, \n\t\"horaInicio\": \"2020-09-10T07:22Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Se crea un paseo a partir del JSON dado por parámetro después de validar las reglas de negocio.\r\n\r\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un paseo que no está asociado al PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5b2eb6c-41ce-4de9-83db-b70f6400125a",
+						"exec": [
+							"tests[\"Genera error al buscar un paseo que no está asociado al PagoPaseador\"] = responseCode.code === 412;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El paseo no está asociado al pagoPaseador\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}/paseos/{{new_id_paseo3}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}",
+						"paseos",
+						"{{new_id_paseo3}}"
+					]
+				},
+				"description": "Se intenta obtener un paseo que no está asociado al PagoPaseador.\r\n\r\nCódigo HTTP esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un paseo 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f57ba15-df34-4c65-8bf1-1232ddd693d3",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_paseo4\",data.id);",
+							"tests[\"No genera error al crear un paseo\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cupoMaximo\": 5,\n\t\"costo\": 27000.0,\n\t\"duracion\": 30,\n\t\"disponible\": true, \n\t\"horaInicio\": \"2020-02-10T07:22Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos"
+					]
+				},
+				"description": "Se crea un paseo a partir del JSON dado por parámetro después de validar las reglas de negocio.\r\n\r\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar los paseos de un PagoPaseador con un paseo inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c9c5829-cdc1-48d0-94b3-69dbcd863e96",
+						"exec": [
+							"tests[\"Genera error al editar los paseos de un PagoPaseador con un paseo inexistente\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /paseo/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\t\"id\": {{new_id_paseo3}},\n\t\t\"costo\": 25000.0,\n\t    \"cupoMaximo\": 7,\n\t    \"disponible\": true,\n\t    \"duracion\": 30,\n\t    \"horaInicio\": \"2020-09-10T07:22:00Z[UTC]\"\n\t},\n\t{\n\t\t\"id\": 0, \n\t\t\"costo\": 27000.0,\n\t    \"cupoMaximo\": 5,\n\t    \"disponible\": true,\n\t    \"duracion\": 30,\n\t    \"horaInicio\": \"2020-02-10T07:22:00Z[UTC]\"\n\t}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}",
+						"paseos"
+					]
+				},
+				"description": "Se intentan editar los paseos de un PagoPaseador con una lista de paseos en la que se encuentra un id que no pertenece a la base de datos.\r\n\r\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar los paseos de un PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a726cb6-2387-42bc-afbd-0ae262b812ec",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error al editar todos los paseos de un PagoPaseador\"] = responseCode.code === 200;",
+							"tests[\"Existen paseos asociados al PagoPaseador\"] = data.length >= 2;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\t\"id\": {{new_id_paseo3}},\n\t\t\"costo\": 25000.0,\n\t    \"cupoMaximo\": 7,\n\t    \"disponible\": true,\n\t    \"duracion\": 30,\n\t    \"horaInicio\": \"2020-09-10T07:22:00Z[UTC]\"\n\t},\n\t{\n\t\t\"id\": {{new_id_paseo4}}, \n\t\t\"costo\": 27000.0,\n\t    \"cupoMaximo\": 5,\n\t    \"disponible\": true,\n\t    \"duracion\": 30,\n\t    \"horaInicio\": \"2020-02-10T07:22:00Z[UTC]\"\n\t}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}/paseos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}",
+						"paseos"
+					]
+				},
+				"description": "Se edita la lista de paseos de un PagoPaseador a partir de su id y la lista de JSONs de los paseos.\r\n\r\nCódigo HTTP esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un paseo inexistente de un PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "035c4ef6-8c9a-4289-9afb-de07567a65a8",
+						"exec": [
+							"tests[\"Genera error al eliminar un paseo inexistente de un PagoPaseador\"] = responseCode.code === 404;",
+							"tests[\"Mensaje de error correcto\"] = responseBody.has(\"El recurso /paseo/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}/paseos/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}",
+						"paseos",
+						"0"
+					]
+				},
+				"description": "Se intenta eliminar un paseo inexistente de un PagoPaseador.\r\n\r\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un paseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f30a24fe-cbd8-4e1a-89fd-67a8541c88c7",
+						"exec": [
+							"tests[\"No se genera error al borrar un paseo\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo}}"
+					]
+				},
+				"description": "Se borra el primer paseo de la base de datos a partir de su id.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un paseo 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "16c7b4c5-7c8c-45c6-a395-b131b5678381",
+						"exec": [
+							"tests[\"No se genera error al borrar un paseo\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo2}}"
+					]
+				},
+				"description": "Se borra el paseo 2 de la base de datos a partir de su id.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el paseo 3 del PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "352ca8f1-e684-4116-987f-e470c5980f5a",
+						"exec": [
+							"tests[\"No genera error al borrar un paseo de un PagoPaseador\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}/paseos/{{new_id_paseo3}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}",
+						"paseos",
+						"{{new_id_paseo3}}"
+					]
+				},
+				"description": "Se elimina el paseo 3 de la lista de paseos del PagoPaseador a partir de sus ids.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el paseo 4 del PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff8d331b-6c7b-43e7-bcca-f1d2b9cdbe1b",
+						"exec": [
+							"tests[\"No genera error al borrar un paseo de un PagoPaseador\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}/paseos/{{new_id_paseo4}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}",
+						"paseos",
+						"{{new_id_paseo4}}"
+					]
+				},
+				"description": "Se elimina el paseo 4 de la lista de paseos del PagoPaseador a partir de sus ids.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un paseo 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99cea15a-8a61-43c9-9d87-d2fa71a7456d",
+						"exec": [
+							"tests[\"No se genera error al borrar un paseo\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo3}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo3}}"
+					]
+				},
+				"description": "Se borra el paseo 3 de la base de datos a partir de su id.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un paseo 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "09d57102-00d3-4ced-9b0a-dc2e6a6cb503",
+						"exec": [
+							"tests[\"No se genera error al borrar un paseo\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/paseos/{{new_id_paseo4}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"paseos",
+						"{{new_id_paseo4}}"
+					]
+				},
+				"description": "Se borra el paseo 4 de la base de datos a partir de su id.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un PagoPaseador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d9b3271-3036-413c-99a9-dc2189e09a3d",
+						"exec": [
+							"tests[\"No genera error en al borrar un PagoPaseador\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosPaseadores/{{new_id_pagoPaseador}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosPaseadores",
+						"{{new_id_pagoPaseador}}"
+					]
+				},
+				"description": "Se borra el PagoPaseador de la base de datos a partir de su id.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

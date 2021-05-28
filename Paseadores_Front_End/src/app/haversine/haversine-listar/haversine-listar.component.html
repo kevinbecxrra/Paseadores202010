@@ -1,0 +1,41 @@
+<div class="container-fluid"style="display: flex">
+  <div class="col" style="background-color: rgb(148, 255, 211)">
+    <h2 style="font-weight: bold;padding-bottom: 5px;">Lista de haversines</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="h5">Id</th>
+          <th class="h5">Latitud</th>
+          <th class="h5">Longitud</th>
+          <th class="h5">Hora De Paso</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let h of haversines" (click)="onSelected(h)">
+          <td>
+            <dd>{{h.id}}</dd>
+          </td>
+          <td>
+            <dd>{{h.latitud}}</dd>
+          </td>
+          <td>
+            <dd>{{h.longitud}}</dd>
+          </td>
+          <td>
+            <dd>{{h.horaDePaso}}</dd>
+          </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<div class="col" style="background-color: rgb(252, 210, 185)">
+  <h2 style="font-weight: bold; padding-bottom: 5px">Detalle del haversine</h2>
+  <div *ngIf="selected" >
+    <app-haversine-detail
+      [haversineDetail]="haversineSeleccionada"
+    ></app-haversine-detail>
+  </div>
+</div>
+</div>
+

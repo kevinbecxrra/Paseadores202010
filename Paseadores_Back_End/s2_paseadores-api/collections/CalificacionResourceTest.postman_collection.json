@@ -1,0 +1,619 @@
+{
+	"info": {
+		"_postman_id": "7cf885c7-6ffd-45b6-aab9-93be8a265ef1",
+		"name": "CalificacionResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un ContratoPaseo1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89b0f697-b383-4ff9-98a0-3bb523d90048",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_contratoPaseo_auxParaCalificacion1\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"horaEncuentro\": \"2018-03-22T20:38:54.973-05:00\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un ContratoPaseo2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e29f5e53-5a66-4e54-8e0c-d586ab925bdd",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_contratoPaseo_auxParaCalificacion2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"horaEncuentro\": \"2018-04-22T20:38:54.973-05:00\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un  ContratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9deaf304-8dfd-4f55-80d8-a44d373b050b",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_contratoHotel_auxParaCalificacion\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t\"cuidadoEspecial\": \"No debe comer chocolate\",\n\t\t\"costo\": 4000.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una Calificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed28dabd-b6f2-4612-887d-d0b3f8fbe9fa",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cal\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{  \n        \"valoracion\": 3,\n        \"comentario\": \"Buen servicio\",\n        \n        \"contratoRecorrido\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoPaseo_auxParaCalificacion1}},\n        \t\t\t\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n    \t\t\t\t}\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/calificaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una calificacion inválida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1777cfd2-0ff5-4e41-b154-05f99262bae7",
+						"exec": [
+							"tests[\"No se deberia crear una calificacion con valoración negativa\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La valoración de la calificación debe ser un número entre 0 y 5\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{  \n        \"valoracion\": -2,\n        \"comentario\": \"Buen servicio\",\n        \"contratoRecorrido\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoPaseo_auxParaCalificacion1}},\n        \t\t\t\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n    \t\t\t\t},\n    \t\"contratoPaseador\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoPaseo_auxParaCalificacion2}},\n        \t\t\t\t\"horaEncuentro\": \"2018-04-22T20:38:54.973-05:00\"\n    \t\t\t\t},\n    \t\"contratoHotel\":\n    \t\t\t\t{\n    \t\t\t\t\t\"id\": {{new_id_contratoHotel_auxParaCalificacion}},\n    \t\t\t\t\t\"cuidadoEspecial\": \"No debe comer chocolate\",\n\t\t\t\t\t\t\"costo\": 4000.0\n    \t\t\t\t}\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/calificaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una calificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08ce402f-8c15-4e3d-8682-3ee397d2ed9e",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/calificaciones/{{new_id_cal}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"calificaciones",
+						"{{new_id_cal}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una calificacion que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4ad2427-67af-4870-ad0b-10f0702bb943",
+						"exec": [
+							"tests[\"No se deberia obtener una calificacion con un id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /calificaciones/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/calificaciones/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"calificaciones",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una calificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "883592db-632c-4e80-87d4-17ee44bf6416",
+						"exec": [
+							"console.log(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{  \n        \"valoracion\": 5,\n\t        \"comentario\": \"Excelente servicio\",\n        \n        \"contratoRecorrido\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoPaseo_auxParaCalificacion1}},\n        \t\t\t\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n    \t\t\t\t}\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/calificaciones/{{new_id_cal}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"calificaciones",
+						"{{new_id_cal}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una calificacion que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe712154-d08a-4d14-894b-226c92bc28f1",
+						"exec": [
+							"tests[\"No se deberia actualizar una calificacion con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /calificaciones/20000 no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{  \n        \"valoracion\": 2,\n        \"comentario\": \"Mal servicio\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/calificaciones/20000",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"calificaciones",
+						"20000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar una calificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "176629aa-283d-4765-865f-1bf457202eb9",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/calificaciones/{{new_id_cal}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"calificaciones",
+						"{{new_id_cal}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar una calificacion que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae0db9b7-cd1c-4db3-ba96-d73fd4bf6693",
+						"exec": [
+							"tests[\"No se deberia borrar una calificacion con un id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /calificaciones/20000 no existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/calificaciones/20000",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"calificaciones",
+						"20000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar ContratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cf08e19a-9239-4967-ab17-c63b5aa6096d",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratoHotel_auxParaCalificacion}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratoHotel_auxParaCalificacion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar ContratoPaseo1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4cb42e4-3ded-432d-9730-c305710cd81d",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_contratoPaseo_auxParaCalificacion1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_contratoPaseo_auxParaCalificacion1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar ContratoPaseo2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0741a27d-d8a8-45cf-8b64-363874f2aa75",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_contratoPaseo_auxParaCalificacion2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_contratoPaseo_auxParaCalificacion2}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

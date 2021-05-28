@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "940710ab-ec06-4ad1-b7b5-3385cd8d1d29",
+		"name": "Horarios_Tests",
+		"description": "# Introduction\nRealiza las pruebas de los recursos de los horarios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un horario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9cd5c510-89b1-4175-813d-1c8a412e627d",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_horario\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2018-10-13T13:30:00-00:00\",\n\t\"duracion\": 30,\n\t\"ocupado\": false\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios"
+					]
+				},
+				"description": "Crea un nuevo horario. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un horario 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9cd5c510-89b1-4175-813d-1c8a412e627d",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_horario2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2010-11-13T14:30:00-02:00\",\n\t\"duracion\": 60,\n\t\"ocupado\": true\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios"
+					]
+				},
+				"description": "Crea un nuevo horario. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un horario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b192958a-c486-4056-aa65-df9d7cff1fe4",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios/{{new_id_horario}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios",
+						"{{new_id_horario}}"
+					]
+				},
+				"description": "Consulta un horario de la aplicación. La petición no tiene cuerpo. Se envía el id del horario deseada por la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un horario que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a3697495-e0b8-43ed-8c7f-6dce327d0398",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404; ",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\" El recurso /horarios/0 no  existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios",
+						"0"
+					]
+				},
+				"description": "Consulta un horarop que no existe en la aplicación.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /horarios/0 no existe.\".\r\n\r\nCódigo http esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un horario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "377b3ffc-1dc3-4ffa-bf3f-71544a00188a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_horario\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2005-11-13T14:30:00-03:00\",\n\t\"duracion\": 30,\n\t\"ocupado\": false\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios/{{new_id_horario}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios",
+						"{{new_id_horario}}"
+					]
+				},
+				"description": "Actualiza un horario existente. Se envía el Id en la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un horario que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "377b3ffc-1dc3-4ffa-bf3f-71544a00188a",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"el recurso /horarios/\"+ 0 + \"no  existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"dia\": \"2017-11-13T11:30:00-05:00\",\n\t\"duracion\": 30,\n\t\"ocupado\": false\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios",
+						"0"
+					]
+				},
+				"description": "Actualiza un horario que no existe.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /horarios/0 no existe.\".\r\n\r\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un horario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "55f4c6ad-0c98-45d6-8577-0a7c98c858ce",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios/{{new_id_horario}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios",
+						"{{new_id_horario}}"
+					]
+				},
+				"description": "Borra un horario. Se envía el id del horario creada anteriormente.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un horario 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "55f4c6ad-0c98-45d6-8577-0a7c98c858ce",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204; "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios/{{new_id_horario2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios",
+						"{{new_id_horario2}}"
+					]
+				},
+				"description": "Borra un horario. Se envía el id del horario creada anteriormente.\r\n\r\nCódigo HTTP esperado: 204"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar horario que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cc86d237-d481-40d8-8a0d-516bf81c2e35",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El  recurso /horarios/0no  existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/horarios/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"horarios",
+						"0"
+					]
+				},
+				"description": "Borra un horario que no existe en la aplicación.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /horarios/0 no existe.\".\r\n\r\nCódigo http esperado: 404"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

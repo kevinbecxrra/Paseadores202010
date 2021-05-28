@@ -1,0 +1,35 @@
+<div class="column">
+<h2 class="text-center" style="font-weight: bold; padding-bottom: 5px">Lista de ratings</h2>
+<div class="row">
+<div class="col"><app-rating-create></app-rating-create></div>
+    <div class="col">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="h5">Id</th>
+          <th class="h5">Puntuacion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of ratings" (click)="onSelected(c)">
+          <td>
+            <dd>{{ c.id }}</dd>
+          </td>
+          <td>
+            <dd>{{ c.estrellas }}</dd>
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col">
+    <h4 style="padding-bottom: 5px">Detalle del rating</h4>
+    <div *ngIf="selected" >
+      <app-rating-detail
+        [ratingDetail]="ratingSeleccionado"
+      ></app-rating-detail>
+    </div>
+  </div>
+  </div>
+</div>

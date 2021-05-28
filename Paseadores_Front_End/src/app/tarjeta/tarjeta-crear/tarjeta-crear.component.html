@@ -1,0 +1,136 @@
+<div class="container-fluid" style="justify-content: center; display: flex">
+  <form
+    style="justify-content: center"
+    [formGroup]="tarjetaForm"
+    (ngSubmit)="!tarjetaForm.invalid && createTarjeta(tarjetaForm.value)"
+  >
+    <div class="row" style="display: flex; justify-content: center">
+      <div class="col-4">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="numeroTarjeta"> Número de tarjeta</label>
+          <input
+            novalidate
+            id="numeroTarjeta"
+            class="form-control"
+            formControlName="numeroTarjeta"
+            placeholder=""
+          />
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            *ngIf="
+              tarjetaForm.get('numeroTarjeta').hasError('required') &&
+              tarjetaForm.get('numeroTarjeta').touched
+            "
+          >
+            Número requerido
+          </div>
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            *ngIf="tarjetaForm.get('numeroTarjeta').hasError('minlength')"
+          >
+            Número muy corto
+          </div>
+        </div>
+
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="codigoSeguridad"> CodigoSeguridad </label>
+          <input
+            novalidate
+            id="codigoSeguridad"
+            class="form-control"
+            formControlName="codigoSeguridad"
+            placeholder=""
+          />
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            *ngIf="
+              tarjetaForm.get('codigoSeguridad').hasError('required') &&
+              tarjetaForm.get('codigoSeguridad').touched
+            "
+          >
+            pin requerida
+          </div>
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            *ngIf="tarjetaForm.get('codigoSeguridad').hasError('minlength')"
+          >
+            pin muy corto
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="tipo"> Tipo </label>
+          <input
+            novalidate
+            id="tipo"
+            class="form-control"
+            formControlName="tipo"
+            placeholder=""
+          />
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            *ngIf="
+              tarjetaForm.get('tipo').hasError('required') &&
+              tarjetaForm.get('tipo').touched
+            "
+          >
+            Tipo requerido
+          </div>
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            *ngIf="tarjetaForm.get('tipo').hasError('minlength')"
+          >
+            Tipo muy corto
+          </div>
+        </div>
+
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="fechaVencimiento"> Fecha vencimiento </label>
+          <input
+            novalidate
+            id="fechaVencimiento"
+            class="form-control"
+            formControlName="fechaVencimiento"
+            placeholder=""
+          />
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            *ngIf="
+              tarjetaForm.get('fechaVencimiento').hasError('required') &&
+              tarjetaForm.get('fechaVencimiento').touched
+            "
+          >
+            fechaVencimiento requerida
+          </div>
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            *ngIf="tarjetaForm.get('fechaVencimiento').hasError('minlength')"
+          >
+            fechaVencimiento muy corta
+          </div>
+        </div>
+      </div>
+      <div class="col-4" style="vertical-align: center">
+        <div class="row" style="padding: 30px; justify-content: center">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!tarjetaForm.valid"
+          >
+            Registrar
+          </button>
+        </div>
+        <div class="row" style="padding: 30px; justify-content: center">
+          <button
+            type="button"
+            class="btn btn-danger ml-3"
+            (click)="cancelCreation()"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,34 @@
+
+	<div class="col">
+		<div class="h4">Creación de un rating</div>
+		<form [formGroup]="ratingForm" (ngSubmit)="!ratingForm.invalid && createRating(ratingForm.value)">
+
+			<div class="form-group mx-sm-3 mb-2">
+				<label for="estrellas">
+					Calificacion
+				</label>
+				<input novalidate id="estrellas" class="form-control" formControlName="estrellas" placeholder="calificacion del rating">
+				<div class="alert alert-danger alert-dismissible fade show"
+					*ngIf="ratingForm.get('estrellas').hasError('required') && ratingForm.get('estrellas').touched">
+					Calificacion requerida
+				</div>
+			</div>
+
+			<div class="form-group  mx-sm-3 mb-2">
+				<label for="comentario">
+					Comentario del rating
+				</label>
+				<input id="comentario" type="text" class="form-control" formControlName="comentario"
+					placeholder="Comentario">
+
+				<div class="alert alert-danger alert-dismissible fade show"
+					*ngIf="ratingForm.get('comentario').hasError('required') && ratingForm.get('comentario').touched">
+          Escriba el comentario
+				</div>
+			</div>
+			<div class="row  m-3">
+				<button type="submit" class="btn btn-primary" [disabled]="!ratingForm.valid">Create</button>
+				<button type="button" class="btn btn-danger ml-3" (click)="cancelCreation()" routerLink="/paseos/list">salir</button>
+			</div>
+		</form>
+	</div>

@@ -1,0 +1,906 @@
+{
+	"info": {
+		"_postman_id": "3b453bed-8989-4d43-ba9e-e26711fa2780",
+		"name": "PagoClienteResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4db83eb3-00d9-4dbd-a3dd-a697e1d1a0ec",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cliente_aux\",data.id);",
+							"tests[\"No genera error al crear un nuevo cliente\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"nombre\": \"Juan Perez\",\n        \"identificacion\": \"1007861952\",\n        \"correo\": \"juanito@uniandes.edu.co\",\n        \"telefono\": \"1234567890\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84dee35f-8945-4615-a01b-1eb82fbf8291",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_contratoPaseo_aux\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un ContratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6062af3-ff8c-47b9-a4aa-1b3c16cbd96c",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_contratoHotel_aux\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cuidadoEspecial\": \"No debe comer chocolate\",\n\t\"costo\": 4000.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un PagoCliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1271d856-7035-499c-87d8-b80dc841b635",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_p\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"monto\": 52,\n        \"referencia\": \"ref1\",\n        \"cliente\":\n        \t\t{\n        \t\t\t\"id\":{{new_id_cliente_aux}},\n        \t\t\t\"nombre\": \"Juan Perez\",\n        \t\t\t\"identificacion\": \"1007861952\",\n        \t\t\t\"correo\": \"juanito@uniandes.edu.co\",\n        \t\t\t\"telefono\": \"1234567890\"\n        \t\t},\n        \"contratoPaseo\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoPaseo_aux}},\n        \t\t\t\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n    \t\t\t\t}\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un PagoCliente 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5805ebde-940a-46ba-994d-a08e70ba57cf",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_p2\", data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"monto\": 52,\n        \"referencia\": \"ref2\",\n        \"cliente\":\n        \t\t{\n        \t\t\t\"id\":{{new_id_cliente_aux}},\n        \t\t\t\"nombre\": \"Juan Perez\",\n        \t\t\t\"identificacion\": \"1007861952\",\n        \t\t\t\"correo\": \"juanito@uniandes.edu.co\",\n        \t\t\t\"telefono\": \"1234567890\"\n        \t\t},\n        \"contratoHotel\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoHotel_aux}},\n        \t\t\t\t\"cuidadoEspecial\": \"No debe comer chocolate\",\n\t\t\t\t\t\t\"costo\": 4000.0\n    \t\t\t\t}\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear PagoCliente inválido por monto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "41925a55-eeff-41df-bfa0-f813dc134853",
+						"exec": [
+							"tests[\"No se deberia crear un PagoCliente con monto que negativo\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El monto de pago es negativo\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"monto\": -52,\n        \"referencia\": \"ref3\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear PagoCliente inválido por referencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b45c96c-1e6f-489e-94d5-c12c1b6dc50d",
+						"exec": [
+							"tests[\"No se deberia crear un PagoCliente con una referencia que ya exista\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La referencia de pago ya existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"monto\": 52,\n        \"referencia\": \"ref2\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear PagoCliente inválido por tener ambos contratos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3da70e5-208d-4463-8263-8da3c538eb79",
+						"exec": [
+							"tests[\"No se deberia crear un PagoCliente con ambos tipos de contrato\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"No puede haber un pago asociado a mas de un tipo de contrato\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"monto\": 52,\n        \"referencia\": \"ref3\",\n        \"cliente\":\n        \t\t{\n        \t\t\t\"id\":{{new_id_cliente_aux}},\n        \t\t\t\"nombre\": \"Juan Perez\",\n        \t\t\t\"identificacion\": \"1007861952\",\n        \t\t\t\"correo\": \"juanito@uniandes.edu.co\",\n        \t\t\t\"telefono\": \"1234567890\"\n        \t\t},\n        \"contratoPaseo\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoPaseo_aux}},\n        \t\t\t\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n    \t\t\t\t},\n    \t\"contratoHotel\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoHotel_aux}},\n        \t\t\t\t\"cuidadoEspecial\": \"No debe comer chocolate\",\n\t\t\t\t\t\t\"costo\": 4000.0\n    \t\t\t\t}\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un PagoCliente con una referencia que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c650b764-5182-40dc-9a61-767e76270e7d",
+						"exec": [
+							"tests[\"No se deberia obtener un PagoCliente con una referencia que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /pagosCliente/referencia/noexiste no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente/referencia/noexiste",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente",
+						"referencia",
+						"noexiste"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un PagoCliente por su referencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8fa8ed89-499a-4066-8c64-3b14fccfac53",
+						"exec": [
+							"tests[\"No se genera error al buscar un PagoCliente por su referencia\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente/referencia/ref1",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente",
+						"referencia",
+						"ref1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un PagoCliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5d5e4af6-5300-4a44-9895-209e98789b6b",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_p\",data.id);",
+							"tests[\"No genera error al editar un PagoCliente\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"followOriginalHttpMethod": false,
+				"followAuthorizationHeader": false
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"monto\": 60,\n        \"referencia\": \"ref1\",\n        \"cliente\":\n        \t\t{\n        \t\t\t\"id\":{{new_id_cliente_aux}},\n        \t\t\t\"nombre\": \"Juan Perez\",\n        \t\t\t\"identificacion\": \"1007861952\",\n        \t\t\t\"correo\": \"juanito@uniandes.edu.co\",\n        \t\t\t\"telefono\": \"1234567890\"\n        \t\t},\n        \"contratoPaseo\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoPaseo_aux}},\n        \t\t\t\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n    \t\t\t\t}\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente/{{new_id_p}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente",
+						"{{new_id_p}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un PagoCliente inválido por id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "57e7ec17-9f8d-42e3-9a20-4d190dc10916",
+						"exec": [
+							"tests[\"No se deberia actualizar un PagoCliente con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso   /pagosCliente/50000 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"monto\": 60,\n        \"referencia\": \"ref1\",\n        \"cliente\":\n        \t\t{\n        \t\t\t\"id\":{{new_id_cliente_aux}},\n        \t\t\t\"nombre\": \"Juan Perez\",\n        \t\t\t\"identificacion\": \"1007861952\",\n        \t\t\t\"correo\": \"juanito@uniandes.edu.co\",\n        \t\t\t\"telefono\": \"1234567890\"\n        \t\t},\n        \"contratoPaseo\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoPaseo_aux}},\n        \t\t\t\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n    \t\t\t\t}\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente/50000",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente",
+						"50000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un PagoCliente inválido por monto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b437c8f-451f-4b83-abf1-0aa1bee6fc18",
+						"exec": [
+							"tests[\"No se deberia editar un PagoCliente con un monto negativo\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El monto de pago es negativo\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"monto\": -60,\n        \"referencia\": \"ref1\",\n        \"cliente\":\n        \t\t{\n        \t\t\t\"id\":{{new_id_cliente_aux}},\n        \t\t\t\"nombre\": \"Juan Perez\",\n        \t\t\t\"identificacion\": \"1007861952\",\n        \t\t\t\"correo\": \"juanito@uniandes.edu.co\",\n        \t\t\t\"telefono\": \"1234567890\"\n        \t\t},\n        \"contratoPaseo\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoPaseo_aux}},\n        \t\t\t\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n    \t\t\t\t}\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente/{{new_id_p}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente",
+						"{{new_id_p}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar PagoCliente inválido por referencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca270182-620a-4ed9-90a8-0a0139b33ed2",
+						"exec": [
+							"tests[\"No se deberia editar un PagoCliente con una referencia que ya exista\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La referencia de pago ya existe\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"monto\": 60,\n        \"referencia\": \"ref2\",\n        \"cliente\":\n        \t\t{\n        \t\t\t\"id\":{{new_id_cliente_aux}},\n        \t\t\t\"nombre\": \"Juan Perez\",\n        \t\t\t\"identificacion\": \"1007861952\",\n        \t\t\t\"correo\": \"juanito@uniandes.edu.co\",\n        \t\t\t\"telefono\": \"1234567890\"\n        \t\t},\n        \"contratoPaseo\":\n        \t\t\t{\n        \t\t\t\t\"id\": {{new_id_contratoPaseo_aux}},\n        \t\t\t\t\"horaEncuentro\": \"2018-02-22T20:38:54.973-05:00\"\n    \t\t\t\t}\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente/{{new_id_p}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente",
+						"{{new_id_p}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un PagoCliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "71713be5-2fd0-4b2a-a159-83488d281e46",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente/{{new_id_p}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente",
+						"{{new_id_p}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un PagoCliente2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f668f4c9-d8dd-4784-888f-1e5a223151a4",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente/{{new_id_p2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente",
+						"{{new_id_p2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un PagoCliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd2ea373-7800-4efe-b581-98399e15f152",
+						"exec": [
+							"tests[\"No se deberia borrar un PagoCliente con un id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso/pagosCliente/700000 no existe    .\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/pagosCliente/700000",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"pagosCliente",
+						"700000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "76d48e42-2593-4b11-9cae-fa9323edf356",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/clientes/{{new_id_cliente_aux}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente_aux}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar ContratoHotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aa144af7-465b-4066-8a1a-0d31155a6562",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratoshotel/{{new_id_contratoHotel_aux}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratoshotel",
+						"{{new_id_contratoHotel_aux}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar ContratoPaseo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "320ea56b-a0bf-4091-8022-e0c9b9b37e82",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s2_paseadores-api/api/contratosPaseo/{{new_id_contratoPaseo_aux}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s2_paseadores-api",
+						"api",
+						"contratosPaseo",
+						"{{new_id_contratoPaseo_aux}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

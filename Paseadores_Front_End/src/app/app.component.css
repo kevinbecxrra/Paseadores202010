@@ -1,0 +1,138 @@
+.navStyle{
+  background-color: #6096fd;
+}
+
+.botones{
+  background-color: #6096fd;
+  border-color: white;
+  color: white;
+  padding: 8px 25px;
+  font-weight: 700;
+  font-size: large;
+}
+
+.fuente{
+  font-size: large;
+}
+
+.centrar {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.contenedor {
+  position: relative;
+  text-align: center;
+  color: white;
+  width: 100%;
+}
+
+.top-left {
+  position: absolute;
+  top: 30px;
+  left: 70%;
+  width: 20%;
+}
+
+.texto{
+  color: #6096fd;
+  font-size: large;
+  font-weight: 400;
+  opacity: 100%;
+}
+
+.url{
+  width: 60%;
+  position: center;
+  color: #6096fd;
+  text-decoration-line: underline;
+  font-weight: 700;
+}
+
+.footer{
+  background-color: #6096fd;
+  background-position: bottom bottom;
+  background-repeat: no-repeat;
+  width: 100%;
+  max-height: 150px;
+  min-height: 100px;
+}
+
+.imagenes{
+  height: 130px;
+  width: 230px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  position: center;
+}
+
+.titulos{
+  color: #fb7b8b;
+  font-size: xx-large;
+  font-weight:bold;
+  padding-left: 10%;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+.botonesBanner{
+  font-size: small;
+  padding: 2%;
+  margin: 10px;
+}
+.bod{
+  background-color: 	F8F8F8;
+}
+
+
+.margenes{
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.tickets{
+  font-weight: 400;
+  color: #6096fd;
+  font-size: medium;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+/*Redes sociales*/
+
+/* Facebook */
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+/* Twitter */
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa {
+  padding: 10px;
+  font-size: 30px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+  margin: 5px;
+}

@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-body">
+     <form [formGroup] = "reservaForm" (ngSubmit) = "!reservaForm.invalid">
+       <div class="form-group mx-sm-3 mb-2">
+         <h3>Crear una Reserva</h3>
+         <label for="fechaHora">
+           Fecha y Hora
+         </label>
+         <input novalidate id="fechaHora" class="form-control" formControlName="fechaHora" placeholder="DD-MM-YYYY 24HH:MM:SS">
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="reservaForm.get('fechaHora').hasError('required') && reservaForm.get('fechaHora').touched">
+                     Fecha Requerida
+         </div>
+         <div class="alert alert-danger alert-dismissible fade show"
+                     *ngIf="reservaForm.get('fechaHora').hasError('pattern')">
+                     Fecha invalida
+         </div>
+         <label for="fechaHora">
+          Tipo
+        </label>
+        <input novalidate id="tipo" class="form-control" formControlName="tipo" placeholder="[Hotel,Paseo]">
+        <div class="alert alert-danger alert-dismissible fade show"
+                    *ngIf="reservaForm.get('tipo').hasError('required') && reservaForm.get('tipo').touched">
+                    Tipo Requerido
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show"
+                    *ngIf="reservaForm.get('tipo').hasError('pattern')">
+                    Tipo invalido
+        </div>
+        <label for="fechaHora">
+          Dias de estadia
+        </label>
+        <input novalidate id="diasEstadia" class="form-control" formControlName="diasEstadia" placeholder="3">
+        <div class="alert alert-danger alert-dismissible fade show"
+                    *ngIf="reservaForm.get('diasEstadia').hasError('required') && reservaForm.get('diasEstadia').touched">
+                    Dias de estadia son requeridos
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show"
+                    *ngIf="reservaForm.get('diasEstadia').hasError('min')">
+                    Dias de estadia menores a 0
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Action
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Somet hing else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </div>
+       </div>
+       <button type="Enviar" class="btn btn-primary" [disabled]="reservaForm.invalid">Create</button>
+       <button type="Cancelar" class="btn btn-danger ml-3" (click)="cancelCreate()">Cancel</button>
+     </form>
+    </div>
+  </div>
+ </div>

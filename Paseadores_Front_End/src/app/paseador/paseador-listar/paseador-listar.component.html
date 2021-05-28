@@ -1,0 +1,42 @@
+<div class="col-10">
+  <div class="h2" style=" padding-bottom: 15px; "  >
+    Todos nuestros paseadores
+    <div *ngIf="soyAdmin()"><a routerLink="../../paseadores/crear" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Crear paseador</a></div>
+    <label>Filtrar por disponibilidad : <input ng-model="searchText" id="filtro-paseador"></label>
+    <div class="col-10">
+      <a routerLink="../../paseadores/list" class="btn btn-primary btn-lg" role="button" aria-disabled="true" (click)="filtrarPaseadores(getFilterValue())">Filtrar</a>
+    </div>
+  </div>
+</div>
+<div class="row" style=" display: inline-flex; padding-top: 15px;  margin-left: 2px;  margin-bottom: 40px;  ">
+<div *ngFor="let c of paseadores" style=" display: inline-block; padding-top: 15px; padding-right: 40px;
+    padding-left: 40px;  padding-top: 40px;  " >
+  <div  id="usuarios"  class="card" style="width: 15rem; cursor: pointer"  id="cardpaseo"  (click)="onSelected(c)" >
+    <a routerLink="../../paseadores/{{c.id}}" >
+    <img  id="imagenM" class="card-img-top"  src="https://image.flaticon.com/icons/svg/571/571839.svg"   alt="Card image cap"style="
+        width: 15rem;  display: block; margin: auto;   padding-right: 3px; max-height: 253px;   "/></a>
+<div class="card-body">
+      <h5 class="card-title" style="color: rgb(245, 48, 64)">
+        {{c.nombre}}
+      </h5>
+      <div class="row" style="padding-left: 15px; margin-top: 5px">
+        <img
+          src="https://cdn3.iconfinder.com/data/icons/glypho-money-and-finance/64/money-dollar-circle-512.png"
+          style="width: 19px; margin-right: 8px"
+        />
+        <h6 class="card-text" style="color: rgb(78, 78, 78)">
+          {{ c.costoPaseo}}
+        </h6>
+      </div>
+      <div class="row" style="padding-left: 15px; margin-top: 5px">
+        <img   src="https://i.pinimg.com/originals/84/6a/03/846a03c6760f83f3a0e92609bca9cebf.jpg" style="width: 19px; margin-right: 8px"   />
+        <h6 class="card-text"style="color: rgb(78, 78, 78)" >
+           {{ c.correo}}
+        </h6>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>

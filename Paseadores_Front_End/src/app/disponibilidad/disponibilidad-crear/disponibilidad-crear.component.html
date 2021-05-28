@@ -1,0 +1,84 @@
+<div class="container-fluid" style="justify-content: center">
+  <div class="col-12">
+    <div
+      class="h2"
+      style="
+        padding-bottom: 15px;
+        margin-bottom: 40px;
+        text-align: center;
+        border-bottom: 2px solid rgb(255, 91, 26);
+      "
+    >
+      Registrar Disponibilidad
+    </div>
+    <form
+      style="justify-content: center;"
+      [formGroup]="disponibilidadForm"
+      (ngSubmit)="!disponibilidadForm.invalid && createDisponibilidad(disponibilidadForm.value)"
+    >
+      <div class="row" style="display: flex; justify-content: center">
+        <div class="col-3">
+
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="duracion"> Duracion minutos</label>
+            <input
+              novalidate
+              id="duracion"
+              class="form-control"
+              formControlName="duracion"
+              placeholder="30, 60 o 90 "
+            />
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              *ngIf="
+                disponibilidadForm.get('duracion').hasError('required') &&
+                disponibilidadForm.get('duracion').touched
+              "
+            >
+              Duracion de la disponibilidad requerida
+            </div>
+
+          </div>
+        </div>
+
+          <div class="col-3">
+
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="fechaInicio"> Fecha Inicio </label>
+              <input
+                id="fechaInicio"
+                type="text"
+                class="form-control"
+                formControlName="fechaInicio"
+                placeholder="yyyy-mm-ddT:00:00.000Z[UTC]"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  disponibilidadForm.get('fechaInicio').hasError('required') &&
+                  disponibilidadForm.get('fechaInicio').touched
+                "
+              >
+                Fecha Inicio requerida
+              </div>
+          </div>
+
+      <div class="row" style="padding: 30px; justify-content: center">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="getDisponibilidades()"
+          [disabled]="!disponibilidadForm.valid"
+        >
+          Registrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger ml-3"
+          (click)="cancelCreation()" routerLink="../../../.."
+        >
+          Cancelar
+        </button>
+      </div>
+  </div>
+</div>
